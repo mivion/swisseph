@@ -21,7 +21,7 @@
     "node": ">=0.6"
   },
   "scripts": {
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
     "test": "test/test.sj"
   }
 }
