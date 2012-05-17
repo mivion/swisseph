@@ -1,11 +1,14 @@
-== About
+Swiss Ephemeris binding for node.js
+===================================
+
+## About
 
 Swiss Ephemeris binding for node.js.
 
-== Status
+## Status
 
 Under construction. Not for using.
 
-== License
+## License
 
 GPL version 2.

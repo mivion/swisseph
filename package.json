@@ -22,6 +22,6 @@
   },
   "scripts": {
     "install": "node-gyp rebuild",
-    "test": "test/test.js"
+    "test": "node test/test.js"
   }
 }
