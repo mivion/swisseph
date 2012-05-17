@@ -7,7 +7,11 @@ Swiss Ephemeris binding for node.js.
 
 ## Status
 
-Under construction. Not for using.
+Under construction.
+
+Implemented:
+ - swe_julday ()
+ - swe_calc_ut ()
 
 ## License
 
