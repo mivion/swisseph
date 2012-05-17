@@ -2857,7 +2857,7 @@ static int32 get_asc_obl_with_sun(double tjd_start, int32 ipl, char *star, int32
         if (ipl != SE_MOON) {
             retro = TRUE;
         }
-    }
+    };
     //  if (evtyp == 3 || evtyp == 4)
     //    dangsearch = 180;
     /* find date when sun and object have the same ascensio obliqua */
