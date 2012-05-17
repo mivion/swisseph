@@ -1,0 +1,26 @@
+{
+  "author": "mivion",
+  "name": "swisseph",
+  "description": "Swiss Ephemeris binding for node.js",
+  "version": "0.0.1",
+  "homepage": "http://github.com/mivion/swisseph",
+  "repository": {
+    "url": "http://github.com/mivion/swisseph.git"
+  },
+  "main": "./lib/swisseph.js",
+  "keywords": [
+    "swiss",
+    "ephemeris",
+    "astrology",
+    "astronomy"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.6"
+  },
+  "scripts": {
+    "install": "node-gyp rebuild"
+  }
+}
