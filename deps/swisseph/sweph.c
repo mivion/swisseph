@@ -5834,14 +5834,6 @@ found:
     i = swi_cutstr(s, ",", cpos, 20);
     swi_right_trim(cpos[0]);
     swi_right_trim(cpos[1]);
-
-
-
-    sprintf(serr, "test case");
-    return -1;
-
-
-
     if (i < 13) {
         if (serr != NULL) {
             sprintf(serr, "data of star '%s,%s' incomplete", cpos[0], cpos[1]);
@@ -5861,6 +5853,14 @@ found:
     de_pm = atof(cpos[10]);
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
+
+
+
+    sprintf(serr, "test case");
+    return -1;
+
+
+
     /* return trad. name, nomeclature name */
     if (strlen(cpos[0]) > SE_MAX_STNAME) {
         cpos[0][SE_MAX_STNAME] = '\0';
