@@ -11,7 +11,7 @@ Supported platforms: **Mac OS X** | **Windows** | **Linux**
 
 ## Getting started
 
-From commandline run:
+To install run:
 
 ```
 $ npm install swisseph
@@ -49,6 +49,9 @@ Under construction.
 Implemented:
  - swe_julday ()
  - swe_calc_ut ()
+ - swe_calc ()
+ - swe_fixstar ()
+ - swe_set_ephe_path ()
 
 ## License
 
