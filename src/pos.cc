@@ -163,12 +163,14 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
+/*
 	rflag = ::swe_fixstar (
 		*String::AsciiValue (args [0]->ToString ()),
 		(int)args [1]->NumberValue (),
 		(int)args [2]->NumberValue (),
 		x, serr
 	);
+*/
 
 	Local <Object> result = Object::New ();
 
