@@ -5,7 +5,9 @@ Swiss Ephemeris binding for node.js
 
 Swiss Ephemeris binding for node.js.
 
-See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) home page for more details.
+See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) for more details.
+
+This software 
 
 Supported platforms: **Mac OS X** | **Windows** | **Linux**
 
@@ -26,7 +28,7 @@ var swisseph = require ('swisseph');
 
 // Date for test
 var date = {year: 2012, month: 1, day: 1, hour: 0};
-console.log ('Test date: ' + util.inspect (date));
+console.log ('Test date: ' + date);
 
 // UT Julian day
 var julday_ut = swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GREG_CAL);
@@ -53,4 +55,5 @@ Implemented:
 
 ## License
 
-GPL version 2.
+GNU GPL version 2.0.
+See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html for more details.
