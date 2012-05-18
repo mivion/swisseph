@@ -5841,6 +5841,14 @@ found:
         retc = ERR;
         goto return_err;
     }
+
+
+
+    sprintf(serr, "test case");
+    return -1;
+
+
+
     epoch = atof(cpos[2]);
     ra_h = atof(cpos[3]);
     ra_m = atof(cpos[4]);
@@ -5854,10 +5862,6 @@ found:
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
 
-
-
-    sprintf(serr, "test case");
-    return -1;
 
 
 
