@@ -5834,6 +5834,14 @@ found:
     i = swi_cutstr(s, ",", cpos, 20);
     swi_right_trim(cpos[0]);
     swi_right_trim(cpos[1]);
+
+
+
+    sprintf(serr, "test case");
+    return -1;
+
+
+
     if (i < 13) {
         if (serr != NULL) {
             sprintf(serr, "data of star '%s,%s' incomplete", cpos[0], cpos[1]);
@@ -5861,14 +5869,6 @@ found:
         cpos[1][SE_MAX_STNAME-1] = '\0';
     }
     sprintf(star, "%s,%s", cpos[0], cpos[1]);
-
-
-
-    sprintf(serr, "test case");
-    return -1;
-
-
-
     /****************************************
      * position and speed (equinox)
      ****************************************/
