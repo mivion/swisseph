@@ -5902,8 +5902,10 @@ found:
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
 
+/*
     sprintf(serr, "test case %s", s);
     return -1;
+*/
 
 
     /* return trad. name, nomeclature name */
@@ -5914,6 +5916,11 @@ found:
         cpos[1][SE_MAX_STNAME-1] = '\0';
     }
     sprintf(star, "%s,%s", cpos[0], cpos[1]);
+
+    sprintf(serr, "test case %s", s);
+    return -1;
+
+
     /****************************************
      * position and speed (equinox)
      ****************************************/
