@@ -5829,10 +5829,6 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
     retc = ERR;
     goto return_err;
 found:
-
-    sprintf(serr, "test case");
-    return -1;
-
     strcpy(slast_stardata, s);
     strcpy(slast_starname, sstar);
     i = swi_cutstr(s, ",", cpos, 20);
@@ -5918,6 +5914,14 @@ found:
     x[3] /= 36525;
     x[4] /= 36525;
     x[5] /= 36525;
+
+
+
+    sprintf(serr, "test case");
+    return -1;
+
+
+
     /******************************************
      * FK5
      ******************************************/
