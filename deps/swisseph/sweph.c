@@ -5832,8 +5832,10 @@ found:
     strcpy(slast_stardata, s);
     strcpy(slast_starname, sstar);
 
-//    sprintf(serr, "test case %s", s);
-//    return -1;
+/*
+    sprintf(serr, "test case %s", s);
+    return -1;
+*/
 
     i = swi_cutstr(s, ",", cpos, 20);
     swi_right_trim(cpos[0]);
