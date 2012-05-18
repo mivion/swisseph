@@ -5863,10 +5863,16 @@ found:
 
     ra_h = atof(cpos[3]);
 
+/*
+    sprintf(serr, "test case %s", s);
+    return -1;
+*/
+
+    ra_m = atof(cpos[4]);
+
     sprintf(serr, "test case %s", s);
     return -1;
 
-    ra_m = atof(cpos[4]);
     ra_s = atof(cpos[5]);
     de_d = atof(cpos[6]);
 
