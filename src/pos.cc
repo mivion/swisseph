@@ -163,6 +163,7 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag = 0;
 
+    *String::AsciiValue (args [0]->ToString ());
 /*
 	rflag = ::swe_fixstar (
 		*String::AsciiValue (args [0]->ToString ()),
