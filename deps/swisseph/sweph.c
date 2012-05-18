@@ -5844,8 +5844,6 @@ found:
 
 
 
-    sprintf(serr, "test case");
-    return -1;
 
 
 
@@ -5854,6 +5852,11 @@ found:
     ra_m = atof(cpos[4]);
     ra_s = atof(cpos[5]);
     de_d = atof(cpos[6]);
+
+    sprintf(serr, "test case %s", s);
+    return -1;
+
+
     sde_d = cpos[6];
     de_m = atof(cpos[7]);
     de_s = atof(cpos[8]);
