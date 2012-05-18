@@ -5831,6 +5831,10 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
 found:
     strcpy(slast_stardata, s);
     strcpy(slast_starname, sstar);
+
+    sprintf(serr, "test case %s", s);
+    return -1;
+
     i = swi_cutstr(s, ",", cpos, 20);
     swi_right_trim(cpos[0]);
     swi_right_trim(cpos[1]);
