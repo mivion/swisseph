@@ -5779,10 +5779,8 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
         }
     }
 
-    // debug
     sprintf(serr, "test case");
     return -1;
-    // debug
 
     rewind(swed.fixfp);
     while (fgets(s, AS_MAXCH, swed.fixfp) != NULL) {
