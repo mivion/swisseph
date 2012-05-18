@@ -161,7 +161,7 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 
 	double x [6];
 	char serr [AS_MAXCH];
-	long rflag;
+	long rflag = 0;
 
 /*
 	rflag = ::swe_fixstar (
