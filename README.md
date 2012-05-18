@@ -5,11 +5,13 @@ Swiss Ephemeris binding for node.js
 
 Swiss Ephemeris binding for node.js.
 
+See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) home page for more details.
+
 Supported platforms: **Mac OS X** | **Windows** | **Linux**
 
 ## Getting started
 
-From command line run:
+From commandline run:
 
 ```
 $ npm install swisseph
@@ -30,7 +32,7 @@ console.log ('Test date: ' + util.inspect (date));
 var julday_ut = swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GREG_CAL);
 console.log ('Julian UT day for date: ', julday_ut);
 
-// Sun posion
+// Sun positon
 var sun = swisseph.swe_calc_ut (
 	julday_ut,
 	swisseph.SE_SUN,
