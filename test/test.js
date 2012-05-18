@@ -6,7 +6,7 @@ var swisseph = require ('..');
 var date = {year: 2012, month: 1, day: 1, hour: 0};
 console.log ('Test date: ', date);
 
-swisseph.swe_set_ephe_path (__dirname + '/../ephe');
+//swisseph.swe_set_ephe_path (__dirname + '/../ephe');
 
 fs.open (__dirname + '/../ephe/sefstars.txt', 'r', function (err, fd) {
 	if (err) {

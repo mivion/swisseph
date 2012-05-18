@@ -327,13 +327,13 @@ extern "C" {
 #ifdef PAIR_SWEPH
 #  define SE_EPHE_PATH    "\\pair\\ephe\\"
 #else
-#  define SE_EPHE_PATH    "\\sweph\\ephe\\"
+#  define SE_EPHE_PATH    "\\sweph\\ephe\\;.\\ephe\\;.\\..\\ephe\\"
 #endif
 #else
 # ifdef MACOS
 #  define SE_EPHE_PATH	":ephe:"
 # else
-#  define SE_EPHE_PATH    ".:/users/ephe2/:/users/ephe/"
+#  define SE_EPHE_PATH    ".:/users/ephe2/:/users/ephe/:./ephe/:./../ephe/"
 			/* At Astrodienst, we maintain two ephemeris areas for
 			   the thousands of asteroid files: 
 			   the short files in /users/ephe/ast*,

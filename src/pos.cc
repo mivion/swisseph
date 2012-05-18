@@ -162,11 +162,11 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 	double x [6];
 	char serr [AS_MAXCH];
 	long rflag = 0;
-	char * starName = "Aldebaran";
+//	char * starName = "Aldebaran";
 
 	rflag = ::swe_fixstar (
-//		*String::AsciiValue (args [0]->ToString ()),
-		starName,
+		*String::AsciiValue (args [0]->ToString ()),
+//		starName,
 		args [1]->NumberValue (),
 		(int)args [2]->NumberValue (),
 		x, serr
