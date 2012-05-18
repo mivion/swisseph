@@ -5778,10 +5778,6 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
             }
         }
     }
-
-    sprintf(serr, "test case");
-    return -1;
-
     rewind(swed.fixfp);
     while (fgets(s, AS_MAXCH, swed.fixfp) != NULL) {
         fline++;
@@ -5833,6 +5829,10 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
     retc = ERR;
     goto return_err;
 found:
+
+    sprintf(serr, "test case");
+    return -1;
+
     strcpy(slast_stardata, s);
     strcpy(slast_starname, sstar);
     i = swi_cutstr(s, ",", cpos, 20);
