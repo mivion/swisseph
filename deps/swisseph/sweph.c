@@ -5893,14 +5893,17 @@ found:
     de_s = atof(cpos[8]);
     ra_pm = atof(cpos[9]);
 
+/*
     sprintf(serr, "test case %s", s);
     return -1;
+*/
 
     de_pm = atof(cpos[10]);
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
 
-
+    sprintf(serr, "test case %s", s);
+    return -1;
 
 
     /* return trad. name, nomeclature name */
