@@ -5883,14 +5883,19 @@ found:
 */
 
     de_d = atof(cpos[6]);
-
+/*
     sprintf(serr, "test case %s", s);
     return -1;
+*/
 
     sde_d = cpos[6];
     de_m = atof(cpos[7]);
     de_s = atof(cpos[8]);
     ra_pm = atof(cpos[9]);
+
+    sprintf(serr, "test case %s", s);
+    return -1;
+
     de_pm = atof(cpos[10]);
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
