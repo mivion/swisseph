@@ -5922,15 +5922,15 @@ found:
         cpos[1][SE_MAX_STNAME-1] = '\0';
     }
 
-    sprintf(serr, "test case %s", s);
-    return -1;
-
-    sprintf(star, "%s,%s", cpos[0], cpos[1]);
-
 /*
     sprintf(serr, "test case %s", s);
     return -1;
 */
+
+    sprintf(star, "%s,%s", cpos[0], cpos[1]);
+
+    sprintf(serr, "test case %s, %s", cpos [0], cpos [1]);
+    return -1;
 
     /****************************************
      * position and speed (equinox)
