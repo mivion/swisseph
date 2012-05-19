@@ -5913,17 +5913,17 @@ found:
         cpos[0][SE_MAX_STNAME] = '\0';
     }
 
+/*
     sprintf(serr, "test case %s", s);
     return -1;
+*/
 
     if (strlen(cpos[1]) > SE_MAX_STNAME-1) {
         cpos[1][SE_MAX_STNAME-1] = '\0';
     }
 
-/*
     sprintf(serr, "test case %s", s);
     return -1;
-*/
 
     sprintf(star, "%s,%s", cpos[0], cpos[1]);
 
