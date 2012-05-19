@@ -3660,7 +3660,7 @@ int32 FAR PASCAL_CONV swe_pheno(double tjd, int32 ipl, int32 iflag, double *attr
         } else if (ipl == SE_MOON) {
             /* formula according to Allen, C.W., 1976, Astrophysical Quantities */
             /*attr[4] = -21.62 + 5 * log10(384410497.8 / EARTH_RADIUS) / log10(10) + 0.026 * fabs(attr[0]) + 0.000000004 * pow(attr[0], 4);*/
-            attr[4] = -21.62 + 5 * log10(double (lbr[2] * AUNIT / EARTH_RADIUS)) / log10(double (10)) + 0.026 * fabs(attr[0]) + 0.000000004 * pow(attr[0], 4);
+            attr[4] = -21.62 + 5 * log10(lbr[2] * AUNIT / EARTH_RADIUS) / log10(10) + 0.026 * fabs(attr[0]) + 0.000000004 * pow(attr[0], 4);
 #if 0
             /* ratio apparent diameter : average diameter */
             fac = attr[3] / (asin(pla_diam[SE_MOON] / 2.0 / 384400000.0) * 2 * RADTODEG);

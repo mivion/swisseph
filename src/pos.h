@@ -1,3 +1,6 @@
+#ifndef __swisseph_pos_h__
+#define __swisseph_pos_h__
+
 #include <node.h>
 #include <v8.h>
 
@@ -57,3 +60,5 @@ Handle <Value> node_swe_fixstar (const Arguments & args);
  * void swe_set_ephe_path(string path)
  */
 Handle <Value> node_swe_set_ephe_path (const Arguments & args);
+
+#endif // __swisseph_pos_h__

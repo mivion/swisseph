@@ -195,7 +195,7 @@ static double CVA(double B, double SN)
 static double PupilDia(double Age, double B)
 {
     /* age dependancy from Garstang [2000]*/
-    return (0.534 - 0.00211 * Age - (0.236 - 0.00127 * Age) * Tanh(0.4 * log(B) / log(double (10)) - 2.2)) * 10;
+    return (0.534 - 0.00211 * Age - (0.236 - 0.00127 * Age) * Tanh(0.4 * log(B) / log(10) - 2.2)) * 10;
 }
 
 /*

@@ -1,5 +1,6 @@
-#include <node.h>
-#include <v8.h>
+#define BUILDING_NODE_EXTENSION
+
+#include "swisseph.h"
 
 using namespace v8;
 

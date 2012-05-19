@@ -1,10 +1,6 @@
-#include <node.h>
-#include <v8.h>
+#define BUILDING_NODE_EXTENSION
 
-#include "swephexp.h"
-#include "callback.h"
-#include "pos.h"
-#include "date.h"
+#include "swisseph.h"
 
 using namespace v8;
 
