@@ -55,6 +55,22 @@ Handle <Value> node_swe_calc (const Arguments & args);
 Handle <Value> node_swe_fixstar (const Arguments & args);
 
 /**
+ * int32 swe_fixstar_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * =>
+ * swe_fixstar_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   longitude: double,
+ *   latitude: double,
+ *   distance: double,
+ *   longitudeSpeed: double,
+ *   latitudeSpeed: double,
+ *   distanceSpeed: double,
+ *   rflag: int32,
+ *   error: string
+ * }
+ */
+Handle <Value> node_swe_fixstar_ut (const Arguments & args);
+
+/**
  * void swe_set_ephe_path(char *path)
  * =>
  * void swe_set_ephe_path(string path)

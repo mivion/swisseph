@@ -13,6 +13,7 @@ void Initialize (Handle <Object> target) {
 	NODE_SET_METHOD (target, "swe_calc", node_swe_calc);
 	NODE_SET_METHOD (target, "swe_calc", node_swe_calc);
 	NODE_SET_METHOD (target, "swe_fixstar", node_swe_fixstar);
+	NODE_SET_METHOD (target, "swe_fixstar_ut", node_swe_fixstar_ut);
 	NODE_SET_METHOD (target, "swe_set_ephe_path", node_swe_set_ephe_path);
 }
 
