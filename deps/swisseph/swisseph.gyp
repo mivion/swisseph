@@ -7,15 +7,15 @@
         'include_dirs': ['.'],
       },
       'sources': [
-        'swecl.c',
-        'swedate.c',
-        'swehel.c',
-        'swehouse.c',
-        'swejpl.c',
-        'swemmoon.c',
-        'swemplan.c',
-        'sweph.c',
-        'swephlib.c'
+        'swecl.cc',
+        'swedate.cc',
+        'swehel.cc',
+        'swehouse.cc',
+        'swejpl.cc',
+        'swemmoon.cc',
+        'swemplan.cc',
+        'sweph.cc',
+        'swephlib.cc'
       ]
     }
   ]
