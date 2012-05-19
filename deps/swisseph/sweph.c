@@ -5831,12 +5831,6 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
 found:
     strcpy(slast_stardata, s);
     strcpy(slast_starname, sstar);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     i = swi_cutstr(s, ",", cpos, 20);
     swi_right_trim(cpos[0]);
     swi_right_trim(cpos[1]);
@@ -5847,93 +5841,26 @@ found:
         retc = ERR;
         goto return_err;
     }
-
-
-
-
-
-
     epoch = atof(cpos[2]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
-
     ra_h = atof(cpos[3]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     ra_m = atof(cpos[4]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     ra_s = atof(cpos[5]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     de_d = atof(cpos[6]);
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     sde_d = cpos[6];
     de_m = atof(cpos[7]);
     de_s = atof(cpos[8]);
     ra_pm = atof(cpos[9]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     de_pm = atof(cpos[10]);
     radv = atof(cpos[11]);
     parall = atof(cpos[12]);
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
-
     /* return trad. name, nomeclature name */
     if (strlen(cpos[0]) > SE_MAX_STNAME) {
         cpos[0][SE_MAX_STNAME] = '\0';
     }
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     if (strlen(cpos[1]) > SE_MAX_STNAME-1) {
         cpos[1][SE_MAX_STNAME-1] = '\0';
     }
-
-/*
-    sprintf(serr, "test case %s", s);
-    return -1;
-*/
-
     sprintf(star, "%s,%s", cpos[0], cpos[1]);
-
-/*
-    sprintf(serr, "test case %s, %s", cpos [0], cpos [1]);
-    return -1;
-*/
-
     /****************************************
      * position and speed (equinox)
      ****************************************/
