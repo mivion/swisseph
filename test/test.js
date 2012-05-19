@@ -2,9 +2,13 @@ var assert = require ('assert');
 var fs = require ('fs');
 var swisseph = require ('..');
 
+var version = swisseph.swe_version ();
+
+console.log ('Swiss Ephemeris version:', version);
+
 // Test date
 var date = {year: 2012, month: 1, day: 1, hour: 0};
-console.log ('Test date: ', date);
+console.log ('Test date:', date);
 
 var flag = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH;
 
@@ -14,23 +18,44 @@ swisseph.swe_set_ephe_path (__dirname + '/../ephe');
 // Julian day
 swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GREG_CAL, function (julday_ut) {
 	assert.equal (julday_ut, 2455927.5);
-	console.log ('Julian UT day for date: ', julday_ut);
+	console.log ('Julian UT day for date:', julday_ut);
+
+	// Setting topocentric coordinates
+	swisseph.swe_set_topo (0, 0, 0);
+
+	// Sun name
+	swisseph.swe_get_planet_name (swisseph.SE_SUN, flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Sun name:', body);
+	});
 
 	// Sun position
 	swisseph.swe_calc_ut (julday_ut, swisseph.SE_SUN, flag, function (body) {
 		assert (!body.error, body.error);
-		console.log ('Sun position: ', body);
+		console.log ('Sun position:', body);
 	});
 
 	// Moon position
 	swisseph.swe_calc_ut (julday_ut, swisseph.SE_MOON, flag, function (body) {
 		assert (!body.error, body.error);
-		console.log ('Moon position: ', body);
+		console.log ('Moon position:', body);
+	});
+
+	// Chiron name
+	swisseph.swe_get_planet_name (swisseph.SE_CHIRON, flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Chiron name:', body);
 	});
 
 	// Aldebaran position
 	swisseph.swe_fixstar_ut ('Aldebaran', julday_ut, flag, function (body) {
 		assert (!body.error, body.error);
-		console.log ('Aldebaran position: ', body);
+		console.log ('Aldebaran position:', body);
+	});
+
+	// Aldebaran magnitude
+	swisseph.swe_fixstar_mag ('Aldebaran', function (body) {
+		assert (!body.error, body.error);
+		console.log ('Aldebaran magnitude:', body);
 	});
 });

@@ -7,7 +7,7 @@ Swiss Ephemeris binding for node.js under GNU GPL 2.0.
 
 See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) for more details.
 
-Supported platforms: **Mac OS X** | **Windows** | **Linux**
+Supported platforms: **Mac OS X** | **Windows** | **Linux** | **FreeBSD**
 
 ## Getting started
 
@@ -46,12 +46,24 @@ console.log ('Sun position for date: ', sun);
 
 Under construction.
 
-Implemented:
- - swe_julday ()
- - swe_calc_ut ()
- - swe_calc ()
- - swe_fixstar ()
- - swe_set_ephe_path ()
+Now implemented:
+ - all flags
+ - swe_julday
+ - swe_version
+ - swe_calc_ut
+ - swe_calc
+ - swe_fixstar
+ - swe_fixstar_ut
+ - swe_fixstar_mag
+ - swe_close
+ - swe_set_ephe_path
+ - swe_set_jpl_file
+ - swe_get_planet_name
+ - swe_set_topo
+ - swe_set_sid_mode
+ - swe_get_ayanamsa
+ - swe_get_ayanamsa_ut
+ - swe_get_ayanamsa_name
 
 ## License
 
