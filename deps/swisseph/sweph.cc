@@ -5929,8 +5929,10 @@ found:
 
     sprintf(star, "%s,%s", cpos[0], cpos[1]);
 
+/*
     sprintf(serr, "test case %s, %s", cpos [0], cpos [1]);
     return -1;
+*/
 
     /****************************************
      * position and speed (equinox)
