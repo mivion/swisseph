@@ -58,22 +58,9 @@ Under construction.
 
 Now implemented:
  - all flags
- - swe_julday
- - swe_version
- - swe_calc_ut
- - swe_calc
- - swe_fixstar
- - swe_fixstar_ut
- - swe_fixstar_mag
- - swe_close
- - swe_set_ephe_path
- - swe_set_jpl_file
- - swe_get_planet_name
- - swe_set_topo
- - swe_set_sid_mode
- - swe_get_ayanamsa
- - swe_get_ayanamsa_ut
- - swe_get_ayanamsa_name
+ - sun, planets, asteroids, stars position calculations
+ - date conversions
+ - sun, planets helical phenomenon calculations
 
 ## License
 
