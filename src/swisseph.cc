@@ -6,7 +6,13 @@ using namespace v8;
 
 void Initialize (Handle <Object> target) {
 	// date
+	NODE_SET_METHOD (target, "swe_date_conversion", node_swe_date_conversion);
 	NODE_SET_METHOD (target, "swe_julday", node_swe_julday);
+	NODE_SET_METHOD (target, "swe_revjul", node_swe_revjul);
+	NODE_SET_METHOD (target, "swe_utc_to_jd", node_swe_utc_to_jd);
+	NODE_SET_METHOD (target, "swe_jdet_to_utc", node_swe_jdet_to_utc);
+	NODE_SET_METHOD (target, "swe_jdut1_to_utc", node_swe_jdut1_to_utc);
+	NODE_SET_METHOD (target, "swe_utc_time_zone", node_swe_utc_time_zone);
 
 	// pos
 	NODE_SET_METHOD (target, "swe_version", node_swe_version);
@@ -24,6 +30,11 @@ void Initialize (Handle <Object> target) {
 	NODE_SET_METHOD (target, "swe_get_ayanamsa", node_swe_get_ayanamsa);
 	NODE_SET_METHOD (target, "swe_get_ayanamsa_ut", node_swe_get_ayanamsa_ut);
 	NODE_SET_METHOD (target, "swe_get_ayanamsa_name", node_swe_get_ayanamsa_name);
+
+	// hel
+	NODE_SET_METHOD (target, "swe_heliacal_ut", node_swe_heliacal_ut);
+	NODE_SET_METHOD (target, "swe_heliacal_pheno_ut", node_swe_heliacal_pheno_ut);
+	NODE_SET_METHOD (target, "swe_vis_limit_mag", node_swe_vis_limit_mag);
 }
 
 NODE_MODULE (swisseph, Initialize);

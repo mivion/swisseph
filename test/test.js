@@ -1,5 +1,4 @@
 var assert = require ('assert');
-var fs = require ('fs');
 var swisseph = require ('..');
 
 var version = swisseph.swe_version ();
@@ -19,6 +18,43 @@ swisseph.swe_set_ephe_path (__dirname + '/../ephe');
 swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GREG_CAL, function (julday_ut) {
 	assert.equal (julday_ut, 2455927.5);
 	console.log ('Julian UT day for date:', julday_ut);
+
+	// Date conversion
+	swisseph.swe_date_conversion (date.year, date.month, date.day, date.hour, 'g', function (result) {
+		assert (!result.error, result.error);
+		assert.equal (julday_ut, result.julianDay);
+		console.log ('Julian UT day for date:', result);
+	});
+
+	// Reverse date conversion
+	swisseph.swe_revjul (julday_ut, swisseph.SE_GREG_CAL, function (result) {
+		assert.equal (date.year, result.year);
+		assert.equal (date.month, result.month);
+		assert.equal (date.day, result.day);
+		assert.equal (date.hour, result.hour);
+		console.log ('Date from Julian UT day:', result);
+	});
+
+	// Julian UT|ET days
+	swisseph.swe_utc_to_jd (date.year, date.month, date.day, date.hour, 0, 0, swisseph.SE_GREG_CAL, function (result) {
+		assert (!result.error, result.error);
+		console.log ('Julian UT|ET days for date:', result);
+	});
+
+	// Reverse date conversion from ET
+	swisseph.swe_jdet_to_utc (julday_ut, swisseph.SE_GREG_CAL, function (result) {
+		console.log ('UTC Date from ET Julian day:', result);
+	});
+
+	// Reverse date conversion from UT
+	swisseph.swe_jdut1_to_utc (julday_ut, swisseph.SE_GREG_CAL, function (result) {
+		console.log ('UTC Date from UT Julian day:', result);
+	});
+
+	// Time zone
+	swisseph.swe_utc_time_zone (date.year, date.month, date.day, date.hour, 0, 0, 5.5, function (result) {
+		console.log ('Date from +5.5 Time Zone:', result);
+	});
 
 	// Setting topocentric coordinates
 	swisseph.swe_set_topo (0, 0, 0);
@@ -58,4 +94,22 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 		assert (!body.error, body.error);
 		console.log ('Aldebaran magnitude:', body);
 	});
+
+	// Mercury heliacal
+    swisseph.swe_heliacal_ut (julday_ut, [-71.13, 42.27, 0], [0, 0, 0, 0], [36, 1, 0, 0, 0, 0], 'Mercury', swisseph.SE_HELIACAL_RISING, flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Mercury heliacal:', body);
+    });
+
+	// Mars heliacal phenomen
+    swisseph.swe_heliacal_pheno_ut (julday_ut, [-71.13, 42.27, 0], [0, 0, 0, 0], [36, 1, 0, 0, 0, 0], 'Mars', swisseph.SE_HELIACAL_RISING, flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Mars heliacal phenomen:', body);
+    });
+
+	// Neptune visible magnitude limit
+    swisseph.swe_vis_limit_mag (julday_ut, [-71.13, 42.27, 0], [0, 0, 0, 0], [36, 1, 0, 0, 0, 0], 'Neptune', flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Neptune visible magnitude limit:', body);
+    });
 });

@@ -8,7 +8,8 @@
 
 #include "swephexp.h"
 #include "callback.h"
-#include "pos.h"
 #include "date.h"
+#include "pos.h"
+#include "hel.h"
 
 #endif // __swisseph_swisseph_h__

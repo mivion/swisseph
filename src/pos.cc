@@ -181,7 +181,7 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	strcpy (star, *String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, * String::AsciiValue (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar (
 		star,
@@ -246,7 +246,7 @@ Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	strcpy (star, *String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, *String::AsciiValue (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar_ut (
 		star,
@@ -304,7 +304,7 @@ Handle <Value> node_swe_fixstar_mag (const Arguments & args) {
 	long rflag;
 	double magnitude;
 
-	strcpy (star, *String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, *String::AsciiValue (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar_mag (star, &magnitude, serr);
 
@@ -589,7 +589,7 @@ Handle <Value> node_swe_get_ayanamsa_name (const Arguments & args) {
 	char * val;
 
 	val = ::swe_get_ayanamsa_name (
-		args [0]->NumberValue ()
+		(int)args [0]->NumberValue ()
 	);
 
 	Local <String> result = String::New (val);
