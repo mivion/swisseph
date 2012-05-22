@@ -63,7 +63,7 @@ Implemented:
 No implemented:
  - eclipse functions
 
-Please feel free to fill [issues](issues) to request new features.
+Please feel free to fill [issues](swisseph/issues) to request new features.
 
 ## License
 
