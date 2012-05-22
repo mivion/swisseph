@@ -75,6 +75,18 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 	swisseph.swe_calc_ut (julday_ut, swisseph.SE_MOON, flag, function (body) {
 		assert (!body.error, body.error);
 		console.log ('Moon position:', body);
+
+		// Moon house position
+	    swisseph.swe_houses_pos (24, 0, 23, 'K', body.longitude,  body.latitude, function (result) {
+			assert (!result.error, result.error);
+			console.log ('Moon house position:', result);
+	    });
+	});
+
+	// Mars phenomena
+	swisseph.swe_pheno_ut (julday_ut, swisseph.SE_MARS, flag, function (body) {
+		assert (!body.error, body.error);
+		console.log ('Mars phenomena:', body);
 	});
 
 	// Chiron name
@@ -112,4 +124,25 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 		assert (!body.error, body.error);
 		console.log ('Neptune visible magnitude limit:', body);
     });
+
+	// Houses
+    swisseph.swe_houses (julday_ut, 0, 0, 'K', function (result) {
+		assert (!result.error, result.error);
+		console.log ('Houses for date:', result);
+    });
+
+	// Siderial houses
+    swisseph.swe_houses_ex (julday_ut, 0, 0, 0, 'K', function (result) {
+		assert (!result.error, result.error);
+		console.log ('Siderial houses for date:', result);
+    });
+
+	// ARMC houses
+	swisseph.swe_get_ayanamsa (julday_ut, function (ayanamsa) {
+		console.log ('Ayanamsa for date:', ayanamsa);
+	    swisseph.swe_houses_armc (ayanamsa, 0, 23, 'K', function (result) {
+			assert (!result.error, result.error);
+			console.log ('ARMC houses for date:', result);
+	    });
+	});
 });

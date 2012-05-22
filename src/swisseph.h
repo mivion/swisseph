@@ -11,5 +11,7 @@
 #include "date.h"
 #include "pos.h"
 #include "hel.h"
+#include "house.h"
+#include "eclipse.h"
 
 #endif // __swisseph_swisseph_h__

@@ -35,6 +35,16 @@ void Initialize (Handle <Object> target) {
 	NODE_SET_METHOD (target, "swe_heliacal_ut", node_swe_heliacal_ut);
 	NODE_SET_METHOD (target, "swe_heliacal_pheno_ut", node_swe_heliacal_pheno_ut);
 	NODE_SET_METHOD (target, "swe_vis_limit_mag", node_swe_vis_limit_mag);
+
+	// house
+	NODE_SET_METHOD (target, "swe_houses", node_swe_houses);
+	NODE_SET_METHOD (target, "swe_houses_ex", node_swe_houses_ex);
+	NODE_SET_METHOD (target, "swe_houses_armc", node_swe_houses_armc);
+	NODE_SET_METHOD (target, "swe_houses_pos", node_swe_houses_pos);
+
+	// eclipse
+	NODE_SET_METHOD (target, "swe_pheno", node_swe_pheno);
+	NODE_SET_METHOD (target, "swe_pheno_ut", node_swe_pheno);
 }
 
 NODE_MODULE (swisseph, Initialize);
