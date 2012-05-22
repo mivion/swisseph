@@ -28,7 +28,7 @@ var swisseph = require ('swisseph');
 var date = {year: 2012, month: 1, day: 1, hour: 0};
 console.log ('Test date:', date);
 
-var flag = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH;
+var flag = swisseph.SEFLG_SPEED;
 
 // don't work at test server
 swisseph.swe_set_ephe_path (__dirname + '/../ephe');
@@ -54,13 +54,16 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 
 ## Status
 
-Under construction.
-
-Now implemented:
+Implemented:
  - all flags
- - sun, planets, asteroids, stars position calculations
- - date conversions
- - sun, planets helical phenomenon calculations
+ - sun, planets, asteroids and stars positions
+ - date and time conversions
+ - sun, planets, asteroids helical and phenomena
+
+No implemented:
+ - eclipse functions
+
+Please feel free to fill [issues](/issues) to request new features.
 
 ## License
 
