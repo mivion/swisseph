@@ -52,9 +52,16 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 });
 ```
 
+For more examples see examples and test folders.
+
+See [Programming interface](http://www.astro.com/swisseph/swephprg.htm) to the Swiss Ephemeris for more details.
+
+This javascript programming interface a litle different from the original, basically for return values.
+For more details see src/*.h.
+
 ## Status
 
-Implemented all Swiss Ephemeris api functions.
+All Swiss Ephemeris API functions.
 
 Please feel free to fill [issues](swisseph/issues) about bugs, erros and features.
 
