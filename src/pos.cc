@@ -149,6 +149,7 @@ Handle <Value> node_swe_calc (const Arguments & args) {
  * int32 swe_fixstar(char *star, double tjd, int32 iflag, double *xx, char *serr)
  * =>
  * swe_fixstar(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   name: string,
  *   longitude: double,
  *   latitude: double,
  *   distance: double,

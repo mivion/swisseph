@@ -54,16 +54,9 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 
 ## Status
 
-Implemented:
- - all flags
- - sun, planets, asteroids and stars positions
- - date and time conversions
- - sun, planets, asteroids helical and phenomena
+Implemented all Swiss Ephemeris api functions.
 
-No implemented:
- - eclipse functions
-
-Please feel free to fill [issues](swisseph/issues) to request new features.
+Please feel free to fill [issues](swisseph/issues) about bugs, erros and features.
 
 ## License
 
