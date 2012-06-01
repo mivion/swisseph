@@ -56,7 +56,7 @@ For more examples see examples and test folders.
 
 See [Programming interface](http://www.astro.com/swisseph/swephprg.htm) to the Swiss Ephemeris for more details.
 
-This javascript programming interface a litle different from the original, basically for return values.
+This javascript programming interface are litle different from the original api, basically for return values.
 For more details see src/*.h.
 
 ## Feedback
