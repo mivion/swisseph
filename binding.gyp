@@ -5,6 +5,7 @@
       'sources': [
         'src/swisseph.cc',
         'src/callback.cc',
+        'src/util.cc',
         'src/date.cc',
         'src/pos.cc',
         'src/hel.cc',

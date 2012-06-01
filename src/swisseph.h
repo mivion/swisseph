@@ -8,6 +8,7 @@
 
 #include "swephexp.h"
 #include "callback.h"
+#include "util.h"
 #include "date.h"
 #include "pos.h"
 #include "hel.h"

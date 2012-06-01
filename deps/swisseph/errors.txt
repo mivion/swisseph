@@ -1,0 +1,11 @@
+I've noted wrong declaration for function swe_lun_occult_when_glob () at documentation.
+
+At documentation:
+int32 swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, double *geopos, double *tret, int32 backward, char *serr)
+
+At source code:
+int32 swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, double *tret, int32 backward, char *serr)
+
+There is no *geopos* paramater.
+
+Also function declaration for swe_refract_extended () has no *dret* argument at documentation, however there have description about it.
