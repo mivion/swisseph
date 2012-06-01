@@ -52,7 +52,7 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 });
 ```
 
-For more examples see examples and test folders.
+For more examples see *examples* and *test* folders.
 
 See [Programming interface](http://www.astro.com/swisseph/swephprg.htm) to the Swiss Ephemeris for more details.
 
