@@ -59,11 +59,9 @@ See [Programming interface](http://www.astro.com/swisseph/swephprg.htm) to the S
 This javascript programming interface a litle different from the original, basically for return values.
 For more details see src/*.h.
 
-## Status
+## Feedback
 
-All Swiss Ephemeris API functions.
-
-Please feel free to fill [issues](swisseph/issues) about bugs, erros and features.
+Please feel free to fill [issues](swisseph/issues) for bugs, erros and features.
 
 ## License
 
