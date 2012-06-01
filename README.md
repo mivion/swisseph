@@ -30,7 +30,7 @@ console.log ('Test date:', date);
 
 var flag = swisseph.SEFLG_SPEED;
 
-// don't work at test server
+// path to ephemeris data
 swisseph.swe_set_ephe_path (__dirname + '/../ephe');
 
 // Julian day
