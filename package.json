@@ -15,7 +15,8 @@
     "astronomy"
   ],
   "dependencies": {
-  	"node-gyp": ">=0.4"
+  	"node-gyp": ">=0.4",
+  	"express": ">=2"
   },
   "devDependencies": {},
   "optionalDependencies": {},
@@ -24,6 +25,7 @@
   },
   "scripts": {
     "install": "node-gyp rebuild",
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "start": "node app.js"
   }
 }
