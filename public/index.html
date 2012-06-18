@@ -1,1 +1,97 @@
-Hello world from swisseph.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ephemerides</title>
+
+    <link href="index.css" rel="stylesheet"/>
+
+    <script type='text/javascript' src='nowjs/now.js' charset='utf-8'></script>
+
+    <script type='text/javascript' src='index.js' charset='utf-8'></script>
+    <script type='text/javascript' src='common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='load.js' charset='utf-8'></script>
+
+    <script type='text/javascript' src='shortcut.js' charset='utf-8'></script>
+
+</head>
+<body onload='$e.load ()'>
+    <table cellpadding='0' cellspacing='3'>
+        <thead><tr><td>Ephemerides</td></tr></thead>
+        <tr><td><table>
+            <thead><tr><td colspan='6'>Time</td></tr></thead>
+            <tr>
+                <td></td>
+                <td colspan='2' style='text-align: center'>Terrestrial<input type='button' value='=' onclick='$e.load ()'></td>
+                <td colspan='2' style='text-align: center'>Universal</td>
+                <td style='text-align: center'>Delta</td>
+            </tr>
+            <tr>
+                <td>Gregorian</td>
+                <td><textarea id='$const.date' rows='1'>01.01.1986 00:00:00.000</textarea></td>
+                <td rowspan='2' style='text-align: center'>=</td>
+                <td><textarea class='$const.date.universalDateString' rows='1' disabled='disabled'>01.01.2012 00:00:00.000</textarea></td>
+                <td rowspan='2' style='text-align: center'>+</td>
+                <td><textarea class='"00:00:"+($const.date.delta)' rows='1' disabled='disabled'>00:00:00.000</textarea></td>
+            </tr>
+            <tr>
+                <td>Julian</td>
+                <td><textarea class='$const.date.julian' rows='1' disabled='disabled'>2451545.0</textarea></td>
+                <td><textarea class='$const.date.universal' rows='1' disabled='disabled'>2451545.0</textarea></td>
+                <td><textarea class='$const.date.delta/86400' rows='1' disabled='disabled'>00:00:00.000</textarea></td>
+            </tr>
+        </table></td></tr>
+        <tr><td style='vertical-align: top'><table>
+            <thead><tr><td>Observer</td><td>Body <input type='button' value='=' onclick='$e.load ()'></td></tr></thead>
+            <tr>
+                <td><table>
+                    <tr>
+                        <td>Body</td>
+                        <td colspan='2'><select disabled='disabled'><option label='earth'>earth</option></select></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style='text-align: center'>Geodetic</td>
+                        <td style='text-align: center'>Geodecentric</td>
+                    </tr>
+                    <tr>
+                        <td>Longitude</td>
+                        <td><textarea class='$const.tlong' rows='1'></textarea></td>
+                        <td><textarea class='$const.tlong' rows='1' disabled='disabled'></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Latitude</td>
+                        <td><textarea class='$const.glat' rows='1'></textarea></td>
+                        <td><textarea class='$const.tlat' rows='1' disabled='disabled'></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td><textarea class='$const.height' rows='1'></textarea></td>
+                        <td><textarea class='$const.trho*$const.aearth/1000' rows='1' disabled='disabled'></textarea></td>
+                    </tr>
+                </table></td><td style='vertical-align: top'><table>
+                    <tr>
+                        <td>Body</td>
+                        <td><select id='$const.body' class='$moshier.body'></select></td>
+                    </tr>
+                <tr>
+                    <td>Apparent Longitude (dms 30&deg;)</td>
+                    <td><textarea class='$const.body.position.apparentLongitude30String' rows='1' disabled='disabled'></textarea></td>
+                </tr>
+                <tr>
+                    <td>Apparent Longitude (dms 360&deg;)</td>
+                    <td><textarea class='$const.body.position.apparentLongitudeString' rows='1' disabled='disabled'></textarea></td>
+                </tr>
+                <tr>
+                    <td>Apparent Longitude (dd)</td>
+                    <td><textarea class='$const.body.position.apparentLongitude' rows='1' disabled='disabled'></textarea></td>
+                </tr>
+                <tr>
+                    <td>Geocentric distance (km)</td>
+                    <td><textarea class='$const.body.position.geocentricDistance' rows='1' disabled='disabled'></textarea></td>
+                </tr>
+                </table></td>
+            </tr>
+        </table></td></tr>
+    </table>
+</body>
+</html>
