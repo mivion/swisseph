@@ -1,0 +1,4 @@
+/**
+ * Ephemeris namespace
+ */
+$ns = ephemeris = {};
