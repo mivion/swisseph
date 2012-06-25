@@ -24,5 +24,20 @@ app.get ('/', function (req, res) {
 });
 
 app.listen (3000, function (){
-  console.log ("swisseph server listening on port %d in %s mode", app.address ().port, app.settings.env);
+  console.log ("Swisseph server listening on port %d in %s mode", app.address ().port, app.settings.env);
 });
+
+var nowjs = require ("now");
+var everyone = nowjs.initialize (
+	app,
+	{socketio: {
+		transports: ['xhr-polling'],
+        'browser client minification': true,
+        'browser client gzip': true
+	}}
+);
+
+var swisseph = require ('./');
+
+swisseph.swe_set_ephe_path (__dirname + '/ephe');
+everyone.now.swisseph = swisseph;

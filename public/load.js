@@ -1,135 +1,56 @@
-$ns.load = function () {
-	var textAreas = document.body.getElementsByTagName ('textarea');
-	var selects = document.body.getElementsByTagName ('select');
-	var classes, ids, value;
-	var i, j, key;
+$app.AppInAttribute = 'app-in';
+$app.AppOutAttribute = 'app-out';
+$app.AppInSelector = '//*[@' + $app.AppInAttribute + ']';
+$app.AppOutSelector = '//*[@' + $app.AppOutAttribute + ']';
 
-	var date = {
-		year: 1986,
-		month: 1,
-		day: 1,
-		hours: 16,
-		minutes: 47,
-		seconds: 0
-	};
+$app.load = function () {
+	$app.inElements = $app.xpath ($app.AppInSelector);
+	$app.outElements = $app.xpath ($app.AppOutSelector);
 
-	// fill input
-	if (textAreas) {
-		for (i = 0; i < textAreas.length; i ++) {
-			ids = textAreas [i].getAttribute ('id');
-			try {
-				$make (ids);
-				eval ('' + ids + ' = "' + textAreas [i].value + '"');
-			} catch (exception) {
-			}
-		}
-	}
-
-	if ($app.date) {
-		var tokens = $app.date.split (' ');
-
-		tokens [0] = tokens [0].split ('.');
-		tokens [1] = tokens [1].split (':');
-
-		date = {
-			day: parseFloat (tokens [0][0]),
-			month: parseFloat (tokens [0][1]),
-			year: parseFloat (tokens [0][2]),
-			hours: parseFloat (tokens [1][0]),
-			minutes: parseFloat (tokens [1][1]),
-			seconds: parseFloat (tokens [1][2])
-		};
-		$app.date = date;
-	}
-
-	// fill input bodies
-	if (selects) {
-		for (i = 0; i < selects.length; i ++) {
-			classes = selects [i].getAttribute ('class');
-			ids = selects [i].getAttribute ('id');
-			if (classes) {
-				try {
-					var selector = eval ('(' + classes + ')');
-					if (selects [i].innerHTML) {
-						eval (ids + ' = ' + classes + '.' + selects [i].value);
-					} else {
-						var selections = [];
-						for (key in selector) {
-							if (selector.hasOwnProperty (key) && selector [key].key == key && key != 'earth') {
-								selections.push ('<option label=' + key + '>' + key + '</option>');
-							}
-						}
-						selects [i].innerHTML = selections;
-					}
-				} catch (exception) {
-				}
-			}
-		}
-	}
-
-	var info = document.getElementById ('info');
-
-	if (info) {
-		info.innerHTML =
-			'julian = ' + date.julian + ', ' +
-			'delta = ' + date.delta + '<br/>' +
-			'terrstrial = ' + date.terrestrial + '<br/>' +
-			'universal = ' + date.universal + ' - ' + (
-				date.universalDate.day + '.' +
-				date.universalDate.month + '.' +
-				date.universalDate.year + ' ' +
-				date.universalDate.hours + ':' +
-				date.universalDate.minutes + ':' +
-				date.universalDate.seconds + '.' +
-				date.universalDate.milliseconds
-			) + '' +
-			''
-		;
-	}
-
-	var ephemeris = document.getElementById ('ephemeris');
-
-	if (ephemeris) {
-		ephemeris.innerHTML =
-			'<td>Earth</td>' +
-			''
-		;
-	}
+	$app.getIn ();
 
 	now.ready (function () {
-		now.swisseph.swe_julday ($app.date.year, $app.date.month, $app.date.day, $app.date.hours, now.swisseph.SE_GREG_CAL, function (julian) {
-			$app.date.julian = julian;
-			now.swisseph.swe_deltat (julian, function (result) {
-				$app.date.delta = result.delta;
-				$ns.update ();
-			});
+		now.swisseph.calc ({
+			date: $app.date,
+			body: $app.body,
+			observer: $app.observer
+		}, function (result) {
+			$copy ($app, result);
+
+			$app.date.universal.string = $app.timeToString ($app.date.universal);
+			$app.degreeMinuteSecond ($app.body.position.longitude);
+			$app.degreeMinuteSecond ($app.body.position.latitude);
+
+			$app.setOut ();
 		});
 	});
 };
 
-$ns.lock = function () {
+$app.lock = function () {
 
 };
 
-$ns.update = function () {
-	var textAreas = document.body.getElementsByTagName ('textarea');
-	var classes, value;
-	var i, j;
+$app.getIn = function () {
+	for (var i = 0; i < $app.inElements.length; i ++) {
+		var inAttribute = $app.inElements [i].getAttribute ($app.AppInAttribute);
+		try {
+			$make (inAttribute);
+			eval ('' + inAttribute + ' = "' + $app.inElements [i].value + '"');
+		} catch (exception) {
+		}
+	}
 
-	// fill output
-	if (textAreas) {
-		for (i = 0; i < textAreas.length; i ++) {
-			classes = (textAreas [i].getAttribute ('class') || '').split (' ');
-			for (j = 0; j < classes.length; j ++) {
-				try {
-					value = eval ('(' + classes [j] + ')');
-					if (value || value === 0) {
-						textAreas [i].value = value.join ? value.join ('\n') : value;
-						break;
-					}
-				} catch (exception) {
-				}
-			}
+	$app.date = $app.parseDate ($app.date);
+	$app.observer.geographic.longitude = parseFloat ($app.observer.geographic.longitude);
+	$app.observer.geographic.latitude = parseFloat ($app.observer.geographic.latitude);
+	$app.observer.geographic.height = parseFloat ($app.observer.geographic.height);
+};
+
+$app.setOut = function () {
+	for (var i = 0; i < $app.outElements.length; i ++) {
+		try {
+			$app.outElements [i].value = eval ('(' + $app.outElements [i].getAttribute ($app.AppOutAttribute) + ')');
+		} catch (exception) {
 		}
 	}
 };

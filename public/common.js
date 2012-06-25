@@ -1,11 +1,15 @@
-$ns.copy = function (target /*, source ... */) {
+$app.copy = function (target /*, source ... */) {
 	if (target) {
 		for (var i = arguments.length - 1; i > 0; i --) {
 			var source = arguments [i];
 			if (source && source.hasOwnProperty) {
 				for (var key in source) {
 					if (source.hasOwnProperty (key)) {
-						target [key] = source [key];
+						if ($app.is (target [key], Object) && $app.is (source [key], Object)) {
+							$app.copy (target [key], source [key]);
+						} else {
+							target [key] = source [key];
+						}
 					}
 				}
 			}
@@ -14,7 +18,7 @@ $ns.copy = function (target /*, source ... */) {
     return target;
 };
 
-$ns.is = function (object, type) {
+$app.is = function (object, type) {
 	var typeName = Object.prototype.toString.call (object).slice (8, -1);
 	return (
 		object !== undefined &&
@@ -23,7 +27,7 @@ $ns.is = function (object, type) {
 	);
 };
 
-$ns.make = function (context, path) {
+$app.make = function (context, path) {
 	if ($is (context, String)) {
 		path = context;
 		context = window;
@@ -38,11 +42,31 @@ $ns.make = function (context, path) {
 	return context;
 };
 
-$ns.define = function (context, path, object) {
+$app.define = function (context, path, object) {
 	$copy ($make (context, path), object);
 };
 
-$ns.assert = function (variable, value) {
+$app.xpath = function (xpath, context) {
+	var xpathSelector;
+	var element;
+	var result = [];
+
+	context = context || document;
+
+	if (document.evaluate) {
+		xpathSelector = document.evaluate (xpath, context, null, XPathResult.ANY_TYPE, null);
+	} else {
+		xpathSelector = document.selectNodes (xpath);
+	}
+
+	for (element = xpathSelector.iterateNext (); element; element = xpathSelector.iterateNext ()) {
+		result.push (element);
+	}
+
+	return result;
+};
+
+$app.assert = function (variable, value) {
 	if (variable != value) {
 		throw 'Assertion failed: ' + variable + ' != ' + value + '!';
 	}

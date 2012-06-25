@@ -1,4 +1,4 @@
 /**
  * Ephemeris namespace
  */
-$ns = ephemeris = {};
+$app = ephemeris = {};

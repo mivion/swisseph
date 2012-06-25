@@ -19,6 +19,7 @@ canvas {
 
 td {
     vertical-align: middle;
+    padding: 3px;
     /*width: 200px;*/
 }
 
@@ -36,6 +37,8 @@ input[type=button]:active {
 
 textarea {
     padding: 0;
+    padding-left: 2px;
+    padding-right: 2px;
     margin: 0;
     border-style: inset;
     border-width: 1px;
@@ -62,11 +65,20 @@ body {
     width: 800px;
     margin: auto;
     padding: 0;
-    background: #dcdcdc;
+    background: white;/*#dcdcdc;*/
 }
 
 .table-group {
     border: 1px solid gray;
     background: #b0c4de;
-    border-radius: 7px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+table {
+    border-spacing: 0px;
+}
+
+.numeric {
+    text-align: right;
 }
