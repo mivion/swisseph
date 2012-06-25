@@ -16,7 +16,8 @@
   ],
   "dependencies": {
   	"node-gyp": ">=0.4",
-  	"express": ">=2"
+    "connect": ">=2",
+    "express": ">=2"
   },
   "devDependencies": {},
   "optionalDependencies": {},
