@@ -72,10 +72,12 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 	});
 
 	// Chiron position
+/*
 	swisseph.swe_calc_ut (julday_ut, swisseph.SE_CHIRON, flag, function (body) {
 		assert (!body.error, body.error);
 		console.log ('Chiron position:', body);
 	});
+*/
 
 	// Moon position
 	swisseph.swe_calc_ut (julday_ut, swisseph.SE_MOON, flag, function (body) {
