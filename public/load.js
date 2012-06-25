@@ -1,11 +1,11 @@
-$app.AppInAttribute = 'app-in';
-$app.AppOutAttribute = 'app-out';
+$app.AppInAttribute = 'data-in';
+$app.AppOutAttribute = 'data-out';
 $app.AppInSelector = '//*[@' + $app.AppInAttribute + ']';
 $app.AppOutSelector = '//*[@' + $app.AppOutAttribute + ']';
 
 $app.load = function () {
-	$app.inElements = $app.xpath ($app.AppInSelector);
-	$app.outElements = $app.xpath ($app.AppOutSelector);
+	$app.inElements = $app.findNodesByAttr (document, $app.AppInAttribute);
+	$app.outElements = $app.findNodesByAttr (document, $app.AppOutAttribute);
 
 	$app.getIn ();
 

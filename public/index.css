@@ -81,4 +81,5 @@ table {
 
 .numeric {
     text-align: right;
+    overflow: hidden;
 }

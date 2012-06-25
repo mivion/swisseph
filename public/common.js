@@ -22,8 +22,10 @@ $app.is = function (object, type) {
 	var typeName = Object.prototype.toString.call (object).slice (8, -1);
 	return (
 		object !== undefined &&
-		object !== null &&
-		type.name === typeName
+		object !== null && (
+			type === object.constructor ||
+			type.name === typeName
+		)
 	);
 };
 
@@ -46,21 +48,15 @@ $app.define = function (context, path, object) {
 	$copy ($make (context, path), object);
 };
 
-$app.xpath = function (xpath, context) {
-	var xpathSelector;
-	var element;
-	var result = [];
+$app.findNodesByAttr = function (node, attrName, result) {
+	result = result || [];
 
-	context = context || document;
-
-	if (document.evaluate) {
-		xpathSelector = document.evaluate (xpath, context, null, XPathResult.ANY_TYPE, null);
-	} else {
-		xpathSelector = document.selectNodes (xpath);
-	}
-
-	for (element = xpathSelector.iterateNext (); element; element = xpathSelector.iterateNext ()) {
-		result.push (element);
+	for (var i = 0; i < node.childNodes.length; i ++) {
+		if (node.childNodes [i].getAttribute && node.childNodes [i].getAttribute (attrName)) {
+			result.push (node.childNodes [i]);
+		} else if (node.childNodes [i].childNodes) {
+			$app.findNodesByAttr (node.childNodes [i], attrName, result);
+		}
 	}
 
 	return result;

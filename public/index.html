@@ -40,28 +40,28 @@
                 </tr>
                 <tr>
                     <td style='border-left: 1px solid gray;'>Gregorian</td>
-                    <td colspan='1'><textarea app-in='$app.date' rows='1'>01.01.2000 00:00:00.000</textarea></td>
+                    <td colspan='1'><textarea data-in='$app.date' rows='1' style='overflow: hidden;'>01.01.2000 00:00:00.000</textarea></td>
                     <td rowspan='2' style='text-align: center; border-bottom: 1px solid gray;'><input type='button'
                                                                                                       value='='
                                                                                                       onclick='$e.load ()'>
                     </td>
-                    <td colspan='1'><textarea app-out='$app.date.universal.string' rows='1'
+                    <td colspan='1'><textarea style='overflow: hidden;' data-out='$app.date.universal.string' rows='1'
                                               disabled='disabled'></textarea></td>
                     <td rowspan='2' style='text-align: center; border-bottom: 1px solid gray;'>+</td>
-                    <td style='border-right: 1px solid gray;'><textarea class='numeric' app-out='$app.date.delta*86400' rows='1'
+                    <td style='border-right: 1px solid gray;'><textarea class='numeric' data-out='$app.date.delta*86400' rows='1'
                                                                         disabled='disabled'></textarea></td>
                 </tr>
                 <tr>
                     <td style='border-left: 1px solid gray; border-bottom: 1px solid gray;'>Julian</td>
-                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' app-out='$app.date.julian' rows='1'
+                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' data-out='$app.date.julian' rows='1'
                                                                                      disabled='disabled'></textarea>
                     </td>
-                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' app-out='$app.date.universal.julian'
+                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' data-out='$app.date.universal.julian'
                                                                                      rows='1'
                                                                                      disabled='disabled'></textarea>
                     </td>
                     <td style='border-bottom: 1px solid gray; border-right: 1px solid gray;'><textarea
-                            class='numeric' app-out='$app.date.delta' rows='1' disabled='disabled'></textarea></td>
+                            class='numeric' data-out='$app.date.delta' rows='1' disabled='disabled'></textarea></td>
                 </tr>
             </table>
         </td>
@@ -79,9 +79,9 @@
                         <table>
                             <tr>
                                 <td>Body</td>
-                                <td colspan='2'><textarea rows='1' disabled='disabled'>Earth</textarea></td>
+                                <td colspan='2'><textarea style='overflow: hidden;' rows='1' disabled='disabled'>Earth</textarea></td>
                                 <td>Ephemeris</td>
-                                <td colspan='1'><select app-in='$app.observer.ephemeris' onchange='$e.load ()'>
+                                <td colspan='1'><select data-in='$app.observer.ephemeris' onchange='$e.load ()'>
                                     <option label='JPL DE200/LE200'>de200</option>
                                     <option label='JPL DE405/LE405'>de405</option>
                                     <option label='JPL DE406/LE406'>de406</option>
@@ -94,15 +94,15 @@
                             </tr>
                             <tr>
                                 <td>Longitude</td>
-                                <td><textarea app-in='$app.observer.geographic.longitude' rows='1'>0</textarea></td>
+                                <td><textarea class='numeric' data-in='$app.observer.geographic.longitude' rows='1'>0</textarea></td>
                             </tr>
                             <tr>
                                 <td>Latitude</td>
-                                <td><textarea app-in='$app.observer.geographic.latitude' rows='1'>0</textarea></td>
+                                <td><textarea class='numeric' data-in='$app.observer.geographic.latitude' rows='1'>0</textarea></td>
                             </tr>
                             <tr>
                                 <td>Height</td>
-                                <td><textarea app-in='$app.observer.geographic.height' rows='1'>0</textarea></td>
+                                <td><textarea class='numeric' data-in='$app.observer.geographic.height' rows='1'>0</textarea></td>
                             </tr>
                         </table>
                     </td>
@@ -117,7 +117,7 @@
                             </thead>
                             <tr>
                                 <td>Body</td>
-                                <td colspan='2'><select rows='1' app-in='$app.body.id' onchange='$e.load ()'>
+                                <td colspan='2'><select rows='1' data-in='$app.body.id' onchange='$e.load ()'>
                                     <option selected='1' label='Sun'>0</option>
                                     <option label='Moon'>1</option>
                                     <option label='Mercury'>2</option>
@@ -159,7 +159,7 @@
                             </tr>
                             <tr>
                                 <td>Name</td>
-                                <td colspan='2'><textarea app-out='$app.body.name' rows='1' disabled='disabled'></textarea></td>
+                                <td colspan='2'><textarea style='overflow: hidden;' data-out='$app.body.name' rows='1' disabled='disabled'></textarea></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -173,32 +173,32 @@
                             </tr>
                             <tr>
                                 <td>Longitude</td>
-                                <td><textarea app-out='$app.body.position.longitude.decimalDegree' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.longitude.decimalDegree' class='numeric' rows='1'
                                               disabled='disabled'></textarea>
                                 </td>
-                                <td><textarea app-out='$app.body.position.longitude.degreeMinuteSecond' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.longitude.degreeMinuteSecond' class='numeric' rows='1'
                                               disabled='disabled'></textarea>
                                 </td>
-                                <td><textarea app-out='$app.body.position.longitudeSpeed' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.longitudeSpeed' class='numeric' rows='1'
                                               disabled='disabled'></textarea></td>
                             </tr>
                             <tr>
                                 <td>Latitude</td>
-                                <td><textarea app-out='$app.body.position.latitude.decimalDegree' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.latitude.decimalDegree' class='numeric' rows='1'
                                               disabled='disabled'></textarea>
                                 </td>
-                                <td><textarea app-out='$app.body.position.latitude.degreeMinuteSecond' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.latitude.degreeMinuteSecond' class='numeric' rows='1'
                                               disabled='disabled'></textarea>
                                 </td>
-                                <td><textarea app-out='$app.body.position.latitudeSpeed' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.latitudeSpeed' class='numeric' rows='1'
                                               disabled='disabled'></textarea></td>
                             </tr>
                             <tr>
                                 <td>Distance</td>
-                                <td colspan='2'><textarea app-out='$app.body.position.distance' class='numeric' rows='1'
+                                <td colspan='2'><textarea data-out='$app.body.position.distance' class='numeric' rows='1'
                                               disabled='disabled'></textarea>
                                 </td>
-                                <td><textarea app-out='$app.body.position.distanceSpeed' class='numeric' rows='1'
+                                <td><textarea data-out='$app.body.position.distanceSpeed' class='numeric' rows='1'
                                               disabled='disabled'></textarea></td>
                             </tr>
                         </table>
