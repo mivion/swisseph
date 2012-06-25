@@ -2,7 +2,7 @@
   "author": "mivion",
   "name": "swisseph",
   "description": "Swiss Ephemeris binding for node.js",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage": "http://github.com/mivion/swisseph",
   "repository": {
     "url": "http://github.com/mivion/swisseph.git"
