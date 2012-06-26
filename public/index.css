@@ -7,54 +7,34 @@ html {
     margin: 0;
 }
 
-canvas {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid gray;
-    border-left: 1px solid gray;
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
-    background: white;
-}
-
 td {
     vertical-align: middle;
-    padding: 3px;
+    padding: 4px;
+    text-align: center;
     /*width: 200px;*/
 }
 
-input[type=button] {
-    border-style: outset;
-    border-width: 1px;
-    border-color: white;
-}
-
-input[type=button]:active {
-    border-style: inset;
-    border-width: 1px;
-    border-color: white;
-}
-
-textarea {
-    padding: 0;
-    padding-left: 2px;
-    padding-right: 2px;
+input[type=text] {
+    padding: 3px;
     margin: 0;
-    border-style: inset;
-    border-width: 1px;
+    border: 1px solid #CCC;
+    border-radius: 3px;
     box-sizing: border-box;
     width: 100%;
     resize: none;
-    /*height: 70px;*/
 }
 
 select {
     width: 100%;
 }
 
-thead tr td {
+thead tr td th {
     text-align: center;
+}
+
+th {
     font-weight: bold;
+    padding: 6px;
 }
 
 body table {
@@ -65,14 +45,21 @@ body {
     width: 800px;
     margin: auto;
     padding: 0;
-    background: white;/*#dcdcdc;*/
+    background: white;
+}
+
+.table-header {
+    background: lightSteelBlue;
+    border: none;
+    border-bottom: 1px solid #BBB;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .table-group {
-    border: 1px solid gray;
-    background: #b0c4de;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border: 1px solid #BBB;
+    background: #f8f8ff;
+    border-radius: 7px;
 }
 
 table {
@@ -82,4 +69,17 @@ table {
 .numeric {
     text-align: right;
     overflow: hidden;
+}
+
+.string {
+    text-align: left;
+    overflow: hidden;
+}
+
+.title {
+    text-align: right;
+}
+
+.top-title {
+    text-align: left;
 }

@@ -15,198 +15,170 @@
     <script type='text/javascript' src='shortcut.js' charset='utf-8'></script>
 
 </head>
-<body onload='$e.load ()'>
-<table cellpadding='0' cellspacing='0'>
+<body onload='$app.update ()'>
+
+<table>
     <thead>
     <tr>
-        <td>Ephemerides</td>
+        <th>Ephemeris</th>
     </tr>
     </thead>
+    <tbody>
     <tr>
         <td>
-            <table>
+            <table class='table-group'>
                 <thead>
                 <tr>
-                    <td colspan='6' class='table-group'>Time</td>
+                    <th colspan='4' class='table-header'>Time</th>
                 </tr>
                 </thead>
+                <tbody>
                 <tr>
-                    <td style='border-left: 1px solid gray;'></td>
-                    <td style='text-align: center'>Terrestrial</td>
-                    <td></td>
-                    <td style='text-align: center'>Universal</td>
-                    <td></td>
-                    <td style='text-align: center; border-right: 1px solid gray;'>Delta</td>
+                    <td style='width: 10%;'></td>
+                    <td style='width: 30%;'>Terrestrial:</td>
+                    <td style='width: 30%;'>Universal:</td>
+                    <td style='width: 30%;'>Delta:</td>
                 </tr>
                 <tr>
-                    <td style='border-left: 1px solid gray;'>Gregorian</td>
-                    <td colspan='1'><textarea data-in='$app.date' rows='1' style='overflow: hidden;'>01.01.2000 00:00:00.000</textarea></td>
-                    <td rowspan='2' style='text-align: center; border-bottom: 1px solid gray;'><input type='button'
-                                                                                                      value='='
-                                                                                                      onclick='$e.load ()'>
-                    </td>
-                    <td colspan='1'><textarea style='overflow: hidden;' data-out='$app.date.universal.string' rows='1'
-                                              disabled='disabled'></textarea></td>
-                    <td rowspan='2' style='text-align: center; border-bottom: 1px solid gray;'>+</td>
-                    <td style='border-right: 1px solid gray;'><textarea class='numeric' data-out='$app.date.delta*86400' rows='1'
-                                                                        disabled='disabled'></textarea></td>
+                    <td class='title'>Gregorian:</td>
+                    <td><input class='numeric' type='text' data-var='$app.date.gregorian.terrestrial' value='01.01.2012 00:00:00'></td>
+                    <td><input class='numeric' type='text' data-var='$app.date.gregorian.universal' value=''></td>
+                    <td class='numeric' data-var='$app.date.gregorian.delta'></td>
                 </tr>
                 <tr>
-                    <td style='border-left: 1px solid gray; border-bottom: 1px solid gray;'>Julian</td>
-                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' data-out='$app.date.julian' rows='1'
-                                                                                     disabled='disabled'></textarea>
-                    </td>
-                    <td colspan='1' style='border-bottom: 1px solid gray;'><textarea class='numeric' data-out='$app.date.universal.julian'
-                                                                                     rows='1'
-                                                                                     disabled='disabled'></textarea>
-                    </td>
-                    <td style='border-bottom: 1px solid gray; border-right: 1px solid gray;'><textarea
-                            class='numeric' data-out='$app.date.delta' rows='1' disabled='disabled'></textarea></td>
+                    <td class='title'>Julian:</td>
+                    <td><input class='numeric' type='text' data-var='$app.date.julian.terrestrial' value=''></td>
+                    <td><input class='numeric' type='text' data-var='$app.date.julian.universal' value=''></td>
+                    <td class='numeric' data-var='$app.date.julian.delta'></td>
                 </tr>
+                </tbody>
             </table>
         </td>
     </tr>
     <tr>
         <td style='vertical-align: top'>
-            <table>
+            <table class='table-group'>
                 <thead>
                 <tr>
-                    <td class='table-group'>Observer</td>
+                    <th colspan='5' class='table-header'>Observer</th>
                 </tr>
                 </thead>
+                <tbody>
                 <tr>
-                    <td>
-                        <table>
-                            <tr>
-                                <td>Body</td>
-                                <td colspan='2'><textarea style='overflow: hidden;' rows='1' disabled='disabled'>Earth</textarea></td>
-                                <td>Ephemeris</td>
-                                <td colspan='1'><select data-in='$app.observer.ephemeris' onchange='$e.load ()'>
-                                    <option label='JPL DE200/LE200'>de200</option>
-                                    <option label='JPL DE405/LE405'>de405</option>
-                                    <option label='JPL DE406/LE406'>de406</option>
-                                    <option label='JPL DE414/LE414'>de414</option>
-                                    <option label='JPL DE421/LE421'>de421</option>
-                                    <option label='JPL DE422/LE422'>de422</option>
-                                    <option selected='1' label='Swisseph'>swisseph</option>
-                                    <option label='Moshier'>moshier</option>
-                                </select></td>
-                            </tr>
-                            <tr>
-                                <td>Longitude</td>
-                                <td><textarea class='numeric' data-in='$app.observer.geographic.longitude' rows='1'>0</textarea></td>
-                            </tr>
-                            <tr>
-                                <td>Latitude</td>
-                                <td><textarea class='numeric' data-in='$app.observer.geographic.latitude' rows='1'>0</textarea></td>
-                            </tr>
-                            <tr>
-                                <td>Height</td>
-                                <td><textarea class='numeric' data-in='$app.observer.geographic.height' rows='1'>0</textarea></td>
-                            </tr>
-                        </table>
-                    </td>
+                    <td style='width: 10%;' class='title'>Body:</td>
+                    <td style='width: 30%;' class='string'>Earth</td>
+                    <td style='width: 20%;' class='top-title'>Longitude:</td>
+                    <td style='width: 20%;' class='top-title'>Latitude:</td>
+                    <td style='width: 20%;' class='top-title'>Height:</td>
                 </tr>
                 <tr>
+                    <td class='title'>Ephemeris:</td>
                     <td>
-                        <table>
-                            <thead>
-                            <tr>
-                                <td colspan='4' class='table-group' style='text-align: center'>Body</td>
-                            </tr>
-                            </thead>
-                            <tr>
-                                <td>Body</td>
-                                <td colspan='2'><select rows='1' data-in='$app.body.id' onchange='$e.load ()'>
-                                    <option selected='1' label='Sun'>0</option>
-                                    <option label='Moon'>1</option>
-                                    <option label='Mercury'>2</option>
-                                    <option label='Venus'>3</option>
-                                    <option label='Mars'>4</option>
-                                    <option label='Jupiter'>5</option>
-                                    <option label='Saturn'>6</option>
-                                    <option label='Uranus'>7</option>
-                                    <option label='Neptune'>8</option>
-                                    <option label='Pluto'>9</option>
-                                    <option label='Moon Mean Node, Lilith'>10</option>
-                                    <option label='Moon True Node'>11</option>
-                                    <option label='Moon Mean Apogee, Black Moon'>12</option>
-                                    <option label='Moon Osculating Apogee, True Lilith, True Dark Moon'>13</option>
-                                    <option label='Moon Interpolated Apogee, Natural Apogee, Lilith'>21</option>
-                                    <option label='Moon Interpolated Perigee, Priapus'>22</option>
-                                    <option label='Chiron'>15</option>
-                                    <option label='Pholus'>16</option>
-                                    <option label='Ceres'>17</option>
-                                    <option label='Pallas'>18</option>
-                                    <option label='Juno'>19</option>
-                                    <option label='Vesta'>20</option>
-                                    <option label='Cupido'>40</option>
-                                    <option label='Hades'>41</option>
-                                    <option label='Zues'>42</option>
-                                    <option label='Kronos'>43</option>
-                                    <option label='Apollon'>44</option>
-                                    <option label='Admetos'>45</option>
-                                    <option label='Vulkanus'>46</option>
-                                    <option label='Poseidon'>47</option>
-                                    <option label='Isis'>48</option>
-                                    <option label='Nibiru'>49</option>
-                                    <option label='Harrington'>50</option>
-                                    <option label='Neptune Leverrier'>51</option>
-                                    <option label='Neptune Adams'>52</option>
-                                    <option label='Pluton Lowell'>53</option>
-                                    <option label='Pluto Pickering'>54</option>
-                                </select></td>
-                            </tr>
-                            <tr>
-                                <td>Name</td>
-                                <td colspan='2'><textarea style='overflow: hidden;' data-out='$app.body.name' rows='1' disabled='disabled'></textarea></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style='text-align: center' colspan='2'>Value</td>
-                                <td style='text-align: center' rowspan='2'>Speed</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style='text-align: center'>Decimal Degrees</td>
-                                <td style='text-align: center'>Degrees Minutes Seconds</td>
-                            </tr>
-                            <tr>
-                                <td>Longitude</td>
-                                <td><textarea data-out='$app.body.position.longitude.decimalDegree' class='numeric' rows='1'
-                                              disabled='disabled'></textarea>
-                                </td>
-                                <td><textarea data-out='$app.body.position.longitude.degreeMinuteSecond' class='numeric' rows='1'
-                                              disabled='disabled'></textarea>
-                                </td>
-                                <td><textarea data-out='$app.body.position.longitudeSpeed' class='numeric' rows='1'
-                                              disabled='disabled'></textarea></td>
-                            </tr>
-                            <tr>
-                                <td>Latitude</td>
-                                <td><textarea data-out='$app.body.position.latitude.decimalDegree' class='numeric' rows='1'
-                                              disabled='disabled'></textarea>
-                                </td>
-                                <td><textarea data-out='$app.body.position.latitude.degreeMinuteSecond' class='numeric' rows='1'
-                                              disabled='disabled'></textarea>
-                                </td>
-                                <td><textarea data-out='$app.body.position.latitudeSpeed' class='numeric' rows='1'
-                                              disabled='disabled'></textarea></td>
-                            </tr>
-                            <tr>
-                                <td>Distance</td>
-                                <td colspan='2'><textarea data-out='$app.body.position.distance' class='numeric' rows='1'
-                                              disabled='disabled'></textarea>
-                                </td>
-                                <td><textarea data-out='$app.body.position.distanceSpeed' class='numeric' rows='1'
-                                              disabled='disabled'></textarea></td>
-                            </tr>
-                        </table>
+                        <select data-var='$app.observer.ephemeris'>
+                            <option label='JPL DE200/LE200'>de200</option>
+                            <option label='JPL DE405/LE405'>de405</option>
+                            <option label='JPL DE406/LE406'>de406</option>
+                            <option label='JPL DE414/LE414'>de414</option>
+                            <option label='JPL DE421/LE421'>de421</option>
+                            <option label='JPL DE422/LE422'>de422</option>
+                            <option label='Swisseph' selected='selected'>swisseph</option>
+                            <option label='Moshier'>moshier</option>
+                        </select>
                     </td>
+                    <td><input type='text' class='numeric' data-var='$app.observer.geographic.longitude' value='0'></td>
+                    <td><input type='text' class='numeric' data-var='$app.observer.geographic.latitude' value='0'></td>
+                    <td><input type='text' class='numeric' data-var='$app.observer.geographic.height' value='0'></td>
                 </tr>
+                </tbody>
             </table>
         </td>
     </tr>
+    <tr>
+        <td>
+            <table class='table-group'>
+                <thead>
+                <tr>
+                    <th colspan='6' class='table-header'>Body</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style='width: 10%;' class='title'>Body:</td>
+                    <td style='width: 20%;'>
+                        <select data-var='$app.body.id'>
+                            <option label='Sun' selected='selected'>0</option>
+                            <option label='Moon'>1</option>
+                            <option label='Mercury'>2</option>
+                            <option label='Venus'>3</option>
+                            <option label='Mars'>4</option>
+                            <option label='Jupiter'>5</option>
+                            <option label='Saturn'>6</option>
+                            <option label='Uranus'>7</option>
+                            <option label='Neptune'>8</option>
+                            <option label='Pluto'>9</option>
+                            <option label='Moon Mean Node'>10</option>
+                            <option label='Moon True Node'>11</option>
+                            <option label='Moon Mean Apogee'>12</option>
+                            <option label='Moon Osculating Apogee'>13</option>
+                            <option label='Moon Interpolated Apogee'>21</option>
+                            <option label='Moon Interpolated Perigee'>22</option>
+                            <option label='Chiron'>15</option>
+                            <option label='Pholus'>16</option>
+                            <option label='Ceres'>17</option>
+                            <option label='Pallas'>18</option>
+                            <option label='Juno'>19</option>
+                            <option label='Vesta'>20</option>
+                            <option label='Cupido'>40</option>
+                            <option label='Hades'>41</option>
+                            <option label='Zues'>42</option>
+                            <option label='Kronos'>43</option>
+                            <option label='Apollon'>44</option>
+                            <option label='Admetos'>45</option>
+                            <option label='Vulkanus'>46</option>
+                            <option label='Poseidon'>47</option>
+                            <option label='Isis'>48</option>
+                            <option label='Nibiru'>49</option>
+                            <option label='Harrington'>50</option>
+                            <option label='Neptune Leverrier'>51</option>
+                            <option label='Neptune Adams'>52</option>
+                            <option label='Pluton Lowell'>53</option>
+                            <option label='Pluto Pickering'>54</option>
+                        </select>
+                    </td>
+                    <td style='width: 10%;'></td>
+                    <td style='width: 18%;'>Decimal Degrees:</td>
+                    <td style='width: 22%;'>Degrees Minutes Seconds:</td>
+                    <td style='width: 20%;'>Speed:</td>
+                </tr>
+                <tr>
+                    <td class='title'>Name:</td>
+                    <td class='string' data-var='$app.body.name'></td>
+                    <td class='title'>Longitude:</td>
+                    <td class='numeric' data-var='$app.body.position.longitude.decimalDegree'></td>
+                    <td class='numeric' data-var='$app.body.position.longitude.degreeMinuteSecond'></td>
+                    <td class='numeric' data-var='$app.body.position.longitudeSpeed'></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class='title'>Latitude:</td>
+                    <td class='numeric' data-var='$app.body.position.latitude.decimalDegree'></td>
+                    <td class='numeric' data-var='$app.body.position.latitude.degreeMinuteSecond'></td>
+                    <td  class='numeric'data-var='$app.body.position.latitudeSpeed'></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class='title'>Distance:</td>
+                    <td colspan='2' data-var='$app.body.position.distance'></td>
+                    <td class='numeric' data-var='$app.body.position.distanceSpeed'></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
 </table>
+
 </body>
 </html>
