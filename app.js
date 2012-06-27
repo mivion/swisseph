@@ -30,11 +30,13 @@ app.listen (3000, function (){
 var nowjs = require ("now");
 var everyone = nowjs.initialize (
 	app,
-	{socketio: {
-		transports: ['xhr-polling'],
-        'browser client minification': true,
-        'browser client gzip': true
-	}}
+	{
+		socketio: {
+			transports: ['websocket', 'xhr-polling'],
+        	'browser client minification': true,
+        	'browser client gzip': true
+		}
+	}
 );
 
 var swisseph = require ('./');
