@@ -31,8 +31,10 @@ var nowjs = require ("now");
 var everyone = nowjs.initialize (
 	app,
 	{
+		host: 'swisseph.tk',
+		port: 80,
 		socketio: {
-			transports: ['websocket', 'xhr-polling'],
+			transports: ['xhr-polling'],
         	'browser client minification': true,
         	'browser client gzip': true
 		}
