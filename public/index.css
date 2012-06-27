@@ -83,3 +83,7 @@ table {
 .top-title {
     text-align: left;
 }
+
+img {
+    border: 0px;
+}
