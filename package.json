@@ -16,8 +16,8 @@
   ],
   "dependencies": {
   	"node-gyp": ">=0.4",
-    "connect": "~2",
-    "express": "~2",
+    "connect": ">=2 <3",
+    "express": ">=2 <3",
     "now": ">=0.8"
   },
   "devDependencies": {},
