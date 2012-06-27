@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ephemerides</title>
+    <title>Ephemerides Online</title>
 
     <link href="index.css" rel="stylesheet"/>
 
@@ -20,7 +20,7 @@
 <table>
     <thead>
     <tr>
-        <th>Ephemeris</th>
+        <th>Ephemeris Online</th>
     </tr>
     </thead>
     <tbody>
@@ -41,7 +41,8 @@
                 </tr>
                 <tr>
                     <td class='title'>Gregorian:</td>
-                    <td><input class='numeric' type='text' data-var='$app.date.gregorian.terrestrial' value='01.01.2012 00:00:00'></td>
+                    <td><input class='numeric' type='text' data-var='$app.date.gregorian.terrestrial'
+                               value='01.01.2012 00:00:00'></td>
                     <td><input class='numeric' type='text' data-var='$app.date.gregorian.universal' value=''></td>
                     <td class='numeric' data-var='$app.date.gregorian.delta'></td>
                 </tr>
@@ -50,6 +51,9 @@
                     <td><input class='numeric' type='text' data-var='$app.date.julian.terrestrial' value=''></td>
                     <td><input class='numeric' type='text' data-var='$app.date.julian.universal' value=''></td>
                     <td class='numeric' data-var='$app.date.julian.delta'></td>
+                </tr>
+                <tr>
+                    <td class='title' style='color: gray;' colspan='4'>Help: enter a value and press &lt;Enter> to make calculations</td>
                 </tr>
                 </tbody>
             </table>
@@ -77,17 +81,20 @@
                         <select data-var='$app.observer.ephemeris'>
                             <option label='JPL DE200/LE200'>de200</option>
                             <option label='JPL DE405/LE405'>de405</option>
-                            <option label='JPL DE406/LE406'>de406</option>
+                            <option label='JPL DE406/LE406 (Astronomical Almanac)'>de406</option>
                             <option label='JPL DE414/LE414'>de414</option>
                             <option label='JPL DE421/LE421'>de421</option>
                             <option label='JPL DE422/LE422'>de422</option>
-                            <option label='Swisseph' selected='selected'>swisseph</option>
+                            <option label='Swisseph' selected>swisseph</option>
                             <option label='Moshier'>moshier</option>
                         </select>
                     </td>
                     <td><input type='text' class='numeric' data-var='$app.observer.geographic.longitude' value='0'></td>
                     <td><input type='text' class='numeric' data-var='$app.observer.geographic.latitude' value='0'></td>
                     <td><input type='text' class='numeric' data-var='$app.observer.geographic.height' value='0'></td>
+                </tr>
+                <tr>
+                    <td class='title' style='color: gray;' colspan='5'>Help: Longitude = Latitude = Altitude = 0 for geocentric coordinates, otherwise for topocentric</td>
                 </tr>
                 </tbody>
             </table>
@@ -164,7 +171,7 @@
                     <td class='title'>Latitude:</td>
                     <td class='numeric' data-var='$app.body.position.latitude.decimalDegree'></td>
                     <td class='numeric' data-var='$app.body.position.latitude.degreeMinuteSecond'></td>
-                    <td  class='numeric'data-var='$app.body.position.latitudeSpeed'></td>
+                    <td class='numeric' data-var='$app.body.position.latitudeSpeed'></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -177,6 +184,38 @@
             </table>
         </td>
     </tr>
+    <tr>
+        <td>
+            <table>
+                <tbody>
+                <tr>
+                    <td class='title'>NASA JPL Ephemeris, Copyright &copy; 2012 NASA</td>
+                    <td class='top-title'><a href='http://ssd.jpl.nasa.gov/?ephemerides' target='_blank'><img src='images/nasa_logo.gif'></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='title'>Swiss Ephemeris, Copyright &copy; 2012 Astrodienst AG</td>
+                    <td class='top-title'><a href='http://www.astro.com/swisseph/swephinfo_e.htm' target='_blank'><img
+                            src='images/swisseph_logo.jpg'></a></td>
+                </tr>
+                <tr>
+                    <td colspan='2'>Steve Moshier <a href='http://www.moshier.net' target='_blank'>www.moshier.net</a></td>
+                </tr>
+                <tr>
+                    <td colspan='2'>This site based on Swiss Ephemeris binding for node.js.</td>
+                </tr>
+                <tr>
+                    <td colspan='2'>
+                        Visit project page on <a href='https://github.com/mivion/swisseph' target='_blank'>GitHub</a> or
+                        <a href='https://github.com/mivion/swisseph/issues' target='_blank'>report a problem</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='2'>Copyright &copy; 2012 Onopin V. Mikhail</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
     </tbody>
 </table>
 
