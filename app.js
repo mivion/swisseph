@@ -31,7 +31,7 @@ var nowjs = require ("now");
 var everyone = nowjs.initialize (
 	app,
 	{
-//		host: 'swisseph.tk',
+//		host: 'ephemeris.tk',
 //		port: 80,
 		socketio: {
 			transports: ['xhr-polling'],
