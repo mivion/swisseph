@@ -7,6 +7,8 @@ Swiss Ephemeris binding for node.js under GNU GPL 2.0.
 
 See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) for more details.
 
+See [Ephemeris Online](http://www.astro.com/swisseph/swephinfo_e.htm) service based on this project.
+
 Supported platforms: **Mac OS X** | **Windows** | **Linux** | **FreeBSD**
 
 ## Getting started
