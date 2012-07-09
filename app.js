@@ -23,7 +23,7 @@ app.get ('/', function (req, res) {
     res.redirect ('/index.html');
 });
 
-app.listen (3000, function (){
+app.listen (process.env.SWISSEPH_PORT || 3000, function (){
   console.log ("Swisseph server listening on port %d in %s mode", app.address ().port, app.settings.env);
 });
 
@@ -31,8 +31,8 @@ var nowjs = require ("now");
 var everyone = nowjs.initialize (
 	app,
 	{
-//		host: 'ephemeris.tk',
-//		port: 80,
+		host: process.env.SWISSEPH_PUBLIC_HOST || 'localhost',
+		port: process.env.SWISSEPH_PUBLIC_PORT || 3000,
 		socketio: {
 			transports: ['xhr-polling'],
         	'browser client minification': true,
