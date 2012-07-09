@@ -43,5 +43,5 @@ var everyone = nowjs.initialize (
 
 var swisseph = require ('./');
 
-swisseph.swe_set_ephe_path (__dirname + '/ephe');
+swisseph.swe_set_ephe_path (process.env.SWISSEPH_EPHEMERIS_PATH || (__dirname + '/ephe'));
 everyone.now.swisseph = swisseph;
