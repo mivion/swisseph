@@ -6,6 +6,12 @@ window.addEventListener ('keypress', function (event) {
 	}
 });
 
+$app.load = function (event) {
+	now.ready (function () {
+		$app.update ();
+	})
+};
+
 $app.update = function (event) {
 	var dateVar;
 
@@ -21,7 +27,7 @@ $app.update = function (event) {
 
 	$app.getGroupVar ('$app.date', dateVar);
 
-	now.ready (function () {
+	if (now.swisseph.calc) {
 		now.swisseph.calc ({
 			date: $app.date,
 			observer: $app.observer,
@@ -31,7 +37,7 @@ $app.update = function (event) {
 
 			$app.setVar ();
 		});
-	});
+	}
 };
 
 $app.getGroupVar = function (varGroup, varName) {

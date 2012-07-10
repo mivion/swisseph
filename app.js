@@ -35,7 +35,7 @@ var everyone = nowjs.initialize (
 		port: process.env.SWISSEPH_PUBLIC_PORT || 3000,
 		socketio: {
 			transports: ['xhr-polling'],
-        	'browser client minification': true,
+			'browser client minification': true,
         	'browser client gzip': true
 		}
 	}
