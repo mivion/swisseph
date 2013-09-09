@@ -61,7 +61,7 @@ For more details see src/*.h.
 
 ## Feedback
 
-Please feel free to fill [issues](swisseph/issues) for bugs, erros and features.
+Please feel free to fill [issues](http://github.com/mivion/swisseph/issues) for bugs, erros and features.
 
 ## License
 
