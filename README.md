@@ -3,7 +3,7 @@ Swiss Ephemeris binding for node.js
 
 ## About
 
-Swiss Ephemeris binding for node.js under GNU GPL 2.0.
+Swiss Ephemeris binding for node.js.
 
 See [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm) for more details.
 
@@ -65,6 +65,6 @@ Please feel free to fill [issues](http://github.com/mivion/swisseph/issues) for 
 
 ## License
 
-This software licensed under GNU GPL 2.0 license.
+The license for this project is the same as original [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm).
 
 See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html for more details.
