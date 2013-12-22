@@ -66,5 +66,3 @@ Please feel free to fill [issues](http://github.com/mivion/swisseph/issues) for 
 ## License
 
 The license for this project is the same as original [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm).
-
-See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html for more details.
