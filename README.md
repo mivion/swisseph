@@ -68,3 +68,7 @@ Please feel free to fill [issues](http://github.com/mivion/swisseph/issues) for 
 The license for this project is the same as original [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm).
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mivion/swisseph/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mivion/swisseph/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
