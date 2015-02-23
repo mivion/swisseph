@@ -19,7 +19,7 @@ $ npm install swisseph
 
 ## Requirements
 
-From version 0.5.0 only nodejs 0.12 or newer supported
+From version 0.5.0 only nodejs 0.12 or newer supported.
 
 To use with older version user swisseph 0.4.x or older.
 
@@ -66,7 +66,7 @@ For more examples see *examples* and *test* folders.
 
 ## Tests
 
-To run test run the command from root folder:
+To execute tests run from the root folder:
 
 > npm test
 
