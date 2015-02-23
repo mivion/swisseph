@@ -21,7 +21,7 @@ $ npm install swisseph
 
 From version 0.5.0 only nodejs 0.12 or newer supported.
 
-To use with older version user swisseph 0.4.x or older.
+To use with older nodejs version use swisseph 0.4.x or older.
 
 ## Version 0.5.0 Notes
 
