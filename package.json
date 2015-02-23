@@ -15,10 +15,7 @@
     "astronomy"
   ],
   "dependencies": {
-  	"node-gyp": ">=0.4",
-    "connect": ">=2 <3",
-    "express": ">=2 <3",
-    "now": ">=0.8"
+  	"node-gyp": ">=0.4"
   },
   "devDependencies": {},
   "optionalDependencies": {},
