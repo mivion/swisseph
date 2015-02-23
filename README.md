@@ -17,6 +17,16 @@ To install run:
 $ npm install swisseph
 ```
 
+## Requirements
+
+From version 0.5.0 only nodejs 0.12 or newer supported
+
+To use with older version user swisseph 0.4.x or older.
+
+## Version 0.5.0 Notes
+
+From version 0.5.0 only nodejs 0.12 supported, because of C addons API compatibility.
+
 ## Usage
 
 Example:
@@ -54,6 +64,14 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 
 For more examples see *examples* and *test* folders.
 
+## Tests
+
+To run test run the command from root folder:
+
+> npm test
+
+## Documentation
+
 See [Programming interface](http://www.astro.com/swisseph/swephprg.htm) to the Swiss Ephemeris for more details.
 
 This javascript programming interface is little different from the original api, basically for return values.
@@ -66,6 +84,3 @@ Please feel free to fill [issues](http://github.com/mivion/swisseph/issues) for 
 ## License
 
 The license for this project is the same as original [Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm).
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mivion/swisseph/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
