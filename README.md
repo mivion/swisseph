@@ -69,6 +69,3 @@ The license for this project is the same as original [Swiss Ephemeris](http://ww
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mivion/swisseph/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mivion/swisseph/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
