@@ -1,5 +1,3 @@
-#define BUILDING_NODE_EXTENSION
-
 #include "swisseph.h"
 
 using namespace v8;
@@ -13,12 +11,12 @@ using namespace v8;
  *   error: string
  * }
  */
-Handle <Value> node_swe_gauquelin_sector (const Arguments & args) {
-	HandleScope scope;
+void node_swe_gauquelin_sector (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 10) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -33,8 +31,8 @@ Handle <Value> node_swe_gauquelin_sector (const Arguments & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -43,7 +41,7 @@ Handle <Value> node_swe_gauquelin_sector (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::AsciiValue (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
 
 	geopos [0] = args [5]->NumberValue ();
 	geopos [1] = args [6]->NumberValue ();
@@ -61,18 +59,18 @@ Handle <Value> node_swe_gauquelin_sector (const Arguments & args) {
 		&dgsect, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("gauquelinSector"), Number::New (dgsect));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "gauquelinSector"), Number::New (isolate, dgsect));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -95,20 +93,20 @@ Handle <Value> node_swe_gauquelin_sector (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_sol_eclipse_where (const Arguments & args) {
-	HandleScope scope;
+void node_swe_sol_eclipse_where (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 2) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -122,29 +120,29 @@ Handle <Value> node_swe_sol_eclipse_where (const Arguments & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("longitude"),	Number::New (geopos [0]));
-		result->Set (String::NewSymbol ("latitude"),	Number::New (geopos [1]));
-		result->Set (String::NewSymbol ("solarDiameterFraction"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("lonarToSolarDiameterRatio"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("solarDiscFraction"),			Number::New (attr [2]));
-		result->Set (String::NewSymbol ("coreShadow"),					Number::New (attr [3]));
-		result->Set (String::NewSymbol ("azimuth"),						Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),				Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),			Number::New (attr [6]));
-		result->Set (String::NewSymbol ("moonToSunAngularDistance"),	Number::New (attr [7]));
-		result->Set (String::NewSymbol ("eclipseMagnitude"),			Number::New (attr [8]));
-		result->Set (String::NewSymbol ("sarosNumber"),					Number::New (attr [9]));
-		result->Set (String::NewSymbol ("sarosMember"),					Number::New (attr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"),	Number::New (isolate, geopos [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"),	Number::New (isolate, geopos [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -164,12 +162,12 @@ Handle <Value> node_swe_sol_eclipse_where (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_lun_occult_where (const Arguments & args) {
-	HandleScope scope;
+void node_swe_lun_occult_where (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -178,8 +176,8 @@ Handle <Value> node_swe_lun_occult_where (const Arguments & args) {
 		!args [2]->IsString () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -188,7 +186,7 @@ Handle <Value> node_swe_lun_occult_where (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::AsciiValue (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
 
 	rflag = ::swe_lun_occult_where (
 		args [0]->NumberValue (),
@@ -198,26 +196,26 @@ Handle <Value> node_swe_lun_occult_where (const Arguments & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("longitude"),	Number::New (geopos [0]));
-		result->Set (String::NewSymbol ("latitude"),	Number::New (geopos [1]));
-		result->Set (String::NewSymbol ("solarDiameterFraction"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("lonarToSolarDiameterRatio"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("solarDiscFraction"),			Number::New (attr [2]));
-		result->Set (String::NewSymbol ("coreShadow"),					Number::New (attr [3]));
-		result->Set (String::NewSymbol ("azimuth"),						Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),				Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),			Number::New (attr [6]));
-		result->Set (String::NewSymbol ("moonToSunAngularDistance"),	Number::New (attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"),	Number::New (isolate, geopos [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"),	Number::New (isolate, geopos [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -238,12 +236,12 @@ Handle <Value> node_swe_lun_occult_where (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_sol_eclipse_how (const Arguments & args) {
-	HandleScope scope;
+void node_swe_sol_eclipse_how (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 5) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -253,8 +251,8 @@ Handle <Value> node_swe_sol_eclipse_how (const Arguments & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -272,27 +270,27 @@ Handle <Value> node_swe_sol_eclipse_how (const Arguments & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("solarDiameterFraction"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("lonarToSolarDiameterRatio"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("solarDiscFraction"),			Number::New (attr [2]));
-		result->Set (String::NewSymbol ("coreShadow"),					Number::New (attr [3]));
-		result->Set (String::NewSymbol ("azimuth"),						Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),				Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),			Number::New (attr [6]));
-		result->Set (String::NewSymbol ("moonToSunAngularDistance"),	Number::New (attr [7]));
-		result->Set (String::NewSymbol ("eclipseMagnitude"),			Number::New (attr [8]));
-		result->Set (String::NewSymbol ("sarosNumber"),					Number::New (attr [9]));
-		result->Set (String::NewSymbol ("sarosMember"),					Number::New (attr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -318,12 +316,12 @@ Handle <Value> node_swe_sol_eclipse_how (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_sol_eclipse_when_loc (const Arguments & args) {
-	HandleScope scope;
+void node_swe_sol_eclipse_when_loc (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 6) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -334,8 +332,8 @@ Handle <Value> node_swe_sol_eclipse_when_loc (const Arguments & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -356,32 +354,32 @@ Handle <Value> node_swe_sol_eclipse_when_loc (const Arguments & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("maximum"),		Number::New (tret [0]));
-		result->Set (String::NewSymbol ("first"),		Number::New (tret [1]));
-		result->Set (String::NewSymbol ("second"),		Number::New (tret [2]));
-		result->Set (String::NewSymbol ("third"),		Number::New (tret [3]));
-		result->Set (String::NewSymbol ("forth"),		Number::New (tret [4]));
-		result->Set (String::NewSymbol ("solarDiameterFraction"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("lonarToSolarDiameterRatio"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("solarDiscFraction"),			Number::New (attr [2]));
-		result->Set (String::NewSymbol ("coreShadow"),					Number::New (attr [3]));
-		result->Set (String::NewSymbol ("azimuth"),						Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),				Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),			Number::New (attr [6]));
-		result->Set (String::NewSymbol ("moonToSunAngularDistance"),	Number::New (attr [7]));
-		result->Set (String::NewSymbol ("eclipseMagnitude"),			Number::New (attr [8]));
-		result->Set (String::NewSymbol ("sarosNumber"),					Number::New (attr [9]));
-		result->Set (String::NewSymbol ("sarosMember"),					Number::New (attr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "first"),		Number::New (isolate, tret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "second"),		Number::New (isolate, tret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "third"),		Number::New (isolate, tret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "forth"),		Number::New (isolate, tret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -408,12 +406,12 @@ Handle <Value> node_swe_sol_eclipse_when_loc (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_lun_occult_when_loc (const Arguments & args) {
-	HandleScope scope;
+void node_swe_lun_occult_when_loc (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 8) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -426,8 +424,8 @@ Handle <Value> node_swe_lun_occult_when_loc (const Arguments & args) {
 		!args [6]->IsNumber () ||
 		!args [7]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -437,7 +435,7 @@ Handle <Value> node_swe_lun_occult_when_loc (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::AsciiValue (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
 
 	geopos [0] = args [4]->NumberValue ();
 	geopos [1] = args [5]->NumberValue ();
@@ -453,33 +451,33 @@ Handle <Value> node_swe_lun_occult_when_loc (const Arguments & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("maximum"),		Number::New (tret [0]));
-		result->Set (String::NewSymbol ("first"),		Number::New (tret [1]));
-		result->Set (String::NewSymbol ("second"),		Number::New (tret [2]));
-		result->Set (String::NewSymbol ("third"),		Number::New (tret [3]));
-		result->Set (String::NewSymbol ("forth"),		Number::New (tret [4]));
-		result->Set (String::NewSymbol ("solarDiameterFraction"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("lonarToSolarDiameterRatio"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("solarDiscFraction"),			Number::New (attr [2]));
-		result->Set (String::NewSymbol ("coreShadow"),					Number::New (attr [3]));
-		result->Set (String::NewSymbol ("azimuth"),						Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),				Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),			Number::New (attr [6]));
-		result->Set (String::NewSymbol ("moonToSunAngularDistance"),	Number::New (attr [7]));
-		result->Set (String::NewSymbol ("eclipseMagnitude"),			Number::New (attr [8]));
-		result->Set (String::NewSymbol ("sarosNumber"),					Number::New (attr [9]));
-		result->Set (String::NewSymbol ("sarosMember"),					Number::New (attr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "first"),		Number::New (isolate, tret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "second"),		Number::New (isolate, tret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "third"),		Number::New (isolate, tret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "forth"),		Number::New (isolate, tret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -497,12 +495,12 @@ Handle <Value> node_swe_lun_occult_when_loc (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_sol_eclipse_when_glob (const Arguments & args) {
-	HandleScope scope;
+void node_swe_sol_eclipse_when_glob (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -511,8 +509,8 @@ Handle <Value> node_swe_sol_eclipse_when_glob (const Arguments & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double tret [10] = {0};
@@ -528,24 +526,24 @@ Handle <Value> node_swe_sol_eclipse_when_glob (const Arguments & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("maximum"),		Number::New (tret [0]));
-		result->Set (String::NewSymbol ("noon"),		Number::New (tret [1]));
-		result->Set (String::NewSymbol ("begin"),		Number::New (tret [2]));
-		result->Set (String::NewSymbol ("end"),			Number::New (tret [3]));
-		result->Set (String::NewSymbol ("totalBegin"),	Number::New (tret [4]));
-		result->Set (String::NewSymbol ("totalEnd"),	Number::New (tret [5]));
-		result->Set (String::NewSymbol ("centerBegin"),	Number::New (tret [6]));
-		result->Set (String::NewSymbol ("centerEnd"),	Number::New (tret [7]));
+		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "noon"),		Number::New (isolate, tret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "begin"),		Number::New (isolate, tret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "end"),			Number::New (isolate, tret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),	Number::New (isolate, tret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),	Number::New (isolate, tret [5]));
+		result->Set (String::NewFromUtf8 (isolate, "centerBegin"),	Number::New (isolate, tret [6]));
+		result->Set (String::NewFromUtf8 (isolate, "centerEnd"),	Number::New (isolate, tret [7]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -564,12 +562,12 @@ Handle <Value> node_swe_sol_eclipse_when_glob (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_lun_occult_when_glob (const Arguments & args) {
-	HandleScope scope;
+void node_swe_lun_occult_when_glob (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 6) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -580,8 +578,8 @@ Handle <Value> node_swe_lun_occult_when_glob (const Arguments & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double tret [10] = {0};
@@ -589,7 +587,7 @@ Handle <Value> node_swe_lun_occult_when_glob (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::AsciiValue (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
 
 	rflag = ::swe_lun_occult_when_glob (
 		args [0]->NumberValue (),
@@ -602,25 +600,25 @@ Handle <Value> node_swe_lun_occult_when_glob (const Arguments & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("maximum"),		Number::New (tret [0]));
-		result->Set (String::NewSymbol ("noon"),		Number::New (tret [1]));
-		result->Set (String::NewSymbol ("begin"),		Number::New (tret [2]));
-		result->Set (String::NewSymbol ("end"),			Number::New (tret [3]));
-		result->Set (String::NewSymbol ("totalBegin"),	Number::New (tret [4]));
-		result->Set (String::NewSymbol ("totalEnd"),	Number::New (tret [5]));
-		result->Set (String::NewSymbol ("centerBegin"),	Number::New (tret [6]));
-		result->Set (String::NewSymbol ("centerEnd"),	Number::New (tret [7]));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "noon"),		Number::New (isolate, tret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "begin"),		Number::New (isolate, tret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "end"),			Number::New (isolate, tret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),	Number::New (isolate, tret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),	Number::New (isolate, tret [5]));
+		result->Set (String::NewFromUtf8 (isolate, "centerBegin"),	Number::New (isolate, tret [6]));
+		result->Set (String::NewFromUtf8 (isolate, "centerEnd"),	Number::New (isolate, tret [7]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -639,12 +637,12 @@ Handle <Value> node_swe_lun_occult_when_glob (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_lun_eclipse_how (const Arguments & args) {
-	HandleScope scope;
+void node_swe_lun_eclipse_how (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 5) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -654,8 +652,8 @@ Handle <Value> node_swe_lun_eclipse_how (const Arguments & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -673,25 +671,25 @@ Handle <Value> node_swe_lun_eclipse_how (const Arguments & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("umbralMagnitude"),		Number::New (attr [0]));
-		result->Set (String::NewSymbol ("penumbralMagnitude"),	Number::New (attr [1]));
-		result->Set (String::NewSymbol ("azimuth"),				Number::New (attr [4]));
-		result->Set (String::NewSymbol ("trueAltitude"),		Number::New (attr [5]));
-		result->Set (String::NewSymbol ("apparentAltitude"),	Number::New (attr [6]));
-		result->Set (String::NewSymbol ("oppositeDegreeDist"),	Number::New (attr [7]));
-		result->Set (String::NewSymbol ("magnitude"),			Number::New (attr [8]));
-		result->Set (String::NewSymbol ("sarosNumber"),			Number::New (attr [9]));
-		result->Set (String::NewSymbol ("sarosMember"),			Number::New (attr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "umbralMagnitude"),		Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "penumbralMagnitude"),	Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, attr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, attr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "oppositeDegreeDist"),	Number::New (isolate, attr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "magnitude"),			Number::New (isolate, attr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),			Number::New (isolate, attr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),			Number::New (isolate, attr [10]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -708,12 +706,12 @@ Handle <Value> node_swe_lun_eclipse_how (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_lun_eclipse_when (const Arguments & args) {
-	HandleScope scope;
+void node_swe_lun_eclipse_when (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -722,8 +720,8 @@ Handle <Value> node_swe_lun_eclipse_when (const Arguments & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double tret [10] = {0};
@@ -739,23 +737,23 @@ Handle <Value> node_swe_lun_eclipse_when (const Arguments & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("maximum"),			Number::New (tret [0]));
-		result->Set (String::NewSymbol ("partialBegin"),	Number::New (tret [2]));
-		result->Set (String::NewSymbol ("partialEnd"),		Number::New (tret [3]));
-		result->Set (String::NewSymbol ("totalBegin"),		Number::New (tret [4]));
-		result->Set (String::NewSymbol ("totalEnd"),		Number::New (tret [5]));
-		result->Set (String::NewSymbol ("penumbralBegin"),	Number::New (tret [6]));
-		result->Set (String::NewSymbol ("penumbralEnd"),	Number::New (tret [7]));
+		result->Set (String::NewFromUtf8 (isolate, "maximum"),			Number::New (isolate, tret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "partialBegin"),	Number::New (isolate, tret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "partialEnd"),		Number::New (isolate, tret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),		Number::New (isolate, tret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),		Number::New (isolate, tret [5]));
+		result->Set (String::NewFromUtf8 (isolate, "penumbralBegin"),	Number::New (isolate, tret [6]));
+		result->Set (String::NewFromUtf8 (isolate, "penumbralEnd"),	Number::New (isolate, tret [7]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -770,12 +768,12 @@ Handle <Value> node_swe_lun_eclipse_when (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_pheno (const Arguments & args) {
-	HandleScope scope;
+void node_swe_pheno (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -783,8 +781,8 @@ Handle <Value> node_swe_pheno (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double attr [20];
@@ -798,22 +796,22 @@ Handle <Value> node_swe_pheno (const Arguments & args) {
 		attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("phaseAngle"), Number::New (attr [0]));
-		result->Set (String::NewSymbol ("phase"), Number::New (attr [1]));
-		result->Set (String::NewSymbol ("elongation"), Number::New (attr [2]));
-		result->Set (String::NewSymbol ("apparentDiameter"), Number::New (attr [3]));
-		result->Set (String::NewSymbol ("apparentMagnitude"), Number::New (attr [4]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "phaseAngle"), Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "phase"), Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "elongation"), Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentDiameter"), Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentMagnitude"), Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -828,12 +826,12 @@ Handle <Value> node_swe_pheno (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_pheno_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_pheno_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -841,8 +839,8 @@ Handle <Value> node_swe_pheno_ut (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double attr [20];
@@ -856,22 +854,22 @@ Handle <Value> node_swe_pheno_ut (const Arguments & args) {
 		attr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("phaseAngle"), Number::New (attr [0]));
-		result->Set (String::NewSymbol ("phase"), Number::New (attr [1]));
-		result->Set (String::NewSymbol ("elongation"), Number::New (attr [2]));
-		result->Set (String::NewSymbol ("apparentDiameter"), Number::New (attr [3]));
-		result->Set (String::NewSymbol ("apparentMagnitude"), Number::New (attr [4]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "phaseAngle"), Number::New (isolate, attr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "phase"), Number::New (isolate, attr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "elongation"), Number::New (isolate, attr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentDiameter"), Number::New (isolate, attr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "apparentMagnitude"), Number::New (isolate, attr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -881,12 +879,12 @@ Handle <Value> node_swe_pheno_ut (const Arguments & args) {
  *   refraction: double
  * }
  */
-Handle <Value> node_swe_refrac (const Arguments & args) {
-	HandleScope scope;
+void node_swe_refrac (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -895,8 +893,8 @@ Handle <Value> node_swe_refrac (const Arguments & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double refraction;
@@ -908,13 +906,13 @@ Handle <Value> node_swe_refrac (const Arguments & args) {
 		(int)args [3]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-	result->Set (String::NewSymbol ("refraction"), Number::New (refraction));
+	result->Set (String::NewFromUtf8 (isolate, "refraction"), Number::New (isolate, refraction));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -927,12 +925,12 @@ Handle <Value> node_swe_refrac (const Arguments & args) {
  *   horizonDip: double         // dret [3]
  * }
  */
-Handle <Value> node_swe_refrac_extended (const Arguments & args) {
-	HandleScope scope;
+void node_swe_refrac_extended (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 6) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -943,8 +941,8 @@ Handle <Value> node_swe_refrac_extended (const Arguments & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double refraction;
@@ -960,16 +958,16 @@ Handle <Value> node_swe_refrac_extended (const Arguments & args) {
 		dret
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-	result->Set (String::NewSymbol ("refraction"), Number::New (refraction));
-	result->Set (String::NewSymbol ("trueAltitude"),		Number::New (dret [0]));
-	result->Set (String::NewSymbol ("apparentAltitude"),	Number::New (dret [1]));
-	result->Set (String::NewSymbol ("horizonDip"),			Number::New (dret [3]));
+	result->Set (String::NewFromUtf8 (isolate, "refraction"), Number::New (isolate, refraction));
+	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, dret [0]));
+	result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, dret [1]));
+	result->Set (String::NewFromUtf8 (isolate, "horizonDip"),			Number::New (isolate, dret [3]));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -978,30 +976,30 @@ Handle <Value> node_swe_refrac_extended (const Arguments & args) {
  * swe_set_lapse_rate(double lapse_rate[, function callback (result)]) = {
  * }
  */
-Handle <Value> node_swe_set_lapse_rate (const Arguments & args) {
-	HandleScope scope;
+void node_swe_set_lapse_rate (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	::swe_set_lapse_rate (
         args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -1013,12 +1011,12 @@ Handle <Value> node_swe_set_lapse_rate (const Arguments & args) {
  *   apparentAltitude: double    // xaz [2]
  * }
  */
-Handle <Value> node_swe_azalt (const Arguments & args) {
-	HandleScope scope;
+void node_swe_azalt (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 10) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -1033,8 +1031,8 @@ Handle <Value> node_swe_azalt (const Arguments & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -1058,15 +1056,15 @@ Handle <Value> node_swe_azalt (const Arguments & args) {
 		xin, xaz
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-	result->Set (String::NewSymbol ("azimuth"),				Number::New (xaz [0]));
-	result->Set (String::NewSymbol ("trueAltitude"),		Number::New (xaz [1]));
-	result->Set (String::NewSymbol ("apparentAltitude"),	Number::New (xaz [2]));
+	result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, xaz [0]));
+	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, xaz [1]));
+	result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, xaz [2]));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -1077,12 +1075,12 @@ Handle <Value> node_swe_azalt (const Arguments & args) {
  *   trueAltitude: double  // xout [1]
  * }
  */
-Handle <Value> node_swe_azalt_rev (const Arguments & args) {
-	HandleScope scope;
+void node_swe_azalt_rev (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 7) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -1094,8 +1092,8 @@ Handle <Value> node_swe_azalt_rev (const Arguments & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -1115,14 +1113,14 @@ Handle <Value> node_swe_azalt_rev (const Arguments & args) {
 		geopos, xin, xout
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-	result->Set (String::NewSymbol ("azimuth"),			Number::New (xout [0]));
-	result->Set (String::NewSymbol ("trueAltitude"),	Number::New (xout [1]));
+	result->Set (String::NewFromUtf8 (isolate, "azimuth"),			Number::New (isolate, xout [0]));
+	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),	Number::New (isolate, xout [1]));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -1133,12 +1131,12 @@ Handle <Value> node_swe_azalt_rev (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_rise_trans (const Arguments & args) {
-	HandleScope scope;
+void node_swe_rise_trans (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 10) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -1153,8 +1151,8 @@ Handle <Value> node_swe_rise_trans (const Arguments & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double geopos [10] = {0};
@@ -1163,7 +1161,7 @@ Handle <Value> node_swe_rise_trans (const Arguments & args) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::AsciiValue (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
 
 	geopos [0] = args [5]->NumberValue ();
 	geopos [1] = args [6]->NumberValue ();
@@ -1181,18 +1179,18 @@ Handle <Value> node_swe_rise_trans (const Arguments & args) {
 		&tret, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("transitTime"), Number::New (tret));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "transitTime"), Number::New (isolate, tret));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -1234,12 +1232,12 @@ Handle <Value> node_swe_rise_trans (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_nod_aps (const Arguments & args) {
-	HandleScope scope;
+void node_swe_nod_aps (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -1248,8 +1246,8 @@ Handle <Value> node_swe_nod_aps (const Arguments & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double xnasc [6] = {0};
@@ -1267,51 +1265,51 @@ Handle <Value> node_swe_nod_aps (const Arguments & args) {
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		Local <Object> ascending = Object::New ();
-		ascending->Set (String::NewSymbol ("longitude"), 		Number::New (xnasc [0]));
-		ascending->Set (String::NewSymbol ("latitude"), 		Number::New (xnasc [1]));
-		ascending->Set (String::NewSymbol ("distance"), 		Number::New (xnasc [2]));
-		ascending->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xnasc [3]));
-		ascending->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xnasc [4]));
-		ascending->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xnasc [5]));
-		result->Set (String::NewSymbol ("ascending"), ascending);
+		Local <Object> ascending = Object::New (isolate);
+		ascending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xnasc [0]));
+		ascending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xnasc [1]));
+		ascending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xnasc [2]));
+		ascending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xnasc [3]));
+		ascending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xnasc [4]));
+		ascending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xnasc [5]));
+		result->Set (String::NewFromUtf8 (isolate, "ascending"), ascending);
 
-		Local <Object> descending = Object::New ();
-		descending->Set (String::NewSymbol ("longitude"), 		Number::New (xndsc [0]));
-		descending->Set (String::NewSymbol ("latitude"), 		Number::New (xndsc [1]));
-		descending->Set (String::NewSymbol ("distance"), 		Number::New (xndsc [2]));
-		descending->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xndsc [3]));
-		descending->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xndsc [4]));
-		descending->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xndsc [5]));
-		result->Set (String::NewSymbol ("descending"), descending);
+		Local <Object> descending = Object::New (isolate);
+		descending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xndsc [0]));
+		descending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xndsc [1]));
+		descending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xndsc [2]));
+		descending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xndsc [3]));
+		descending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xndsc [4]));
+		descending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xndsc [5]));
+		result->Set (String::NewFromUtf8 (isolate, "descending"), descending);
 
-		Local <Object> perihelion = Object::New ();
-		perihelion->Set (String::NewSymbol ("longitude"), 		Number::New (xperi [0]));
-		perihelion->Set (String::NewSymbol ("latitude"), 		Number::New (xperi [1]));
-		perihelion->Set (String::NewSymbol ("distance"), 		Number::New (xperi [2]));
-		perihelion->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xperi [3]));
-		perihelion->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xperi [4]));
-		perihelion->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xperi [5]));
-		result->Set (String::NewSymbol ("perihelion"), perihelion);
+		Local <Object> perihelion = Object::New (isolate);
+		perihelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xperi [0]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xperi [1]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xperi [2]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xperi [3]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xperi [4]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xperi [5]));
+		result->Set (String::NewFromUtf8 (isolate, "perihelion"), perihelion);
 
-		Local <Object> aphelion = Object::New ();
-		aphelion->Set (String::NewSymbol ("longitude"), 		Number::New (xaphe [0]));
-		aphelion->Set (String::NewSymbol ("latitude"), 			Number::New (xaphe [1]));
-		aphelion->Set (String::NewSymbol ("distance"), 			Number::New (xaphe [2]));
-		aphelion->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xaphe [3]));
-		aphelion->Set (String::NewSymbol ("latitudeSpeed"),		Number::New (xaphe [4]));
-		aphelion->Set (String::NewSymbol ("distanceSpeed"),		Number::New (xaphe [5]));
-		result->Set (String::NewSymbol ("aphelion"), aphelion);
+		Local <Object> aphelion = Object::New (isolate);
+		aphelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xaphe [0]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "latitude"), 			Number::New (isolate, xaphe [1]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "distance"), 			Number::New (isolate, xaphe [2]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xaphe [3]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),		Number::New (isolate, xaphe [4]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),		Number::New (isolate, xaphe [5]));
+		result->Set (String::NewFromUtf8 (isolate, "aphelion"), aphelion);
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -1353,12 +1351,12 @@ Handle <Value> node_swe_nod_aps (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_nod_aps_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_nod_aps_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 4) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -1367,8 +1365,8 @@ Handle <Value> node_swe_nod_aps_ut (const Arguments & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double xnasc [6] = {0};
@@ -1386,49 +1384,49 @@ Handle <Value> node_swe_nod_aps_ut (const Arguments & args) {
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		Local <Object> ascending = Object::New ();
-		ascending->Set (String::NewSymbol ("longitude"), 		Number::New (xnasc [0]));
-		ascending->Set (String::NewSymbol ("latitude"), 		Number::New (xnasc [1]));
-		ascending->Set (String::NewSymbol ("distance"), 		Number::New (xnasc [2]));
-		ascending->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xnasc [3]));
-		ascending->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xnasc [4]));
-		ascending->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xnasc [5]));
-		result->Set (String::NewSymbol ("ascending"), ascending);
+		Local <Object> ascending = Object::New (isolate);
+		ascending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xnasc [0]));
+		ascending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xnasc [1]));
+		ascending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xnasc [2]));
+		ascending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xnasc [3]));
+		ascending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xnasc [4]));
+		ascending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xnasc [5]));
+		result->Set (String::NewFromUtf8 (isolate, "ascending"), ascending);
 
-		Local <Object> descending = Object::New ();
-		descending->Set (String::NewSymbol ("longitude"), 		Number::New (xndsc [0]));
-		descending->Set (String::NewSymbol ("latitude"), 		Number::New (xndsc [1]));
-		descending->Set (String::NewSymbol ("distance"), 		Number::New (xndsc [2]));
-		descending->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xndsc [3]));
-		descending->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xndsc [4]));
-		descending->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xndsc [5]));
-		result->Set (String::NewSymbol ("descending"), descending);
+		Local <Object> descending = Object::New (isolate);
+		descending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xndsc [0]));
+		descending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xndsc [1]));
+		descending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xndsc [2]));
+		descending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xndsc [3]));
+		descending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xndsc [4]));
+		descending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xndsc [5]));
+		result->Set (String::NewFromUtf8 (isolate, "descending"), descending);
 
-		Local <Object> perihelion = Object::New ();
-		perihelion->Set (String::NewSymbol ("longitude"), 		Number::New (xperi [0]));
-		perihelion->Set (String::NewSymbol ("latitude"), 		Number::New (xperi [1]));
-		perihelion->Set (String::NewSymbol ("distance"), 		Number::New (xperi [2]));
-		perihelion->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xperi [3]));
-		perihelion->Set (String::NewSymbol ("latitudeSpeed"),	Number::New (xperi [4]));
-		perihelion->Set (String::NewSymbol ("distanceSpeed"),	Number::New (xperi [5]));
-		result->Set (String::NewSymbol ("perihelion"), perihelion);
+		Local <Object> perihelion = Object::New (isolate);
+		perihelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xperi [0]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xperi [1]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xperi [2]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xperi [3]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xperi [4]));
+		perihelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xperi [5]));
+		result->Set (String::NewFromUtf8 (isolate, "perihelion"), perihelion);
 
-		Local <Object> aphelion = Object::New ();
-		aphelion->Set (String::NewSymbol ("longitude"), 		Number::New (xaphe [0]));
-		aphelion->Set (String::NewSymbol ("latitude"), 			Number::New (xaphe [1]));
-		aphelion->Set (String::NewSymbol ("distance"), 			Number::New (xaphe [2]));
-		aphelion->Set (String::NewSymbol ("longitudeSpeed"),	Number::New (xaphe [3]));
-		aphelion->Set (String::NewSymbol ("latitudeSpeed"),		Number::New (xaphe [4]));
-		aphelion->Set (String::NewSymbol ("distanceSpeed"),		Number::New (xaphe [5]));
-		result->Set (String::NewSymbol ("aphelion"), aphelion);
+		Local <Object> aphelion = Object::New (isolate);
+		aphelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xaphe [0]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "latitude"), 			Number::New (isolate, xaphe [1]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "distance"), 			Number::New (isolate, xaphe [2]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xaphe [3]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),		Number::New (isolate, xaphe [4]));
+		aphelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),		Number::New (isolate, xaphe [5]));
+		result->Set (String::NewFromUtf8 (isolate, "aphelion"), aphelion);
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };

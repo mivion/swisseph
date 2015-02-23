@@ -1,5 +1,3 @@
-#define BUILDING_NODE_EXTENSION
-
 #include "swisseph.h"
 
 using namespace v8;
@@ -15,12 +13,12 @@ using namespace v8;
  *   error: string
  * }
  */
-Handle <Value> node_swe_heliacal_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 7) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -32,8 +30,8 @@ Handle <Value> node_swe_heliacal_ut (const Arguments & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double dgeo [3] = {0};
@@ -60,7 +58,7 @@ Handle <Value> node_swe_heliacal_ut (const Arguments & args) {
 	dobs [4] = args [3]->ToObject ()->Get (4)->NumberValue ();
 	dobs [5] = args [3]->ToObject ()->Get (5)->NumberValue ();
 
-	::strcpy (name, *String::AsciiValue (args [4]->ToString ()));
+	::strcpy (name, *String::Utf8Value (args [4]->ToString ()));
 
 	rflag = ::swe_heliacal_ut (
 		args [0]->NumberValue (),
@@ -70,20 +68,20 @@ Handle <Value> node_swe_heliacal_ut (const Arguments & args) {
 		dret, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("startVisible"), Number::New (dret [0]));
-		result->Set (String::NewSymbol ("bestVisible"), Number::New (dret [1]));
-		result->Set (String::NewSymbol ("endVisible"), Number::New (dret [2]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "startVisible"), Number::New (isolate, dret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "bestVisible"), Number::New (isolate, dret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "endVisible"), Number::New (isolate, dret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -125,12 +123,12 @@ Handle <Value> node_swe_heliacal_ut (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_heliacal_pheno_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 7) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -142,8 +140,8 @@ Handle <Value> node_swe_heliacal_pheno_ut (const Arguments & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double dgeo [3] = {0};
@@ -170,7 +168,7 @@ Handle <Value> node_swe_heliacal_pheno_ut (const Arguments & args) {
 	dobs [4] = args [3]->ToObject ()->Get (4)->NumberValue ();
 	dobs [5] = args [3]->ToObject ()->Get (5)->NumberValue ();
 
-	::strcpy (name, *String::AsciiValue (args [4]->ToString ()));
+	::strcpy (name, *String::Utf8Value (args [4]->ToString ()));
 
 	rflag = ::swe_heliacal_ut (
 		args [0]->NumberValue (),
@@ -180,48 +178,48 @@ Handle <Value> node_swe_heliacal_pheno_ut (const Arguments & args) {
 		darr, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("tcAltitude"),			Number::New (darr [0]));
-		result->Set (String::NewSymbol ("tcApparentAltitude"),	Number::New (darr [1]));
-		result->Set (String::NewSymbol ("gcAltitude"),			Number::New (darr [2]));
-		result->Set (String::NewSymbol ("azimuth"),				Number::New (darr [3]));
-		result->Set (String::NewSymbol ("tcSunAltitude"),		Number::New (darr [4]));
-		result->Set (String::NewSymbol ("sunAzimuth"),			Number::New (darr [5]));
-		result->Set (String::NewSymbol ("tcActualVisibleArc"),	Number::New (darr [6]));
-		result->Set (String::NewSymbol ("gcActualVisibleArc"),	Number::New (darr [7]));
-		result->Set (String::NewSymbol ("objectToSunAzimuth"),	Number::New (darr [8]));
-		result->Set (String::NewSymbol ("objectToSunLongitude"),Number::New (darr [9]));
-		result->Set (String::NewSymbol ("extinction"),			Number::New (darr [10]));
-		result->Set (String::NewSymbol ("tcMinVisibleArc"),		Number::New (darr [11]));
-		result->Set (String::NewSymbol ("firstVisible"),		Number::New (darr [12]));
-		result->Set (String::NewSymbol ("bestVisible"),			Number::New (darr [13]));
-		result->Set (String::NewSymbol ("endVisible"),			Number::New (darr [14]));
-		result->Set (String::NewSymbol ("yallopBestVisible"),	Number::New (darr [15]));
-		result->Set (String::NewSymbol ("moonCresentWidth"),	Number::New (darr [16]));
-		result->Set (String::NewSymbol ("yallopValue"),			Number::New (darr [17]));
-		result->Set (String::NewSymbol ("yallopCriterion"),		Number::New (darr [18]));
-		result->Set (String::NewSymbol ("parallax"),			Number::New (darr [19]));
-		result->Set (String::NewSymbol ("magnitude"),			Number::New (darr [20]));
-		result->Set (String::NewSymbol ("rise"),				Number::New (darr [21]));
-		result->Set (String::NewSymbol ("riseSet"),				Number::New (darr [22]));
-		result->Set (String::NewSymbol ("riseObjectToSun"),		Number::New (darr [23]));
-		result->Set (String::NewSymbol ("visibleDuration"),		Number::New (darr [24]));
-		result->Set (String::NewSymbol ("moonCresetLength"),	Number::New (darr [25]));
-		result->Set (String::NewSymbol ("elong"),				Number::New (darr [26]));
-		result->Set (String::NewSymbol ("illumination"),		Number::New (darr [27]));
-		result->Set (String::NewSymbol ("kOZ"),					Number::New (darr [28]));
-		result->Set (String::NewSymbol ("ka"),					Number::New (darr [29]));
-		result->Set (String::NewSymbol ("ksumm"),				Number::New (darr [30]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "tcAltitude"),			Number::New (isolate, darr [0]));
+		result->Set (String::NewFromUtf8 (isolate, "tcApparentAltitude"),	Number::New (isolate, darr [1]));
+		result->Set (String::NewFromUtf8 (isolate, "gcAltitude"),			Number::New (isolate, darr [2]));
+		result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, darr [3]));
+		result->Set (String::NewFromUtf8 (isolate, "tcSunAltitude"),		Number::New (isolate, darr [4]));
+		result->Set (String::NewFromUtf8 (isolate, "sunAzimuth"),			Number::New (isolate, darr [5]));
+		result->Set (String::NewFromUtf8 (isolate, "tcActualVisibleArc"),	Number::New (isolate, darr [6]));
+		result->Set (String::NewFromUtf8 (isolate, "gcActualVisibleArc"),	Number::New (isolate, darr [7]));
+		result->Set (String::NewFromUtf8 (isolate, "objectToSunAzimuth"),	Number::New (isolate, darr [8]));
+		result->Set (String::NewFromUtf8 (isolate, "objectToSunLongitude"),Number::New (isolate, darr [9]));
+		result->Set (String::NewFromUtf8 (isolate, "extinction"),			Number::New (isolate, darr [10]));
+		result->Set (String::NewFromUtf8 (isolate, "tcMinVisibleArc"),		Number::New (isolate, darr [11]));
+		result->Set (String::NewFromUtf8 (isolate, "firstVisible"),		Number::New (isolate, darr [12]));
+		result->Set (String::NewFromUtf8 (isolate, "bestVisible"),			Number::New (isolate, darr [13]));
+		result->Set (String::NewFromUtf8 (isolate, "endVisible"),			Number::New (isolate, darr [14]));
+		result->Set (String::NewFromUtf8 (isolate, "yallopBestVisible"),	Number::New (isolate, darr [15]));
+		result->Set (String::NewFromUtf8 (isolate, "moonCresentWidth"),	Number::New (isolate, darr [16]));
+		result->Set (String::NewFromUtf8 (isolate, "yallopValue"),			Number::New (isolate, darr [17]));
+		result->Set (String::NewFromUtf8 (isolate, "yallopCriterion"),		Number::New (isolate, darr [18]));
+		result->Set (String::NewFromUtf8 (isolate, "parallax"),			Number::New (isolate, darr [19]));
+		result->Set (String::NewFromUtf8 (isolate, "magnitude"),			Number::New (isolate, darr [20]));
+		result->Set (String::NewFromUtf8 (isolate, "rise"),				Number::New (isolate, darr [21]));
+		result->Set (String::NewFromUtf8 (isolate, "riseSet"),				Number::New (isolate, darr [22]));
+		result->Set (String::NewFromUtf8 (isolate, "riseObjectToSun"),		Number::New (isolate, darr [23]));
+		result->Set (String::NewFromUtf8 (isolate, "visibleDuration"),		Number::New (isolate, darr [24]));
+		result->Set (String::NewFromUtf8 (isolate, "moonCresetLength"),	Number::New (isolate, darr [25]));
+		result->Set (String::NewFromUtf8 (isolate, "elong"),				Number::New (isolate, darr [26]));
+		result->Set (String::NewFromUtf8 (isolate, "illumination"),		Number::New (isolate, darr [27]));
+		result->Set (String::NewFromUtf8 (isolate, "kOZ"),					Number::New (isolate, darr [28]));
+		result->Set (String::NewFromUtf8 (isolate, "ka"),					Number::New (isolate, darr [29]));
+		result->Set (String::NewFromUtf8 (isolate, "ksumm"),				Number::New (isolate, darr [30]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -239,12 +237,12 @@ Handle <Value> node_swe_heliacal_pheno_ut (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_vis_limit_mag (const Arguments & args) {
-	HandleScope scope;
+void node_swe_vis_limit_mag (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 6) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -255,8 +253,8 @@ Handle <Value> node_swe_vis_limit_mag (const Arguments & args) {
 		!args [4]->IsString () ||
 		!args [5]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double dgeo [3] = {0};
@@ -283,7 +281,7 @@ Handle <Value> node_swe_vis_limit_mag (const Arguments & args) {
 	dobs [4] = args [3]->ToObject ()->Get (4)->NumberValue ();
 	dobs [5] = args [3]->ToObject ()->Get (5)->NumberValue ();
 
-	::strcpy (name, *String::AsciiValue (args [4]->ToString ()));
+	::strcpy (name, *String::Utf8Value (args [4]->ToString ()));
 
 	rflag = ::swe_vis_limit_mag (
 		args [0]->NumberValue (),
@@ -292,22 +290,22 @@ Handle <Value> node_swe_vis_limit_mag (const Arguments & args) {
 		dret, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("vissualMagnitudeLimit"), Number::New (dret [0]));
-		result->Set (String::NewSymbol ("AltO"), Number::New (dret [1]));
-		result->Set (String::NewSymbol ("AziO"), Number::New (dret [2]));
-		result->Set (String::NewSymbol ("AltS"), Number::New (dret [3]));
-		result->Set (String::NewSymbol ("AziS"), Number::New (dret [4]));
-		result->Set (String::NewSymbol ("AltM"), Number::New (dret [5]));
-		result->Set (String::NewSymbol ("AziM"), Number::New (dret [6]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "vissualMagnitudeLimit"), Number::New (isolate, dret [0]));
+		result->Set (String::NewFromUtf8 (isolate, "AltO"), Number::New (isolate, dret [1]));
+		result->Set (String::NewFromUtf8 (isolate, "AziO"), Number::New (isolate, dret [2]));
+		result->Set (String::NewFromUtf8 (isolate, "AltS"), Number::New (isolate, dret [3]));
+		result->Set (String::NewFromUtf8 (isolate, "AziS"), Number::New (isolate, dret [4]));
+		result->Set (String::NewFromUtf8 (isolate, "AltM"), Number::New (isolate, dret [5]));
+		result->Set (String::NewFromUtf8 (isolate, "AziM"), Number::New (isolate, dret [6]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };

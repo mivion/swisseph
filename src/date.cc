@@ -1,5 +1,3 @@
-#define BUILDING_NODE_EXTENSION
-
 #include "swisseph.h"
 
 using namespace v8;
@@ -12,12 +10,13 @@ using namespace v8;
  *   error: string
  * }
  */
-Handle <Value> node_swe_date_conversion (const Arguments & args) {
-	HandleScope scope;
+void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent ();
+	HandleScope scope (isolate);
 
 	if (args.Length () < 5) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -27,33 +26,33 @@ Handle <Value> node_swe_date_conversion (const Arguments & args) {
 		!args [3]->IsNumber () ||
 		(!args [4]->IsString () && args [4]->ToString ()->Length () > 0)
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double tjd;
 	int rflag;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	rflag = ::swe_date_conversion (
 		(int)args [0]->NumberValue (),
 		(int)args [1]->NumberValue (),
 		(int)args [2]->NumberValue (),
 		args [3]->NumberValue (),
-		(* String::AsciiValue (args [4]->ToString ())) [0],
+		(* String::Utf8Value (args [4]->ToString ())) [0],
 		&tjd
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New ("Input date is illegal."));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Input date is illegal."));
 	} else {
-		result->Set (String::NewSymbol ("julianDay"), Number::New (tjd));
+		result->Set (String::NewFromUtf8 (isolate, "julianDay"), Number::New (isolate, tjd));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -61,12 +60,12 @@ Handle <Value> node_swe_date_conversion (const Arguments & args) {
  * =>
  * swe_julday(int year, int month, int day, double hour, int gregflag[, function callback (result)])
  */
-Handle <Value> node_swe_julday (const Arguments & args) {
-	HandleScope scope;
+void node_swe_julday (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 5) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -76,11 +75,11 @@ Handle <Value> node_swe_julday (const Arguments & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
-	Local <Number> result = Number::New (::swe_julday (
+	Local <Number> result = Number::New (isolate, ::swe_julday (
 		(int)args [0]->NumberValue (),
 		(int)args [1]->NumberValue (),
 		(int)args [2]->NumberValue (),
@@ -88,9 +87,9 @@ Handle <Value> node_swe_julday (const Arguments & args) {
 		(int)args [4]->NumberValue ()
 	));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -103,26 +102,26 @@ Handle <Value> node_swe_julday (const Arguments & args) {
  *   hour: double
  * }
  */
-Handle <Value> node_swe_revjul (const Arguments & args) {
-	HandleScope scope;
+void node_swe_revjul (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 2) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double hour;
 	int year, month, day;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	::swe_revjul (
 		args [0]->NumberValue (),
@@ -130,14 +129,14 @@ Handle <Value> node_swe_revjul (const Arguments & args) {
 		&year, &month, &day, &hour
 	);
 
-	result->Set (String::NewSymbol ("year"), Number::New (year));
-	result->Set (String::NewSymbol ("month"), Number::New (month));
-	result->Set (String::NewSymbol ("day"), Number::New (day));
-	result->Set (String::NewSymbol ("hour"), Number::New (hour));
+	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
+	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
+	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
+	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -149,12 +148,12 @@ Handle <Value> node_swe_revjul (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_utc_to_jd (const Arguments & args) {
-	HandleScope scope;
+void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 7) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -166,15 +165,15 @@ Handle <Value> node_swe_utc_to_jd (const Arguments & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double tjd [2];
 	char serr [AS_MAXCH];
 	int rflag;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	rflag = ::swe_utc_to_jd (
 		(int)args [0]->NumberValue (),
@@ -188,15 +187,15 @@ Handle <Value> node_swe_utc_to_jd (const Arguments & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("julianDayUT"), Number::New (tjd [0]));
-		result->Set (String::NewSymbol ("julianDayET"), Number::New (tjd [1]));
+		result->Set (String::NewFromUtf8 (isolate, "julianDayUT"), Number::New (isolate, tjd [0]));
+		result->Set (String::NewFromUtf8 (isolate, "julianDayET"), Number::New (isolate, tjd [1]));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -211,26 +210,26 @@ Handle <Value> node_swe_utc_to_jd (const Arguments & args) {
  *   second: double
  * }
  */
-Handle <Value> node_swe_jdet_to_utc (const Arguments & args) {
-	HandleScope scope;
+void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 2) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	::swe_jdet_to_utc (
 		args [0]->NumberValue (),
@@ -238,16 +237,16 @@ Handle <Value> node_swe_jdet_to_utc (const Arguments & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewSymbol ("year"), Number::New (year));
-	result->Set (String::NewSymbol ("month"), Number::New (month));
-	result->Set (String::NewSymbol ("day"), Number::New (day));
-	result->Set (String::NewSymbol ("hour"), Number::New (hour));
-	result->Set (String::NewSymbol ("minute"), Number::New (minute));
-	result->Set (String::NewSymbol ("second"), Number::New (second));
+	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
+	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
+	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
+	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
+	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
+	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -262,26 +261,26 @@ Handle <Value> node_swe_jdet_to_utc (const Arguments & args) {
  *   second: double
  * }
  */
-Handle <Value> node_swe_jdut1_to_utc (const Arguments & args) {
-	HandleScope scope;
+void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 2) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	::swe_jdut1_to_utc (
 		args [0]->NumberValue (),
@@ -289,16 +288,16 @@ Handle <Value> node_swe_jdut1_to_utc (const Arguments & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewSymbol ("year"), Number::New (year));
-	result->Set (String::NewSymbol ("month"), Number::New (month));
-	result->Set (String::NewSymbol ("day"), Number::New (day));
-	result->Set (String::NewSymbol ("hour"), Number::New (hour));
-	result->Set (String::NewSymbol ("minute"), Number::New (minute));
-	result->Set (String::NewSymbol ("second"), Number::New (second));
+	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
+	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
+	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
+	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
+	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
+	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -313,12 +312,12 @@ Handle <Value> node_swe_jdut1_to_utc (const Arguments & args) {
  *   second: double
  * }
  */
-Handle <Value> node_swe_utc_time_zone (const Arguments & args) {
-	HandleScope scope;
+void node_swe_utc_time_zone (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 7) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -330,14 +329,14 @@ Handle <Value> node_swe_utc_time_zone (const Arguments & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	::swe_utc_time_zone (
 		(int)args [0]->NumberValue (),
@@ -350,14 +349,14 @@ Handle <Value> node_swe_utc_time_zone (const Arguments & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewSymbol ("year"), Number::New (year));
-	result->Set (String::NewSymbol ("month"), Number::New (month));
-	result->Set (String::NewSymbol ("day"), Number::New (day));
-	result->Set (String::NewSymbol ("hour"), Number::New (hour));
-	result->Set (String::NewSymbol ("minute"), Number::New (minute));
-	result->Set (String::NewSymbol ("second"), Number::New (second));
+	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
+	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
+	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
+	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
+	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
+	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };

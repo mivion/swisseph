@@ -3,10 +3,10 @@
     {
       'target_name': 'swisseph',
       'sources': [
-        'src/swisseph.cc',
-        'src/callback.cc',
         'src/util.cc',
         'src/date.cc',
+        'src/swisseph.cc',
+        'src/callback.cc',
         'src/pos.cc',
         'src/hel.cc',
         'src/house.cc',

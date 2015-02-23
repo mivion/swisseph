@@ -1,5 +1,3 @@
-#define BUILDING_NODE_EXTENSION
-
 #include "swisseph.h"
 
 using namespace v8;
@@ -9,18 +7,18 @@ using namespace v8;
  * =>
  * string swe_version();
  */
-Handle <Value> node_swe_version (const Arguments & args) {
-	HandleScope scope;
+void node_swe_version (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	char version [AS_MAXCH];
 
 	::swe_version (version);
 
-	Local <String> result = String::New (version);
+	Local <String> result = String::NewFromUtf8 (isolate, version);
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -37,12 +35,12 @@ Handle <Value> node_swe_version (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_calc_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_calc_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -50,8 +48,8 @@ Handle <Value> node_swe_calc_ut (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double x [6];
@@ -65,23 +63,23 @@ Handle <Value> node_swe_calc_ut (const Arguments & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("longitude"), Number::New (x [0]));
-		result->Set (String::NewSymbol ("latitude"), Number::New (x [1]));
-		result->Set (String::NewSymbol ("distance"), Number::New (x [2]));
-		result->Set (String::NewSymbol ("longitudeSpeed"), Number::New (x [3]));
-		result->Set (String::NewSymbol ("latitudeSpeed"), Number::New (x [4]));
-		result->Set (String::NewSymbol ("distanceSpeed"), Number::New (x [5]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
+		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
+		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
+		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
+		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -98,12 +96,12 @@ Handle <Value> node_swe_calc_ut (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_calc (const Arguments & args) {
-	HandleScope scope;
+void node_swe_calc (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -111,8 +109,8 @@ Handle <Value> node_swe_calc (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double x [6];
@@ -126,23 +124,23 @@ Handle <Value> node_swe_calc (const Arguments & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("longitude"), Number::New (x [0]));
-		result->Set (String::NewSymbol ("latitude"), Number::New (x [1]));
-		result->Set (String::NewSymbol ("distance"), Number::New (x [2]));
-		result->Set (String::NewSymbol ("longitudeSpeed"), Number::New (x [3]));
-		result->Set (String::NewSymbol ("latitudeSpeed"), Number::New (x [4]));
-		result->Set (String::NewSymbol ("distanceSpeed"), Number::New (x [5]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
+		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
+		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
+		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
+		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -160,12 +158,12 @@ Handle <Value> node_swe_calc (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_fixstar (const Arguments & args) {
-	HandleScope scope;
+void node_swe_fixstar (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -173,8 +171,8 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double x [6];
@@ -182,7 +180,7 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, * String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, * String::Utf8Value (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar (
 		star,
@@ -191,24 +189,24 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("longitude"), Number::New (x [0]));
-		result->Set (String::NewSymbol ("latitude"), Number::New (x [1]));
-		result->Set (String::NewSymbol ("distance"), Number::New (x [2]));
-		result->Set (String::NewSymbol ("longitudeSpeed"), Number::New (x [3]));
-		result->Set (String::NewSymbol ("latitudeSpeed"), Number::New (x [4]));
-		result->Set (String::NewSymbol ("distanceSpeed"), Number::New (x [5]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
+		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
+		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
+		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
+		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -225,12 +223,12 @@ Handle <Value> node_swe_fixstar (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_fixstar_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -238,8 +236,8 @@ Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double x [6];
@@ -247,7 +245,7 @@ Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, *String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar_ut (
 		star,
@@ -256,24 +254,24 @@ Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("longitude"), Number::New (x [0]));
-		result->Set (String::NewSymbol ("latitude"), Number::New (x [1]));
-		result->Set (String::NewSymbol ("distance"), Number::New (x [2]));
-		result->Set (String::NewSymbol ("longitudeSpeed"), Number::New (x [3]));
-		result->Set (String::NewSymbol ("latitudeSpeed"), Number::New (x [4]));
-		result->Set (String::NewSymbol ("distanceSpeed"), Number::New (x [5]));
-		result->Set (String::NewSymbol ("rflag"), Number::New (rflag));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
+		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
+		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
+		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
+		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
+		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
+		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -285,19 +283,19 @@ Handle <Value> node_swe_fixstar_ut (const Arguments & args) {
  *   error: string
  * }
  */
-Handle <Value> node_swe_fixstar_mag (const Arguments & args) {
-	HandleScope scope;
+void node_swe_fixstar_mag (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	char serr [AS_MAXCH];
@@ -305,22 +303,22 @@ Handle <Value> node_swe_fixstar_mag (const Arguments & args) {
 	long rflag;
 	double magnitude;
 
-	::strcpy (star, *String::AsciiValue (args [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (args [0]->ToString ()));
 
 	rflag = ::swe_fixstar_mag (star, &magnitude, serr);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
 	if (rflag < 0) {
-		result->Set (String::NewSymbol ("error"), String::New (serr));
+		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
 	} else {
-		result->Set (String::NewSymbol ("name"), String::New (star));
-		result->Set (String::NewSymbol ("magnitude"), Number::New (magnitude));
+		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
+		result->Set (String::NewFromUtf8 (isolate, "magnitude"), Number::New (isolate, magnitude));
 	};
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -328,14 +326,14 @@ Handle <Value> node_swe_fixstar_mag (const Arguments & args) {
  * =>
  * swe_close()
  */
-Handle <Value> node_swe_close (const Arguments & args) {
-	HandleScope scope;
+void node_swe_close (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	::swe_close ();
 
-    HandleCallback (args, Undefined ());
+    HandleCallback (isolate, args, Undefined (isolate));
 
-	return scope.Close (Undefined ());
+	return;
 };
 
 /**
@@ -343,30 +341,30 @@ Handle <Value> node_swe_close (const Arguments & args) {
  * =>
  * void swe_set_ephe_path(string path)
  */
-Handle <Value> node_swe_set_ephe_path (const Arguments & args) {
-	HandleScope scope;
+void node_swe_set_ephe_path (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	::swe_set_ephe_path (
-		*String::AsciiValue (args [0]->ToString ())
+		*String::Utf8Value (args [0]->ToString ())
 	);
 
 	Local <Object> result = args [0]->ToObject ();
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -374,30 +372,30 @@ Handle <Value> node_swe_set_ephe_path (const Arguments & args) {
  * =>
  * void swe_set_jpl_file(string fname)
  */
-Handle <Value> node_swe_set_jpl_file (const Arguments & args) {
-	HandleScope scope;
+void node_swe_set_jpl_file (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	::swe_set_jpl_file (
-		*String::AsciiValue (args [0]->ToString ())
+		*String::Utf8Value (args [0]->ToString ())
 	);
 
 	Local <Object> result = args [0]->ToObject ();
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -407,32 +405,32 @@ Handle <Value> node_swe_set_jpl_file (const Arguments & args) {
  *   name: string
  * }
  */
-Handle <Value> node_swe_get_planet_name (const Arguments & args) {
-	HandleScope scope;
+void node_swe_get_planet_name (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	char name [AS_MAXCH] = {0};
 
 	::swe_get_planet_name ((int)args [0]->NumberValue (), name);
 
-	Local <Object> result = Object::New ();
+	Local <Object> result = Object::New (isolate);
 
-	result->Set (String::NewSymbol ("name"), String::New (name));
+	result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, name));
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -440,12 +438,12 @@ Handle <Value> node_swe_get_planet_name (const Arguments & args) {
  * =>
  * void swe_set_topo(double geolon, double geolat, double geoalt)
  */
-Handle <Value> node_swe_set_topo (const Arguments & args) {
-	HandleScope scope;
+void node_swe_set_topo (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -453,8 +451,8 @@ Handle <Value> node_swe_set_topo (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	::swe_set_topo (
@@ -463,9 +461,9 @@ Handle <Value> node_swe_set_topo (const Arguments & args) {
 		args [2]->NumberValue ()
 	);
 
-    HandleCallback (args, Undefined ());
+    HandleCallback (isolate, args, Undefined (isolate));
 
-	return scope.Close (Undefined ());
+	return;
 };
 
 /**
@@ -473,12 +471,12 @@ Handle <Value> node_swe_set_topo (const Arguments & args) {
  * =>
  * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
  */
-Handle <Value> node_swe_set_sid_mode (const Arguments & args) {
-	HandleScope scope;
+void node_swe_set_sid_mode (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 3) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
@@ -486,8 +484,8 @@ Handle <Value> node_swe_set_sid_mode (const Arguments & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	::swe_set_sid_mode (
@@ -496,9 +494,9 @@ Handle <Value> node_swe_set_sid_mode (const Arguments & args) {
 		args [2]->NumberValue ()
 	);
 
-    HandleCallback (args, Undefined ());
+    HandleCallback (isolate, args, Undefined (isolate));
 
-	return scope.Close (Undefined ());
+	return;
 };
 
 /**
@@ -506,19 +504,19 @@ Handle <Value> node_swe_set_sid_mode (const Arguments & args) {
  * =>
  * double swe_get_ayanamsa(double tjd_et)
  */
-Handle <Value> node_swe_get_ayanamsa (const Arguments & args) {
-	HandleScope scope;
+void node_swe_get_ayanamsa (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double val;
@@ -527,11 +525,11 @@ Handle <Value> node_swe_get_ayanamsa (const Arguments & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Number> result = Number::New (val);
+	Local <Number> result = Number::New (isolate, val);
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -539,19 +537,19 @@ Handle <Value> node_swe_get_ayanamsa (const Arguments & args) {
  * =>
  * double swe_get_ayanamsa_ut(double tjd_ut)
  */
-Handle <Value> node_swe_get_ayanamsa_ut (const Arguments & args) {
-	HandleScope scope;
+void node_swe_get_ayanamsa_ut (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	double val;
@@ -560,11 +558,11 @@ Handle <Value> node_swe_get_ayanamsa_ut (const Arguments & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Number> result = Number::New (val);
+	Local <Number> result = Number::New (isolate, val);
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };
 
 /**
@@ -572,19 +570,19 @@ Handle <Value> node_swe_get_ayanamsa_ut (const Arguments & args) {
  * =>
  * string swe_get_ayanamsa_name(int32 isidmode)
  */
-Handle <Value> node_swe_get_ayanamsa_name (const Arguments & args) {
-	HandleScope scope;
+void node_swe_get_ayanamsa_name (const FunctionCallbackInfo <Value> & args) {
+	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
 
 	if (args.Length () < 1) {
-		ThrowException (Exception::TypeError (String::New ("Wrong number of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
+		return;
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		ThrowException (Exception::TypeError (String::New ("Wrong type of arguments")));
-		return scope.Close (Undefined ());
+		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
+		return;
 	};
 
 	char * val;
@@ -593,9 +591,9 @@ Handle <Value> node_swe_get_ayanamsa_name (const Arguments & args) {
 		(int)args [0]->NumberValue ()
 	);
 
-	Local <String> result = String::New (val);
+	Local <String> result = String::NewFromUtf8 (isolate, val);
 
-    HandleCallback (args, result);
+    HandleCallback (isolate, args, result);
 
-	return scope.Close (result);
+
 };

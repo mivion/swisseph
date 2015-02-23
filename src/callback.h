@@ -6,6 +6,6 @@
 
 using namespace v8;
 
-void HandleCallback (const Arguments & args, Handle <Value> result);
+void HandleCallback (Isolate * isolate, const FunctionCallbackInfo <Value> & args, Handle <Value> result);
 
 #endif // __swisseph_callback_h__
