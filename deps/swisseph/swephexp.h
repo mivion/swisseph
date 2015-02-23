@@ -199,6 +199,10 @@ extern "C" {
 #define SEFLG_TOPOCTR	(32*1024)   /* topocentric positions */
 #define SEFLG_SIDEREAL	(64*1024)   /* sidereal positions */
 #define SEFLG_ICRS	(128*1024)   /* ICRS (DE406 reference frame) */
+#define SEFLG_DPSIDEPS_1980	(256*1024) /* reproduce JPL Horizons 
+                                      * 1962 - today to 0.002 arcsec. */
+#define SEFLG_JPLHOR	SEFLG_DPSIDEPS_1980
+#define SEFLG_JPLHOR_APPROX	(512*1024)   /* approximate JPL Horizons 1962 - today */
 
 #define SE_SIDBITS		256
 /* for projection onto ecliptic of t0 */
@@ -228,9 +232,17 @@ extern "C" {
 #define SE_SIDM_J2000           18
 #define SE_SIDM_J1900           19
 #define SE_SIDM_B1950           20
+#define SE_SIDM_SURYASIDDHANTA  21
+#define SE_SIDM_SURYASIDDHANTA_MSUN  22
+#define SE_SIDM_ARYABHATA       23
+#define SE_SIDM_ARYABHATA_MSUN  24
+#define SE_SIDM_SS_REVATI       25
+#define SE_SIDM_SS_CITRA        26
+#define SE_SIDM_TRUE_CITRA      27
+#define SE_SIDM_TRUE_REVATI     28
 #define SE_SIDM_USER            255
 
-#define SE_NSIDM_PREDEF	  	    21
+#define SE_NSIDM_PREDEF	      29
 
 /* used for swe_nod_aps(): */
 #define SE_NODBIT_MEAN		1   /* mean nodes/apsides */
@@ -258,12 +270,20 @@ extern "C" {
 #define SE_ECL_PENUMBRAL	64
 #define SE_ECL_ALLTYPES_SOLAR   (SE_ECL_CENTRAL|SE_ECL_NONCENTRAL|SE_ECL_TOTAL|SE_ECL_ANNULAR|SE_ECL_PARTIAL|SE_ECL_ANNULAR_TOTAL)
 #define SE_ECL_ALLTYPES_LUNAR   (SE_ECL_TOTAL|SE_ECL_PARTIAL|SE_ECL_PENUMBRAL)
-#define SE_ECL_VISIBLE		128
-#define SE_ECL_MAX_VISIBLE	256
-#define SE_ECL_1ST_VISIBLE	512
-#define SE_ECL_2ND_VISIBLE	1024
-#define SE_ECL_3RD_VISIBLE	2048
-#define SE_ECL_4TH_VISIBLE	4096
+#define SE_ECL_VISIBLE			128
+#define SE_ECL_MAX_VISIBLE		256
+#define SE_ECL_1ST_VISIBLE		512	/* begin of partial eclipse */
+#define SE_ECL_PARTBEG_VISIBLE		512	/* begin of partial eclipse */
+#define SE_ECL_2ND_VISIBLE		1024	/* begin of total eclipse */
+#define SE_ECL_TOTBEG_VISIBLE		1024	/* begin of total eclipse */
+#define SE_ECL_3RD_VISIBLE		2048    /* end of total eclipse */
+#define SE_ECL_TOTEND_VISIBLE		2048    /* end of total eclipse */
+#define SE_ECL_4TH_VISIBLE		4096    /* end of partial eclipse */
+#define SE_ECL_PARTEND_VISIBLE		4096    /* end of partial eclipse */
+#define SE_ECL_PENUMBBEG_VISIBLE	8192    /* begin of penumbral eclipse */
+#define SE_ECL_PENUMBEND_VISIBLE	16384   /* end of penumbral eclipse */
+#define SE_ECL_OCC_BEG_DAYLIGHT		8192    /* occultation begins during the day */
+#define SE_ECL_OCC_END_DAYLIGHT		16384   /* occultation ends during the day */
 #define SE_ECL_ONE_TRY          (32*1024) 
 		/* check if the next conjunction of the moon with
 		 * a planet is an occultation; don't search further */
@@ -303,13 +323,15 @@ extern "C" {
  * only used for experimenting with various JPL ephemeris files
  * which are available at Astrodienst's internal network
  */
-#define SE_DE_NUMBER    406
+#define SE_DE_NUMBER    431
 #define SE_FNAME_DE200  "de200.eph"
 #define SE_FNAME_DE403  "de403.eph"
 #define SE_FNAME_DE404  "de404.eph"
 #define SE_FNAME_DE405  "de405.eph"
 #define SE_FNAME_DE406  "de406.eph"
-#define SE_FNAME_DFT    SE_FNAME_DE406
+#define SE_FNAME_DE431  "de431.eph"
+#define SE_FNAME_DFT    SE_FNAME_DE431
+#define SE_FNAME_DFT2   SE_FNAME_DE406
 #define SE_STARFILE_OLD "fixstars.cat"
 #define SE_STARFILE     "sefstars.txt"
 #define SE_ASTNAMFILE   "seasnam.txt"
@@ -323,6 +345,7 @@ extern "C" {
  * own place for the ephemeris files.
  */
 
+#ifndef SE_EPHE_PATH
 #if MSDOS
 #ifdef PAIR_SWEPH
 #  define SE_EPHE_PATH    "\\pair\\ephe\\"
@@ -340,6 +363,7 @@ extern "C" {
 			   the long file in /users/ephe2/ast*. */
 # endif
 #endif
+#endif  /* SE_EPHE_PATH */
 
 /* defines for function swe_split_deg() (in swephlib.c) */
 # define SE_SPLIT_DEG_ROUND_SEC    1
@@ -364,7 +388,7 @@ extern "C" {
 #define SE_ACRONYCHAL_SETTING		6  /* still not implemented */
 #define SE_COSMICAL_SETTING		SE_ACRONYCHAL_SETTING
 
-#define SE_HELFLAG_LONG_SEARCH 	128
+#define SE_HELFLAG_LONG_SEARCH 		128
 #define SE_HELFLAG_HIGH_PRECISION 	256
 #define SE_HELFLAG_OPTICAL_PARAMS	512
 #define SE_HELFLAG_NO_DETAILS		1024
@@ -372,6 +396,7 @@ extern "C" {
 #define SE_HELFLAG_VISLIM_DARK		(1 << 12)  /*  4096 */
 #define SE_HELFLAG_VISLIM_NOMOON	(1 << 13)  /*  8192 */
 #define SE_HELFLAG_VISLIM_PHOTOPIC	(1 << 14)  /* 16384 */
+#define SE_HELFLAG_AV	 		(1 << 15)  /* 32768 */
 #define SE_HELFLAG_AVKIND_VR 		(1 << 15)  /* 32768 */
 #define SE_HELFLAG_AVKIND_PTO 		(1 << 16)
 #define SE_HELFLAG_AVKIND_MIN7 		(1 << 17)
@@ -379,6 +404,20 @@ extern "C" {
 #define SE_HELFLAG_AVKIND (SE_HELFLAG_AVKIND_VR|SE_HELFLAG_AVKIND_PTO|SE_HELFLAG_AVKIND_MIN7|SE_HELFLAG_AVKIND_MIN9)
 #define TJD_INVALID		 	99999999.0
 #define SIMULATE_VICTORVB               1
+
+#define SE_HELIACAL_LONG_SEARCH 	128
+#define SE_HELIACAL_HIGH_PRECISION 	256
+#define SE_HELIACAL_OPTICAL_PARAMS	512
+#define SE_HELIACAL_NO_DETAILS		1024
+#define SE_HELIACAL_SEARCH_1_PERIOD	(1 << 11)  /*  2048 */
+#define SE_HELIACAL_VISLIM_DARK		(1 << 12)  /*  4096 */
+#define SE_HELIACAL_VISLIM_NOMOON	(1 << 13)  /*  8192 */
+#define SE_HELIACAL_VISLIM_PHOTOPIC	(1 << 14)  /* 16384 */
+#define SE_HELIACAL_AVKIND_VR 		(1 << 15)  /* 32768 */
+#define SE_HELIACAL_AVKIND_PTO 		(1 << 16)
+#define SE_HELIACAL_AVKIND_MIN7 		(1 << 17)
+#define SE_HELIACAL_AVKIND_MIN9 		(1 << 18)
+#define SE_HELIACAL_AVKIND (SE_HELFLAG_AVKIND_VR|SE_HELFLAG_AVKIND_PTO|SE_HELFLAG_AVKIND_MIN7|SE_HELFLAG_AVKIND_MIN9)
 
 #define SE_PHOTOPIC_FLAG		0
 #define SE_SCOTOPIC_FLAG		1
@@ -588,6 +627,10 @@ ext_def( int ) swe_houses_armc(
 ext_def(double) swe_house_pos(
 	double armc, double geolat, double eps, int hsys, double *xpin, char *serr);
 
+ext_def(char *) swe_house_name(int hsys);
+
+
+
 /**************************** 
  * exports from swecl.c 
  ****************************/
@@ -628,6 +671,9 @@ ext_def (int32) swe_lun_eclipse_how(
 ext_def (int32) swe_lun_eclipse_when(double tjd_start, int32 ifl, int32 ifltype,
      double *tret, int32 backward, char *serr);
 
+ext_def (int32) swe_lun_eclipse_when_loc(double tjd_start, int32 ifl, 
+     double *geopos, double *tret, double *attr, int32 backward, char *serr);
+
 /* planetary phenomena */
 ext_def (int32) swe_pheno(double tjd, int32 ipl, int32 iflag, double *attr, char *serr);
  
@@ -654,6 +700,15 @@ ext_def (void) swe_azalt_rev(
       double *geopos,
       double *xin, 
       double *xout); 
+
+ext_def (int32) swe_rise_trans_true_hor(
+               double tjd_ut, int32 ipl, char *starname, 
+	       int32 epheflag, int32 rsmi,
+               double *geopos, 
+	       double atpress, double attemp,
+	       double horhgt,
+               double *tret,
+               char *serr);
 
 ext_def (int32) swe_rise_trans(
                double tjd_ut, int32 ipl, char *starname, 
@@ -684,7 +739,9 @@ ext_def (int32) swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag,
 ext_def( double ) swe_deltat(double tjd);
 
 /* equation of time */
-ext_def( int ) swe_time_equ(double tjd, double *te, char *serr);
+ext_def(int32) swe_time_equ(double tjd, double *te, char *serr);
+ext_def(int32) swe_lmt_to_lat(double tjd_lmt, double geolon, double *tjd_lat, char *serr);
+ext_def(int32) swe_lat_to_lmt(double tjd_lat, double geolon, double *tjd_lmt, char *serr);
 
 /* sidereal time */
 ext_def( double ) swe_sidtime0(double tjd_ut, double eps, double nut);

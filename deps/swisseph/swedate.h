@@ -1,14 +1,8 @@
-/* 
- | $Header: /home/dieter/sweph/RCS/swejpl.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
- |
- | Subroutines for reading JPL ephemerides.
- | derived from testeph.f as contained in DE403 distribution July 1995.
- | works with DE200, DE102, DE403, DE404, DE405, DE406, DE431
- | (attention, these ephemerides do not have exactly the same reference frame)
+/*********************************************************
+  $Header: /home/dieter/sweph/RCS/swedate.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
+  version 15-feb-89 16:30
+*********************************************************/
 
-  Authors: Dieter Koch and Alois Treindl, Astrodienst Zurich
-
-**************************************************************/
 /* Copyright (C) 1997 - 2008 Astrodienst AG, Switzerland.  All rights reserved.
 
   License conditions
@@ -63,42 +57,26 @@
   for promoting such software, products or services.
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "sweodef.h"
+#ifndef _SWEDLL_H
+extern EXP32 int FAR PASCAL_CONV EXP16 swe_date_conversion (
+	int y , int m , int d ,		/* year, month, day */
+     	double utime, 	/* universal time in hours (decimal) */
+     	char c,  	/* calendar g[regorian]|j[ulian]|a[stro = greg] */
+ 	double *tgmt);
 
-#define J_MERCURY	0	/* jpl body indices, modified by Alois */
-#define J_VENUS		1	/* now they start at 0 and not at 1 */
-#define J_EARTH		2
-#define J_MARS		3
-#define J_JUPITER	4
-#define J_SATURN	5
-#define J_URANUS	6
-#define J_NEPTUNE	7
-#define J_PLUTO		8
-#define J_MOON		9
-#define J_SUN		10
-#define J_SBARY		11
-#define J_EMB		12
-#define J_NUT		13
-#define J_LIB		14
+extern EXP32 double *FAR PASCAL_CONV EXP16 swe_julday(
+	int year, int month, int day, double hour, 
+	int gregflag);
 
-/*
- * compute position and speed at time et, for body ntarg with center
- * ncent. rrd must be double[6] to contain the return vectors.
- * ntarg can be all of the above, ncent all except J_NUT and J_LIB.
- * Librations and Nutations are not affected by ncent.
- */
-extern int swi_pleph(double et, int ntarg, int ncent, double *rrd, char *serr);
-
-/*
- * read the ephemeris constants. ss[0..2] returns start, end and granule size.
- * If do_show is TRUE, a list of constants is printed to stdout.
- */
-extern void swi_close_jpl_file(void);
-
-extern int swi_open_jpl_file(double *ss, char *fname, char *fpath, char *serr);
-
-extern int32 swi_get_jpl_denum(void);
-
-extern void swi_IERS_FK5(double *xin, double *xout, int dir);
-
+extern EXP32 void FAR PASCAL_CONV EXP16 swe_revjul (
+	double jd, 
+	int gregflag,
+     	int *jyear, int *jmon, int *jday, double *jut);
+#endif
+#ifdef __cplusplus
+} /* extern C */
+#endif

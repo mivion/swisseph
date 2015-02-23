@@ -71,7 +71,7 @@
 #ifndef _OURDEF_INCLUDED	/* ourdef.h is a superset of sweodef.h */
 #ifndef _SWEODEF_INCLUDED /* allow multiple #includes */
 #define _SWEODEF_INCLUDED
-
+ 
 # define MY_TRUE 1	/* for use in other defines, before TRUE is defined */
 # define MY_FALSE 0	/* for use in other defines, before TRUE is defined */
 
