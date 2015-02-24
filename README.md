@@ -27,6 +27,10 @@ To use with older nodejs version use swisseph 0.4.x or older.
 
 From version 0.5.0 only nodejs 0.12 supported, because of C addons API compatibility.
 
+Also, project splited to [swisseph](https://github.com/mivion/swisseph) and [swisseph-api](https://github.com/mivion/swisseph).
+[swisseph](https://github.com/mivion/swisseph) responsible only for nodejs binding, but [swisseph-api](https://github.com/mivion/swisseph)
+to access over the web.
+
 ## Usage
 
 Example:
