@@ -92,7 +92,7 @@ There are 3 different types of ephemeris supported:
 To use data files download them and put in folder then set path to the ephemeris folder by:
 
 ```javascript
-swisseph.swe_set_ephe_path (__dirname + '/../ephe');
+swisseph.swe_set_ephe_path ('/path/to/downloaded/ephemeris');
 ```
 
 And select ephemeris by setting the flag:
