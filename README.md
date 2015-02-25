@@ -33,6 +33,19 @@ to access over the web.
 
 ## Usage
 
+### Getting julian day
+
+```javascript
+var swisseph = require ('swisseph');
+
+var date = {year: 2015, month: 1, day: 1, hour: 0};
+
+var julday = swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GREG_CAL);
+
+```
+
+### Getting Sun and Moon position
+
 Example:
 
 ```javascript
@@ -67,6 +80,35 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 ```
 
 For more examples see *examples* and *test* folders.
+
+### Ephemeris settings
+
+There are 3 different types of ephemeris supported:
+
+- *Steve Moshier* interpolation, covers 3000 BC – 3000 AD, preision 0.1 arcsec, no data files required.
+- *Swiss Ephemeris* is compressed version of DE431, covers 13000 BC - 17000 AD, precision 0.001 arcseconds, requires data files about 90MB. Download from [ftp://www.astro.com/pub/swisseph/ephe](ftp://www.astro.com/pub/swisseph/ephe).
+- JPL NASA ephemeris is the state of the art ephemeris, DE431 covers 13000 BC - 17000 AD, maximum possible precision, requires data files 2.9GB. Download from [ftp://www.astro.com/pub/jplfiles](ftp://www.astro.com/pub/jplfiles).
+
+To use data files download them and put in folder then set path to the ephemeris folder by:
+
+```javascript
+swisseph.swe_set_ephe_path (__dirname + '/../ephe');
+```
+
+And select ephemeris by setting the flag:
+
+```javascript
+
+// for Moshier
+body = swisseph.swe_calc_ut (julday_ut, swisseph.SE_SUN, swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH)
+
+// for Swiss Ephemeris
+body = swisseph.swe_calc_ut (julday_ut, swisseph.SE_SUN, swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH)
+
+// for JPL NASA ephemeris
+body = swisseph.swe_calc_ut (julday_ut, swisseph.SE_SUN, swisseph.SEFLG_SPEED | swisseph.SEFLG_JPLEPH)
+
+```
 
 ## Tests
 
