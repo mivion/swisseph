@@ -1,3 +1,11 @@
+## 0.5.2
+
+- Add NAN building for node.js versions 0.10 and 0.12 support
+
+## 0.5.1
+
+- Documentation fixes
+
 ## 0.5.0
 
 - Now Project splits to *swisseph* and *swisseph-api*
