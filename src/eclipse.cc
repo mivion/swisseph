@@ -11,12 +11,11 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_gauquelin_sector (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_gauquelin_sector) {
+	NanScope();
 
 	if (args.Length () < 10) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -31,8 +30,7 @@ void node_swe_gauquelin_sector (const FunctionCallbackInfo <Value> & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -59,18 +57,17 @@ void node_swe_gauquelin_sector (const FunctionCallbackInfo <Value> & args) {
 		&dgsect, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "gauquelinSector"), Number::New (isolate, dgsect));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("gauquelinSector"), NanNew<Number> (dgsect));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -93,20 +90,18 @@ void node_swe_gauquelin_sector (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_sol_eclipse_where (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_sol_eclipse_where) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -120,29 +115,28 @@ void node_swe_sol_eclipse_where (const FunctionCallbackInfo <Value> & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "longitude"),	Number::New (isolate, geopos [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"),	Number::New (isolate, geopos [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
+		result->Set (NanNew<String> ("longitude"),	NanNew<Number> (geopos [0]));
+		result->Set (NanNew<String> ("latitude"),	NanNew<Number> (geopos [1]));
+		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
+		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
+		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
+		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -162,12 +156,11 @@ void node_swe_sol_eclipse_where (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_lun_occult_where (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_lun_occult_where) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -176,8 +169,7 @@ void node_swe_lun_occult_where (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsString () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -196,26 +188,25 @@ void node_swe_lun_occult_where (const FunctionCallbackInfo <Value> & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "longitude"),	Number::New (isolate, geopos [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"),	Number::New (isolate, geopos [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
+		result->Set (NanNew<String> ("longitude"),	NanNew<Number> (geopos [0]));
+		result->Set (NanNew<String> ("latitude"),	NanNew<Number> (geopos [1]));
+		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -236,12 +227,11 @@ void node_swe_lun_occult_where (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_sol_eclipse_how (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_sol_eclipse_how) {
+	NanScope();
 
 	if (args.Length () < 5) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -251,8 +241,7 @@ void node_swe_sol_eclipse_how (const FunctionCallbackInfo <Value> & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -270,27 +259,26 @@ void node_swe_sol_eclipse_how (const FunctionCallbackInfo <Value> & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
+		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
+		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
+		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
+		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -316,12 +304,11 @@ void node_swe_sol_eclipse_how (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_sol_eclipse_when_loc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_sol_eclipse_when_loc) {
+	NanScope();
 
 	if (args.Length () < 6) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -332,8 +319,7 @@ void node_swe_sol_eclipse_when_loc (const FunctionCallbackInfo <Value> & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -354,32 +340,31 @@ void node_swe_sol_eclipse_when_loc (const FunctionCallbackInfo <Value> & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "first"),		Number::New (isolate, tret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "second"),		Number::New (isolate, tret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "third"),		Number::New (isolate, tret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "forth"),		Number::New (isolate, tret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
+		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
+		result->Set (NanNew<String> ("first"),		NanNew<Number> (tret [1]));
+		result->Set (NanNew<String> ("second"),		NanNew<Number> (tret [2]));
+		result->Set (NanNew<String> ("third"),		NanNew<Number> (tret [3]));
+		result->Set (NanNew<String> ("forth"),		NanNew<Number> (tret [4]));
+		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
+		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
+		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
+		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -406,12 +391,11 @@ void node_swe_sol_eclipse_when_loc (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_lun_occult_when_loc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_lun_occult_when_loc) {
+	NanScope();
 
 	if (args.Length () < 8) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -424,8 +408,7 @@ void node_swe_lun_occult_when_loc (const FunctionCallbackInfo <Value> & args) {
 		!args [6]->IsNumber () ||
 		!args [7]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -451,33 +434,32 @@ void node_swe_lun_occult_when_loc (const FunctionCallbackInfo <Value> & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "first"),		Number::New (isolate, tret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "second"),		Number::New (isolate, tret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "third"),		Number::New (isolate, tret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "forth"),		Number::New (isolate, tret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiameterFraction"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "lonarToSolarDiameterRatio"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "solarDiscFraction"),			Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "coreShadow"),					Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),						Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),				Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),			Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "moonToSunAngularDistance"),	Number::New (isolate, attr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "eclipseMagnitude"),			Number::New (isolate, attr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),					Number::New (isolate, attr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),					Number::New (isolate, attr [10]));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
+		result->Set (NanNew<String> ("first"),		NanNew<Number> (tret [1]));
+		result->Set (NanNew<String> ("second"),		NanNew<Number> (tret [2]));
+		result->Set (NanNew<String> ("third"),		NanNew<Number> (tret [3]));
+		result->Set (NanNew<String> ("forth"),		NanNew<Number> (tret [4]));
+		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
+		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
+		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
+		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -495,12 +477,11 @@ void node_swe_lun_occult_when_loc (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_sol_eclipse_when_glob (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_sol_eclipse_when_glob) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -509,8 +490,7 @@ void node_swe_sol_eclipse_when_glob (const FunctionCallbackInfo <Value> & args) 
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -526,24 +506,23 @@ void node_swe_sol_eclipse_when_glob (const FunctionCallbackInfo <Value> & args) 
 		serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "noon"),		Number::New (isolate, tret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "begin"),		Number::New (isolate, tret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "end"),			Number::New (isolate, tret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),	Number::New (isolate, tret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),	Number::New (isolate, tret [5]));
-		result->Set (String::NewFromUtf8 (isolate, "centerBegin"),	Number::New (isolate, tret [6]));
-		result->Set (String::NewFromUtf8 (isolate, "centerEnd"),	Number::New (isolate, tret [7]));
+		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
+		result->Set (NanNew<String> ("noon"),		NanNew<Number> (tret [1]));
+		result->Set (NanNew<String> ("begin"),		NanNew<Number> (tret [2]));
+		result->Set (NanNew<String> ("end"),			NanNew<Number> (tret [3]));
+		result->Set (NanNew<String> ("totalBegin"),	NanNew<Number> (tret [4]));
+		result->Set (NanNew<String> ("totalEnd"),	NanNew<Number> (tret [5]));
+		result->Set (NanNew<String> ("centerBegin"),	NanNew<Number> (tret [6]));
+		result->Set (NanNew<String> ("centerEnd"),	NanNew<Number> (tret [7]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -562,12 +541,11 @@ void node_swe_sol_eclipse_when_glob (const FunctionCallbackInfo <Value> & args) 
  *   error: string
  * }
  */
-void node_swe_lun_occult_when_glob (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_lun_occult_when_glob) {
+	NanScope();
 
 	if (args.Length () < 6) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -578,8 +556,7 @@ void node_swe_lun_occult_when_glob (const FunctionCallbackInfo <Value> & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -600,25 +577,24 @@ void node_swe_lun_occult_when_glob (const FunctionCallbackInfo <Value> & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "maximum"),		Number::New (isolate, tret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "noon"),		Number::New (isolate, tret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "begin"),		Number::New (isolate, tret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "end"),			Number::New (isolate, tret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),	Number::New (isolate, tret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),	Number::New (isolate, tret [5]));
-		result->Set (String::NewFromUtf8 (isolate, "centerBegin"),	Number::New (isolate, tret [6]));
-		result->Set (String::NewFromUtf8 (isolate, "centerEnd"),	Number::New (isolate, tret [7]));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
+		result->Set (NanNew<String> ("noon"),		NanNew<Number> (tret [1]));
+		result->Set (NanNew<String> ("begin"),		NanNew<Number> (tret [2]));
+		result->Set (NanNew<String> ("end"),			NanNew<Number> (tret [3]));
+		result->Set (NanNew<String> ("totalBegin"),	NanNew<Number> (tret [4]));
+		result->Set (NanNew<String> ("totalEnd"),	NanNew<Number> (tret [5]));
+		result->Set (NanNew<String> ("centerBegin"),	NanNew<Number> (tret [6]));
+		result->Set (NanNew<String> ("centerEnd"),	NanNew<Number> (tret [7]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -637,12 +613,11 @@ void node_swe_lun_occult_when_glob (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_lun_eclipse_how (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_lun_eclipse_how) {
+	NanScope();
 
 	if (args.Length () < 5) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -652,8 +627,7 @@ void node_swe_lun_eclipse_how (const FunctionCallbackInfo <Value> & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -671,25 +645,24 @@ void node_swe_lun_eclipse_how (const FunctionCallbackInfo <Value> & args) {
 		geopos, attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "umbralMagnitude"),		Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "penumbralMagnitude"),	Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, attr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, attr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "oppositeDegreeDist"),	Number::New (isolate, attr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "magnitude"),			Number::New (isolate, attr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosNumber"),			Number::New (isolate, attr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "sarosMember"),			Number::New (isolate, attr [10]));
+		result->Set (NanNew<String> ("umbralMagnitude"),		NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("penumbralMagnitude"),	NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("azimuth"),				NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (attr [5]));
+		result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (attr [6]));
+		result->Set (NanNew<String> ("oppositeDegreeDist"),	NanNew<Number> (attr [7]));
+		result->Set (NanNew<String> ("magnitude"),			NanNew<Number> (attr [8]));
+		result->Set (NanNew<String> ("sarosNumber"),			NanNew<Number> (attr [9]));
+		result->Set (NanNew<String> ("sarosMember"),			NanNew<Number> (attr [10]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -706,12 +679,11 @@ void node_swe_lun_eclipse_how (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_lun_eclipse_when (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_lun_eclipse_when) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -720,8 +692,7 @@ void node_swe_lun_eclipse_when (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -737,23 +708,22 @@ void node_swe_lun_eclipse_when (const FunctionCallbackInfo <Value> & args) {
 		serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "maximum"),			Number::New (isolate, tret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "partialBegin"),	Number::New (isolate, tret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "partialEnd"),		Number::New (isolate, tret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "totalBegin"),		Number::New (isolate, tret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "totalEnd"),		Number::New (isolate, tret [5]));
-		result->Set (String::NewFromUtf8 (isolate, "penumbralBegin"),	Number::New (isolate, tret [6]));
-		result->Set (String::NewFromUtf8 (isolate, "penumbralEnd"),	Number::New (isolate, tret [7]));
+		result->Set (NanNew<String> ("maximum"),			NanNew<Number> (tret [0]));
+		result->Set (NanNew<String> ("partialBegin"),	NanNew<Number> (tret [2]));
+		result->Set (NanNew<String> ("partialEnd"),		NanNew<Number> (tret [3]));
+		result->Set (NanNew<String> ("totalBegin"),		NanNew<Number> (tret [4]));
+		result->Set (NanNew<String> ("totalEnd"),		NanNew<Number> (tret [5]));
+		result->Set (NanNew<String> ("penumbralBegin"),	NanNew<Number> (tret [6]));
+		result->Set (NanNew<String> ("penumbralEnd"),	NanNew<Number> (tret [7]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -768,12 +738,11 @@ void node_swe_lun_eclipse_when (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_pheno (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_pheno) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -781,8 +750,7 @@ void node_swe_pheno (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double attr [20];
@@ -796,22 +764,21 @@ void node_swe_pheno (const FunctionCallbackInfo <Value> & args) {
 		attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "phaseAngle"), Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "phase"), Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "elongation"), Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentDiameter"), Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentMagnitude"), Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("phaseAngle"), NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("phase"), NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("elongation"), NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("apparentDiameter"), NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("apparentMagnitude"), NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -826,12 +793,11 @@ void node_swe_pheno (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_pheno_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_pheno_ut) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -839,8 +805,7 @@ void node_swe_pheno_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double attr [20];
@@ -854,22 +819,21 @@ void node_swe_pheno_ut (const FunctionCallbackInfo <Value> & args) {
 		attr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "phaseAngle"), Number::New (isolate, attr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "phase"), Number::New (isolate, attr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "elongation"), Number::New (isolate, attr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentDiameter"), Number::New (isolate, attr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "apparentMagnitude"), Number::New (isolate, attr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("phaseAngle"), NanNew<Number> (attr [0]));
+		result->Set (NanNew<String> ("phase"), NanNew<Number> (attr [1]));
+		result->Set (NanNew<String> ("elongation"), NanNew<Number> (attr [2]));
+		result->Set (NanNew<String> ("apparentDiameter"), NanNew<Number> (attr [3]));
+		result->Set (NanNew<String> ("apparentMagnitude"), NanNew<Number> (attr [4]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -879,12 +843,11 @@ void node_swe_pheno_ut (const FunctionCallbackInfo <Value> & args) {
  *   refraction: double
  * }
  */
-void node_swe_refrac (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_refrac) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -893,8 +856,7 @@ void node_swe_refrac (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double refraction;
@@ -906,13 +868,12 @@ void node_swe_refrac (const FunctionCallbackInfo <Value> & args) {
 		(int)args [3]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "refraction"), Number::New (isolate, refraction));
+	result->Set (NanNew<String> ("refraction"), NanNew<Number> (refraction));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -925,12 +886,11 @@ void node_swe_refrac (const FunctionCallbackInfo <Value> & args) {
  *   horizonDip: double         // dret [3]
  * }
  */
-void node_swe_refrac_extended (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_refrac_extended) {
+	NanScope();
 
 	if (args.Length () < 6) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -941,8 +901,7 @@ void node_swe_refrac_extended (const FunctionCallbackInfo <Value> & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double refraction;
@@ -958,16 +917,15 @@ void node_swe_refrac_extended (const FunctionCallbackInfo <Value> & args) {
 		dret
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "refraction"), Number::New (isolate, refraction));
-	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, dret [0]));
-	result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, dret [1]));
-	result->Set (String::NewFromUtf8 (isolate, "horizonDip"),			Number::New (isolate, dret [3]));
+	result->Set (NanNew<String> ("refraction"), NanNew<Number> (refraction));
+	result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (dret [0]));
+	result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (dret [1]));
+	result->Set (NanNew<String> ("horizonDip"),			NanNew<Number> (dret [3]));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -976,30 +934,27 @@ void node_swe_refrac_extended (const FunctionCallbackInfo <Value> & args) {
  * swe_set_lapse_rate(double lapse_rate[, function callback (result)]) = {
  * }
  */
-void node_swe_set_lapse_rate (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_set_lapse_rate) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_lapse_rate (
         args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -1011,12 +966,11 @@ void node_swe_set_lapse_rate (const FunctionCallbackInfo <Value> & args) {
  *   apparentAltitude: double    // xaz [2]
  * }
  */
-void node_swe_azalt (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_azalt) {
+	NanScope();
 
 	if (args.Length () < 10) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -1031,8 +985,7 @@ void node_swe_azalt (const FunctionCallbackInfo <Value> & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -1056,15 +1009,14 @@ void node_swe_azalt (const FunctionCallbackInfo <Value> & args) {
 		xin, xaz
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, xaz [0]));
-	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),		Number::New (isolate, xaz [1]));
-	result->Set (String::NewFromUtf8 (isolate, "apparentAltitude"),	Number::New (isolate, xaz [2]));
+	result->Set (NanNew<String> ("azimuth"),				NanNew<Number> (xaz [0]));
+	result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (xaz [1]));
+	result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (xaz [2]));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -1075,12 +1027,11 @@ void node_swe_azalt (const FunctionCallbackInfo <Value> & args) {
  *   trueAltitude: double  // xout [1]
  * }
  */
-void node_swe_azalt_rev (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_azalt_rev) {
+	NanScope();
 
 	if (args.Length () < 7) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -1092,8 +1043,7 @@ void node_swe_azalt_rev (const FunctionCallbackInfo <Value> & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -1113,14 +1063,13 @@ void node_swe_azalt_rev (const FunctionCallbackInfo <Value> & args) {
 		geopos, xin, xout
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "azimuth"),			Number::New (isolate, xout [0]));
-	result->Set (String::NewFromUtf8 (isolate, "trueAltitude"),	Number::New (isolate, xout [1]));
+	result->Set (NanNew<String> ("azimuth"),			NanNew<Number> (xout [0]));
+	result->Set (NanNew<String> ("trueAltitude"),	NanNew<Number> (xout [1]));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -1131,12 +1080,11 @@ void node_swe_azalt_rev (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_rise_trans (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_rise_trans) {
+	NanScope();
 
 	if (args.Length () < 10) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -1151,8 +1099,7 @@ void node_swe_rise_trans (const FunctionCallbackInfo <Value> & args) {
 		!args [8]->IsNumber () ||
 		!args [9]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -1179,18 +1126,17 @@ void node_swe_rise_trans (const FunctionCallbackInfo <Value> & args) {
 		&tret, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "transitTime"), Number::New (isolate, tret));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("transitTime"), NanNew<Number> (tret));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -1232,12 +1178,11 @@ void node_swe_rise_trans (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_nod_aps (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_nod_aps) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -1246,8 +1191,7 @@ void node_swe_nod_aps (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xnasc [6] = {0};
@@ -1265,51 +1209,50 @@ void node_swe_nod_aps (const FunctionCallbackInfo <Value> & args) {
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		Local <Object> ascending = Object::New (isolate);
-		ascending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xnasc [0]));
-		ascending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xnasc [1]));
-		ascending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xnasc [2]));
-		ascending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xnasc [3]));
-		ascending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xnasc [4]));
-		ascending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xnasc [5]));
-		result->Set (String::NewFromUtf8 (isolate, "ascending"), ascending);
+		Local <Object> ascending = NanNew<Object> ();
+		ascending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xnasc [0]));
+		ascending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xnasc [1]));
+		ascending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xnasc [2]));
+		ascending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xnasc [3]));
+		ascending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xnasc [4]));
+		ascending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xnasc [5]));
+		result->Set (NanNew<String> ("ascending"), ascending);
 
-		Local <Object> descending = Object::New (isolate);
-		descending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xndsc [0]));
-		descending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xndsc [1]));
-		descending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xndsc [2]));
-		descending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xndsc [3]));
-		descending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xndsc [4]));
-		descending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xndsc [5]));
-		result->Set (String::NewFromUtf8 (isolate, "descending"), descending);
+		Local <Object> descending = NanNew<Object> ();
+		descending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xndsc [0]));
+		descending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xndsc [1]));
+		descending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xndsc [2]));
+		descending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xndsc [3]));
+		descending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xndsc [4]));
+		descending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xndsc [5]));
+		result->Set (NanNew<String> ("descending"), descending);
 
-		Local <Object> perihelion = Object::New (isolate);
-		perihelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xperi [0]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xperi [1]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xperi [2]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xperi [3]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xperi [4]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xperi [5]));
-		result->Set (String::NewFromUtf8 (isolate, "perihelion"), perihelion);
+		Local <Object> perihelion = NanNew<Object> ();
+		perihelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xperi [0]));
+		perihelion->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xperi [1]));
+		perihelion->Set (NanNew<String> ("distance"), 		NanNew<Number> (xperi [2]));
+		perihelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xperi [3]));
+		perihelion->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xperi [4]));
+		perihelion->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xperi [5]));
+		result->Set (NanNew<String> ("perihelion"), perihelion);
 
-		Local <Object> aphelion = Object::New (isolate);
-		aphelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xaphe [0]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "latitude"), 			Number::New (isolate, xaphe [1]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "distance"), 			Number::New (isolate, xaphe [2]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xaphe [3]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),		Number::New (isolate, xaphe [4]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),		Number::New (isolate, xaphe [5]));
-		result->Set (String::NewFromUtf8 (isolate, "aphelion"), aphelion);
+		Local <Object> aphelion = NanNew<Object> ();
+		aphelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xaphe [0]));
+		aphelion->Set (NanNew<String> ("latitude"), 			NanNew<Number> (xaphe [1]));
+		aphelion->Set (NanNew<String> ("distance"), 			NanNew<Number> (xaphe [2]));
+		aphelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xaphe [3]));
+		aphelion->Set (NanNew<String> ("latitudeSpeed"),		NanNew<Number> (xaphe [4]));
+		aphelion->Set (NanNew<String> ("distanceSpeed"),		NanNew<Number> (xaphe [5]));
+		result->Set (NanNew<String> ("aphelion"), aphelion);
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -1351,12 +1294,11 @@ void node_swe_nod_aps (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_nod_aps_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_nod_aps_ut) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -1365,8 +1307,7 @@ void node_swe_nod_aps_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xnasc [6] = {0};
@@ -1384,49 +1325,48 @@ void node_swe_nod_aps_ut (const FunctionCallbackInfo <Value> & args) {
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		Local <Object> ascending = Object::New (isolate);
-		ascending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xnasc [0]));
-		ascending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xnasc [1]));
-		ascending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xnasc [2]));
-		ascending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xnasc [3]));
-		ascending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xnasc [4]));
-		ascending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xnasc [5]));
-		result->Set (String::NewFromUtf8 (isolate, "ascending"), ascending);
+		Local <Object> ascending = NanNew<Object> ();
+		ascending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xnasc [0]));
+		ascending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xnasc [1]));
+		ascending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xnasc [2]));
+		ascending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xnasc [3]));
+		ascending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xnasc [4]));
+		ascending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xnasc [5]));
+		result->Set (NanNew<String> ("ascending"), ascending);
 
-		Local <Object> descending = Object::New (isolate);
-		descending->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xndsc [0]));
-		descending->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xndsc [1]));
-		descending->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xndsc [2]));
-		descending->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xndsc [3]));
-		descending->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xndsc [4]));
-		descending->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xndsc [5]));
-		result->Set (String::NewFromUtf8 (isolate, "descending"), descending);
+		Local <Object> descending = NanNew<Object> ();
+		descending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xndsc [0]));
+		descending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xndsc [1]));
+		descending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xndsc [2]));
+		descending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xndsc [3]));
+		descending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xndsc [4]));
+		descending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xndsc [5]));
+		result->Set (NanNew<String> ("descending"), descending);
 
-		Local <Object> perihelion = Object::New (isolate);
-		perihelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xperi [0]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "latitude"), 		Number::New (isolate, xperi [1]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "distance"), 		Number::New (isolate, xperi [2]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xperi [3]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),	Number::New (isolate, xperi [4]));
-		perihelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),	Number::New (isolate, xperi [5]));
-		result->Set (String::NewFromUtf8 (isolate, "perihelion"), perihelion);
+		Local <Object> perihelion = NanNew<Object> ();
+		perihelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xperi [0]));
+		perihelion->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xperi [1]));
+		perihelion->Set (NanNew<String> ("distance"), 		NanNew<Number> (xperi [2]));
+		perihelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xperi [3]));
+		perihelion->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xperi [4]));
+		perihelion->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xperi [5]));
+		result->Set (NanNew<String> ("perihelion"), perihelion);
 
-		Local <Object> aphelion = Object::New (isolate);
-		aphelion->Set (String::NewFromUtf8 (isolate, "longitude"), 		Number::New (isolate, xaphe [0]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "latitude"), 			Number::New (isolate, xaphe [1]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "distance"), 			Number::New (isolate, xaphe [2]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"),	Number::New (isolate, xaphe [3]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"),		Number::New (isolate, xaphe [4]));
-		aphelion->Set (String::NewFromUtf8 (isolate, "distanceSpeed"),		Number::New (isolate, xaphe [5]));
-		result->Set (String::NewFromUtf8 (isolate, "aphelion"), aphelion);
+		Local <Object> aphelion = NanNew<Object> ();
+		aphelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xaphe [0]));
+		aphelion->Set (NanNew<String> ("latitude"), 			NanNew<Number> (xaphe [1]));
+		aphelion->Set (NanNew<String> ("distance"), 			NanNew<Number> (xaphe [2]));
+		aphelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xaphe [3]));
+		aphelion->Set (NanNew<String> ("latitudeSpeed"),		NanNew<Number> (xaphe [4]));
+		aphelion->Set (NanNew<String> ("distanceSpeed"),		NanNew<Number> (xaphe [5]));
+		result->Set (NanNew<String> ("aphelion"), aphelion);
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };

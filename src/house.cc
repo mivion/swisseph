@@ -18,12 +18,11 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_houses (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_houses) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -32,16 +31,15 @@ void node_swe_houses (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [20] = {0};
 	double ascmc [40] = {0};
 	int rflag;
 
-	Local <Object> result = Object::New (isolate);
-	Local <Array> house = Array::New (isolate);
+	Local <Object> result = NanNew<Object> ();
+	Local <Array> house = NanNew<Array> ();
 
 	rflag = ::swe_houses (
 		args [0]->NumberValue (),
@@ -52,26 +50,25 @@ void node_swe_houses (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Can't calculate houses."));
+		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
 		for (size_t i = 0; i < 12; i ++) {
-			house->Set (Number::New (isolate, i), Number::New (isolate, cusps [i + 1]));
+			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 
-		result->Set (String::NewFromUtf8 (isolate, "house"), house);
-		result->Set (String::NewFromUtf8 (isolate, "ascendant"), Number::New (isolate, ascmc [SE_ASC]));
-		result->Set (String::NewFromUtf8 (isolate, "mc"), Number::New (isolate, ascmc [SE_MC]));
-		result->Set (String::NewFromUtf8 (isolate, "armc"), Number::New (isolate, ascmc [SE_ARMC]));
-		result->Set (String::NewFromUtf8 (isolate, "vertex"), Number::New (isolate, ascmc [SE_VERTEX]));
-		result->Set (String::NewFromUtf8 (isolate, "equatorialAscendant"), Number::New (isolate, ascmc [SE_COASC1]));
-		result->Set (String::NewFromUtf8 (isolate, "kochCoAscendant"), Number::New (isolate, ascmc [SE_COASC2]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyCoAscendant"), Number::New (isolate, ascmc [SE_POLASC]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyPolarAscendant"), Number::New (isolate, ascmc [SE_NASCMC]));
+		result->Set (NanNew<String> ("house"), house);
+		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
+		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
+		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
+		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
+		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
+		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
+		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
+		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -90,12 +87,11 @@ void node_swe_houses (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_houses_ex (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_houses_ex) {
+	NanScope();
 
 	if (args.Length () < 5) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -105,16 +101,15 @@ void node_swe_houses_ex (const FunctionCallbackInfo <Value> & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [20] = {0};
 	double ascmc [40] = {0};
 	int rflag;
 
-	Local <Object> result = Object::New (isolate);
-	Local <Array> house = Array::New (isolate);
+	Local <Object> result = NanNew<Object> ();
+	Local <Array> house = NanNew<Array> ();
 
 	rflag = ::swe_houses_ex (
 		args [0]->NumberValue (),
@@ -126,26 +121,25 @@ void node_swe_houses_ex (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Can't calculate houses."));
+		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
 		for (size_t i = 0; i < 12; i ++) {
-			house->Set (Number::New (isolate, i), Number::New (isolate, cusps [i + 1]));
+			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 
-		result->Set (String::NewFromUtf8 (isolate, "house"), house);
-		result->Set (String::NewFromUtf8 (isolate, "ascendant"), Number::New (isolate, ascmc [SE_ASC]));
-		result->Set (String::NewFromUtf8 (isolate, "mc"), Number::New (isolate, ascmc [SE_MC]));
-		result->Set (String::NewFromUtf8 (isolate, "armc"), Number::New (isolate, ascmc [SE_ARMC]));
-		result->Set (String::NewFromUtf8 (isolate, "vertex"), Number::New (isolate, ascmc [SE_VERTEX]));
-		result->Set (String::NewFromUtf8 (isolate, "equatorialAscendant"), Number::New (isolate, ascmc [SE_COASC1]));
-		result->Set (String::NewFromUtf8 (isolate, "kochCoAscendant"), Number::New (isolate, ascmc [SE_COASC2]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyCoAscendant"), Number::New (isolate, ascmc [SE_POLASC]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyPolarAscendant"), Number::New (isolate, ascmc [SE_NASCMC]));
+		result->Set (NanNew<String> ("house"), house);
+		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
+		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
+		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
+		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
+		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
+		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
+		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
+		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -164,12 +158,11 @@ void node_swe_houses_ex (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_houses_armc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_houses_armc) {
+	NanScope();
 
 	if (args.Length () < 4) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -178,16 +171,15 @@ void node_swe_houses_armc (const FunctionCallbackInfo <Value> & args) {
 		!args [2]->IsNumber () ||
 		!args [3]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [20] = {0};
 	double ascmc [40] = {0};
 	int rflag;
 
-	Local <Object> result = Object::New (isolate);
-	Local <Array> house = Array::New (isolate);
+	Local <Object> result = NanNew<Object> ();
+	Local <Array> house = NanNew<Array> ();
 
 	rflag = ::swe_houses (
 		args [0]->NumberValue (),
@@ -198,26 +190,25 @@ void node_swe_houses_armc (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Can't calculate houses."));
+		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
 		for (size_t i = 0; i < 12; i ++) {
-			house->Set (Number::New (isolate, i), Number::New (isolate, cusps [i + 1]));
+			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 
-		result->Set (String::NewFromUtf8 (isolate, "house"), house);
-		result->Set (String::NewFromUtf8 (isolate, "ascendant"), Number::New (isolate, ascmc [SE_ASC]));
-		result->Set (String::NewFromUtf8 (isolate, "mc"), Number::New (isolate, ascmc [SE_MC]));
-		result->Set (String::NewFromUtf8 (isolate, "armc"), Number::New (isolate, ascmc [SE_ARMC]));
-		result->Set (String::NewFromUtf8 (isolate, "vertex"), Number::New (isolate, ascmc [SE_VERTEX]));
-		result->Set (String::NewFromUtf8 (isolate, "equatorialAscendant"), Number::New (isolate, ascmc [SE_COASC1]));
-		result->Set (String::NewFromUtf8 (isolate, "kochCoAscendant"), Number::New (isolate, ascmc [SE_COASC2]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyCoAscendant"), Number::New (isolate, ascmc [SE_POLASC]));
-		result->Set (String::NewFromUtf8 (isolate, "munkaseyPolarAscendant"), Number::New (isolate, ascmc [SE_NASCMC]));
+		result->Set (NanNew<String> ("house"), house);
+		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
+		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
+		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
+		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
+		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
+		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
+		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
+		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -228,12 +219,11 @@ void node_swe_houses_armc (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_houses_pos (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_houses_pos) {
+	NanScope();
 
 	if (args.Length () < 6) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -244,8 +234,7 @@ void node_swe_houses_pos (const FunctionCallbackInfo <Value> & args) {
 		!args [4]->IsNumber () ||
 		!args [5]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [20] = {0};
@@ -254,8 +243,8 @@ void node_swe_houses_pos (const FunctionCallbackInfo <Value> & args) {
 	char serr [AS_MAXCH];
 	double rflag;
 
-	Local <Object> result = Object::New (isolate);
-	Local <Array> house = Array::New (isolate);
+	Local <Object> result = NanNew<Object> ();
+	Local <Array> house = NanNew<Array> ();
 
 	rflag = ::swe_house_pos (
 		args [0]->NumberValue (),
@@ -266,12 +255,11 @@ void node_swe_houses_pos (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Can't calculate houses."));
+		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "housePosition"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("housePosition"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };

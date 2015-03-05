@@ -10,13 +10,11 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
+NAN_METHOD(node_swe_date_conversion) {
+	    NanScope();
 
 	if (args.Length () < 5) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -26,14 +24,13 @@ void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args) {
 		!args [3]->IsNumber () ||
 		(!args [4]->IsString () && args [4]->ToString ()->Length () > 0)
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tjd;
 	int rflag;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	rflag = ::swe_date_conversion (
 		(int)args [0]->NumberValue (),
@@ -45,14 +42,13 @@ void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, "Input date is illegal."));
+		result->Set (NanNew<String> ("error"), NanNew<String> ("Input date is illegal."));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "julianDay"), Number::New (isolate, tjd));
+		result->Set (NanNew<String> ("julianDay"), NanNew<Number> (tjd));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -60,12 +56,11 @@ void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args) {
  * =>
  * swe_julday(int year, int month, int day, double hour, int gregflag[, function callback (result)])
  */
-void node_swe_julday (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_julday) {
+	NanScope();
 
 	if (args.Length () < 5) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -75,11 +70,10 @@ void node_swe_julday (const FunctionCallbackInfo <Value> & args) {
 		!args [3]->IsNumber () ||
 		!args [4]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
-	Local <Number> result = Number::New (isolate, ::swe_julday (
+	Local <Number> result = NanNew<Number> (::swe_julday (
 		(int)args [0]->NumberValue (),
 		(int)args [1]->NumberValue (),
 		(int)args [2]->NumberValue (),
@@ -87,9 +81,8 @@ void node_swe_julday (const FunctionCallbackInfo <Value> & args) {
 		(int)args [4]->NumberValue ()
 	));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -102,26 +95,24 @@ void node_swe_julday (const FunctionCallbackInfo <Value> & args) {
  *   hour: double
  * }
  */
-void node_swe_revjul (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_revjul) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double hour;
 	int year, month, day;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	::swe_revjul (
 		args [0]->NumberValue (),
@@ -129,14 +120,13 @@ void node_swe_revjul (const FunctionCallbackInfo <Value> & args) {
 		&year, &month, &day, &hour
 	);
 
-	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
-	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
-	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
-	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
+	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
+	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
+	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
+	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -148,12 +138,11 @@ void node_swe_revjul (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_utc_to_jd) {
+	NanScope();
 
 	if (args.Length () < 7) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -165,15 +154,14 @@ void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tjd [2];
 	char serr [AS_MAXCH];
 	int rflag;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	rflag = ::swe_utc_to_jd (
 		(int)args [0]->NumberValue (),
@@ -187,15 +175,14 @@ void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args) {
 	);
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "julianDayUT"), Number::New (isolate, tjd [0]));
-		result->Set (String::NewFromUtf8 (isolate, "julianDayET"), Number::New (isolate, tjd [1]));
+		result->Set (NanNew<String> ("julianDayUT"), NanNew<Number> (tjd [0]));
+		result->Set (NanNew<String> ("julianDayET"), NanNew<Number> (tjd [1]));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -210,26 +197,24 @@ void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args) {
  *   second: double
  * }
  */
-void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_jdet_to_utc) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	::swe_jdet_to_utc (
 		args [0]->NumberValue (),
@@ -237,16 +222,15 @@ void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
-	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
-	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
-	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
-	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
-	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
+	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
+	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
+	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
+	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
+	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
+	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -261,26 +245,24 @@ void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args) {
  *   second: double
  * }
  */
-void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_jdut1_to_utc) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	::swe_jdut1_to_utc (
 		args [0]->NumberValue (),
@@ -288,16 +270,15 @@ void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
-	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
-	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
-	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
-	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
-	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
+	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
+	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
+	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
+	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
+	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
+	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -312,12 +293,11 @@ void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args) {
  *   second: double
  * }
  */
-void node_swe_utc_time_zone (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_utc_time_zone) {
+	NanScope();
 
 	if (args.Length () < 7) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -329,14 +309,13 @@ void node_swe_utc_time_zone (const FunctionCallbackInfo <Value> & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	::swe_utc_time_zone (
 		(int)args [0]->NumberValue (),
@@ -349,14 +328,13 @@ void node_swe_utc_time_zone (const FunctionCallbackInfo <Value> & args) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (String::NewFromUtf8 (isolate, "year"), Number::New (isolate, year));
-	result->Set (String::NewFromUtf8 (isolate, "month"), Number::New (isolate, month));
-	result->Set (String::NewFromUtf8 (isolate, "day"), Number::New (isolate, day));
-	result->Set (String::NewFromUtf8 (isolate, "hour"), Number::New (isolate, hour));
-	result->Set (String::NewFromUtf8 (isolate, "minute"), Number::New (isolate, minute));
-	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, second));
+	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
+	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
+	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
+	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
+	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
+	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };

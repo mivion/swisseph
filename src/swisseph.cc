@@ -4,7 +4,7 @@ using namespace v8;
 
 void Initialize (Handle <Object> exports) {
 	// util
-	NODE_SET_METHOD(exports, "swe_deltat", node_swe_deltat);
+	NODE_SET_METHOD (exports, "swe_deltat", node_swe_deltat);
 	NODE_SET_METHOD (exports, "swe_time_equ", node_swe_time_equ);
 	NODE_SET_METHOD (exports, "swe_sidtime0", node_swe_sidtime0);
 	NODE_SET_METHOD (exports, "swe_sidtime", node_swe_sidtime);
