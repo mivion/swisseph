@@ -13,12 +13,11 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_heliacal_ut) {
+	NanScope();
 
 	if (args.Length () < 7) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -30,8 +29,7 @@ void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double dgeo [3] = {0};
@@ -68,20 +66,19 @@ void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args) {
 		dret, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "startVisible"), Number::New (isolate, dret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "bestVisible"), Number::New (isolate, dret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "endVisible"), Number::New (isolate, dret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("startVisible"), NanNew<Number> (dret [0]));
+		result->Set (NanNew<String> ("bestVisible"), NanNew<Number> (dret [1]));
+		result->Set (NanNew<String> ("endVisible"), NanNew<Number> (dret [2]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -115,20 +112,19 @@ void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args) {
  *   visibleDuration:  		 double, // '24=TvisVR [JDN]    visibility duration
  *   moonCresetLength:  	 double, // '25=LMoon [deg]     cresent length of moon
  *   elong:  				 double, // '26=CVAact [deg]
- *   illumination:  		 double, 
- *   kOZ:  					 double, 
- *   ka:  					 double, 
+ *   illumination:  		 double,
+ *   kOZ:  					 double,
+ *   ka:  					 double,
  *   ksumm:  				 double,
  *   rflag: int32,
  *   error: string
  * }
  */
-void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_heliacal_pheno_ut) {
+	NanScope();
 
 	if (args.Length () < 7) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -140,8 +136,7 @@ void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [5]->IsNumber () ||
 		!args [6]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double dgeo [3] = {0};
@@ -178,48 +173,47 @@ void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args) {
 		darr, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "tcAltitude"),			Number::New (isolate, darr [0]));
-		result->Set (String::NewFromUtf8 (isolate, "tcApparentAltitude"),	Number::New (isolate, darr [1]));
-		result->Set (String::NewFromUtf8 (isolate, "gcAltitude"),			Number::New (isolate, darr [2]));
-		result->Set (String::NewFromUtf8 (isolate, "azimuth"),				Number::New (isolate, darr [3]));
-		result->Set (String::NewFromUtf8 (isolate, "tcSunAltitude"),		Number::New (isolate, darr [4]));
-		result->Set (String::NewFromUtf8 (isolate, "sunAzimuth"),			Number::New (isolate, darr [5]));
-		result->Set (String::NewFromUtf8 (isolate, "tcActualVisibleArc"),	Number::New (isolate, darr [6]));
-		result->Set (String::NewFromUtf8 (isolate, "gcActualVisibleArc"),	Number::New (isolate, darr [7]));
-		result->Set (String::NewFromUtf8 (isolate, "objectToSunAzimuth"),	Number::New (isolate, darr [8]));
-		result->Set (String::NewFromUtf8 (isolate, "objectToSunLongitude"),Number::New (isolate, darr [9]));
-		result->Set (String::NewFromUtf8 (isolate, "extinction"),			Number::New (isolate, darr [10]));
-		result->Set (String::NewFromUtf8 (isolate, "tcMinVisibleArc"),		Number::New (isolate, darr [11]));
-		result->Set (String::NewFromUtf8 (isolate, "firstVisible"),		Number::New (isolate, darr [12]));
-		result->Set (String::NewFromUtf8 (isolate, "bestVisible"),			Number::New (isolate, darr [13]));
-		result->Set (String::NewFromUtf8 (isolate, "endVisible"),			Number::New (isolate, darr [14]));
-		result->Set (String::NewFromUtf8 (isolate, "yallopBestVisible"),	Number::New (isolate, darr [15]));
-		result->Set (String::NewFromUtf8 (isolate, "moonCresentWidth"),	Number::New (isolate, darr [16]));
-		result->Set (String::NewFromUtf8 (isolate, "yallopValue"),			Number::New (isolate, darr [17]));
-		result->Set (String::NewFromUtf8 (isolate, "yallopCriterion"),		Number::New (isolate, darr [18]));
-		result->Set (String::NewFromUtf8 (isolate, "parallax"),			Number::New (isolate, darr [19]));
-		result->Set (String::NewFromUtf8 (isolate, "magnitude"),			Number::New (isolate, darr [20]));
-		result->Set (String::NewFromUtf8 (isolate, "rise"),				Number::New (isolate, darr [21]));
-		result->Set (String::NewFromUtf8 (isolate, "riseSet"),				Number::New (isolate, darr [22]));
-		result->Set (String::NewFromUtf8 (isolate, "riseObjectToSun"),		Number::New (isolate, darr [23]));
-		result->Set (String::NewFromUtf8 (isolate, "visibleDuration"),		Number::New (isolate, darr [24]));
-		result->Set (String::NewFromUtf8 (isolate, "moonCresetLength"),	Number::New (isolate, darr [25]));
-		result->Set (String::NewFromUtf8 (isolate, "elong"),				Number::New (isolate, darr [26]));
-		result->Set (String::NewFromUtf8 (isolate, "illumination"),		Number::New (isolate, darr [27]));
-		result->Set (String::NewFromUtf8 (isolate, "kOZ"),					Number::New (isolate, darr [28]));
-		result->Set (String::NewFromUtf8 (isolate, "ka"),					Number::New (isolate, darr [29]));
-		result->Set (String::NewFromUtf8 (isolate, "ksumm"),				Number::New (isolate, darr [30]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("tcAltitude"),			NanNew<Number> (darr [0]));
+		result->Set (NanNew<String> ("tcApparentAltitude"),	NanNew<Number> (darr [1]));
+		result->Set (NanNew<String> ("gcAltitude"),			NanNew<Number> (darr [2]));
+		result->Set (NanNew<String> ("azimuth"),				NanNew<Number> (darr [3]));
+		result->Set (NanNew<String> ("tcSunAltitude"),		NanNew<Number> (darr [4]));
+		result->Set (NanNew<String> ("sunAzimuth"),			NanNew<Number> (darr [5]));
+		result->Set (NanNew<String> ("tcActualVisibleArc"),	NanNew<Number> (darr [6]));
+		result->Set (NanNew<String> ("gcActualVisibleArc"),	NanNew<Number> (darr [7]));
+		result->Set (NanNew<String> ("objectToSunAzimuth"),	NanNew<Number> (darr [8]));
+		result->Set (NanNew<String> ("objectToSunLongitude"),NanNew<Number> (darr [9]));
+		result->Set (NanNew<String> ("extinction"),			NanNew<Number> (darr [10]));
+		result->Set (NanNew<String> ("tcMinVisibleArc"),		NanNew<Number> (darr [11]));
+		result->Set (NanNew<String> ("firstVisible"),		NanNew<Number> (darr [12]));
+		result->Set (NanNew<String> ("bestVisible"),			NanNew<Number> (darr [13]));
+		result->Set (NanNew<String> ("endVisible"),			NanNew<Number> (darr [14]));
+		result->Set (NanNew<String> ("yallopBestVisible"),	NanNew<Number> (darr [15]));
+		result->Set (NanNew<String> ("moonCresentWidth"),	NanNew<Number> (darr [16]));
+		result->Set (NanNew<String> ("yallopValue"),			NanNew<Number> (darr [17]));
+		result->Set (NanNew<String> ("yallopCriterion"),		NanNew<Number> (darr [18]));
+		result->Set (NanNew<String> ("parallax"),			NanNew<Number> (darr [19]));
+		result->Set (NanNew<String> ("magnitude"),			NanNew<Number> (darr [20]));
+		result->Set (NanNew<String> ("rise"),				NanNew<Number> (darr [21]));
+		result->Set (NanNew<String> ("riseSet"),				NanNew<Number> (darr [22]));
+		result->Set (NanNew<String> ("riseObjectToSun"),		NanNew<Number> (darr [23]));
+		result->Set (NanNew<String> ("visibleDuration"),		NanNew<Number> (darr [24]));
+		result->Set (NanNew<String> ("moonCresetLength"),	NanNew<Number> (darr [25]));
+		result->Set (NanNew<String> ("elong"),				NanNew<Number> (darr [26]));
+		result->Set (NanNew<String> ("illumination"),		NanNew<Number> (darr [27]));
+		result->Set (NanNew<String> ("kOZ"),					NanNew<Number> (darr [28]));
+		result->Set (NanNew<String> ("ka"),					NanNew<Number> (darr [29]));
+		result->Set (NanNew<String> ("ksumm"),				NanNew<Number> (darr [30]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -237,12 +231,11 @@ void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_vis_limit_mag (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_vis_limit_mag) {
+	NanScope();
 
 	if (args.Length () < 6) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -253,8 +246,7 @@ void node_swe_vis_limit_mag (const FunctionCallbackInfo <Value> & args) {
 		!args [4]->IsString () ||
 		!args [5]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double dgeo [3] = {0};
@@ -290,22 +282,21 @@ void node_swe_vis_limit_mag (const FunctionCallbackInfo <Value> & args) {
 		dret, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "vissualMagnitudeLimit"), Number::New (isolate, dret [0]));
-		result->Set (String::NewFromUtf8 (isolate, "AltO"), Number::New (isolate, dret [1]));
-		result->Set (String::NewFromUtf8 (isolate, "AziO"), Number::New (isolate, dret [2]));
-		result->Set (String::NewFromUtf8 (isolate, "AltS"), Number::New (isolate, dret [3]));
-		result->Set (String::NewFromUtf8 (isolate, "AziS"), Number::New (isolate, dret [4]));
-		result->Set (String::NewFromUtf8 (isolate, "AltM"), Number::New (isolate, dret [5]));
-		result->Set (String::NewFromUtf8 (isolate, "AziM"), Number::New (isolate, dret [6]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("vissualMagnitudeLimit"), NanNew<Number> (dret [0]));
+		result->Set (NanNew<String> ("AltO"), NanNew<Number> (dret [1]));
+		result->Set (NanNew<String> ("AziO"), NanNew<Number> (dret [2]));
+		result->Set (NanNew<String> ("AltS"), NanNew<Number> (dret [3]));
+		result->Set (NanNew<String> ("AziS"), NanNew<Number> (dret [4]));
+		result->Set (NanNew<String> ("AltM"), NanNew<Number> (dret [5]));
+		result->Set (NanNew<String> ("AziM"), NanNew<Number> (dret [6]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };

@@ -9,20 +9,17 @@ using namespace v8;
  *   delta: double
  * }
  */
-void node_swe_deltat (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
+NAN_METHOD(node_swe_deltat) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double deltat;
@@ -31,11 +28,12 @@ void node_swe_deltat (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "delta"), Number::New (isolate, deltat));
+	result->Set (NanNew<String> ("delta"), NanNew<Number> (deltat));
 
-    HandleCallback (isolate, args, result);
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -46,21 +44,17 @@ void node_swe_deltat (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_time_equ (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_time_equ) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double te;
@@ -72,17 +66,16 @@ void node_swe_time_equ (const FunctionCallbackInfo <Value> & args) {
 		&te, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "timeEquation"), Number::New (isolate, te));
+		result->Set (NanNew<String> ("timeEquation"), NanNew<Number> (te));
 	}
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -92,14 +85,11 @@ void node_swe_time_equ (const FunctionCallbackInfo <Value> & args) {
  *   siderialTime: double
  * }
  */
-void node_swe_sidtime0 (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_sidtime0) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -107,8 +97,7 @@ void node_swe_sidtime0 (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double st;
@@ -119,13 +108,12 @@ void node_swe_sidtime0 (const FunctionCallbackInfo <Value> & args) {
 		args [2]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "siderialTime"), Number::New (isolate, st));
+	result->Set (NanNew<String> ("siderialTime"), NanNew<Number> (st));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -135,21 +123,17 @@ void node_swe_sidtime0 (const FunctionCallbackInfo <Value> & args) {
  *   siderialTime: double
  * }
  */
-void node_swe_sidtime (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_sidtime) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double st;
@@ -158,13 +142,12 @@ void node_swe_sidtime (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "siderialTime"), Number::New (isolate, st));
+	result->Set (NanNew<String> ("siderialTime"), NanNew<Number> (st));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -176,22 +159,18 @@ void node_swe_sidtime (const FunctionCallbackInfo <Value> & args) {
  *   distance: double   // xpn [2]
  * }
  */
-void node_swe_cotrans (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_cotrans) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsArray () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xpn [3] = {0};
@@ -206,15 +185,14 @@ void node_swe_cotrans (const FunctionCallbackInfo <Value> & args) {
         args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, xpn [0]));
-	result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, xpn [1]));
-	result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, xpn [2]));
+	result->Set (NanNew<String> ("longitude"), NanNew<Number> (xpn [0]));
+	result->Set (NanNew<String> ("latitude"), NanNew<Number> (xpn [1]));
+	result->Set (NanNew<String> ("distance"), NanNew<Number> (xpn [2]));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -226,22 +204,18 @@ void node_swe_cotrans (const FunctionCallbackInfo <Value> & args) {
  *   distance: double
  * }
  */
-void node_swe_cotrans_sp (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_cotrans_sp) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsArray () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xpn [3] = {0};
@@ -256,15 +230,14 @@ void node_swe_cotrans_sp (const FunctionCallbackInfo <Value> & args) {
         args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, xpn [0]));
-	result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, xpn [1]));
-	result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, xpn [2]));
+	result->Set (NanNew<String> ("longitude"), NanNew<Number> (xpn [0]));
+	result->Set (NanNew<String> ("latitude"), NanNew<Number> (xpn [1]));
+	result->Set (NanNew<String> ("distance"), NanNew<Number> (xpn [2]));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -274,22 +247,19 @@ void node_swe_cotrans_sp (const FunctionCallbackInfo <Value> & args) {
  *   acceleration: double
  * }
  */
-void node_swe_get_tid_acc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_get_tid_acc) {
+	NanScope();
 
 	double acceleration;
 
 	acceleration = ::swe_get_tid_acc ();
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "acceleration"), Number::New (isolate, acceleration));
+	result->Set (NanNew<String> ("acceleration"), NanNew<Number> (acceleration));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -298,32 +268,27 @@ void node_swe_get_tid_acc (const FunctionCallbackInfo <Value> & args) {
  * swe_set_tid_acc(double t_acc[, function callback (result)]) = {
  * }
  */
-void node_swe_set_tid_acc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_set_tid_acc) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_tid_acc (
         args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -333,21 +298,17 @@ void node_swe_set_tid_acc (const FunctionCallbackInfo <Value> & args) {
  *   x360: double
  * }
  */
-void node_swe_degnorm (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_degnorm) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x360;
@@ -356,13 +317,12 @@ void node_swe_degnorm (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "x360"), Number::New (isolate, x360));
+	result->Set (NanNew<String> ("x360"), NanNew<Number> (x360));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -372,21 +332,17 @@ void node_swe_degnorm (const FunctionCallbackInfo <Value> & args) {
  *   x2Pi: double
  * }
  */
-void node_swe_radnorm (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_radnorm) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x2Pi;
@@ -395,13 +351,12 @@ void node_swe_radnorm (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "x2Pi"), Number::New (isolate, x2Pi));
+	result->Set (NanNew<String> ("x2Pi"), NanNew<Number> (x2Pi));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -411,22 +366,18 @@ void node_swe_radnorm (const FunctionCallbackInfo <Value> & args) {
  *   xMid2Pi: double
  * }
  */
-void node_swe_rad_midp (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_rad_midp) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xMid2Pi;
@@ -436,13 +387,12 @@ void node_swe_rad_midp (const FunctionCallbackInfo <Value> & args) {
 		args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "xMid2Pi"), Number::New (isolate, xMid2Pi));
+	result->Set (NanNew<String> ("xMid2Pi"), NanNew<Number> (xMid2Pi));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -452,22 +402,18 @@ void node_swe_rad_midp (const FunctionCallbackInfo <Value> & args) {
  *   xMid360: double
  * }
  */
-void node_swe_deg_midp (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_deg_midp) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xMid360;
@@ -477,13 +423,12 @@ void node_swe_deg_midp (const FunctionCallbackInfo <Value> & args) {
 		args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "xMid360"), Number::New (isolate, xMid360));
+	result->Set (NanNew<String> ("xMid360"), NanNew<Number> (xMid360));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -497,22 +442,18 @@ void node_swe_deg_midp (const FunctionCallbackInfo <Value> & args) {
  *   sign: int
  * }
  */
-void node_swe_split_deg (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_split_deg) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int ideg;
@@ -527,17 +468,16 @@ void node_swe_split_deg (const FunctionCallbackInfo <Value> & args) {
 		&ideg, &imin, &isec, &dsecfr, &isgn
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "degree"), Number::New (isolate, ideg));
-	result->Set (String::NewFromUtf8 (isolate, "min"), Number::New (isolate, imin));
-	result->Set (String::NewFromUtf8 (isolate, "second"), Number::New (isolate, isec));
-	result->Set (String::NewFromUtf8 (isolate, "secondFraction"), Number::New (isolate, dsecfr));
-	result->Set (String::NewFromUtf8 (isolate, "sign"), Number::New (isolate, isgn));
+	result->Set (NanNew<String> ("degree"), NanNew<Number> (ideg));
+	result->Set (NanNew<String> ("min"), NanNew<Number> (imin));
+	result->Set (NanNew<String> ("second"), NanNew<Number> (isec));
+	result->Set (NanNew<String> ("secondFraction"), NanNew<Number> (dsecfr));
+	result->Set (NanNew<String> ("sign"), NanNew<Number> (isgn));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -547,21 +487,17 @@ void node_swe_split_deg (const FunctionCallbackInfo <Value> & args) {
  *   centisec360: double
  * }
  */
-void node_swe_csnorm (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_csnorm) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisec360;
@@ -570,13 +506,12 @@ void node_swe_csnorm (const FunctionCallbackInfo <Value> & args) {
 		(int)args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "centisec360"), Number::New (isolate, centisec360));
+	result->Set (NanNew<String> ("centisec360"), NanNew<Number> (centisec360));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -586,22 +521,18 @@ void node_swe_csnorm (const FunctionCallbackInfo <Value> & args) {
  *   centisecDiff: double
  * }
  */
-void node_swe_difcsn  (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_difcsn ) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecDiff;
@@ -611,13 +542,12 @@ void node_swe_difcsn  (const FunctionCallbackInfo <Value> & args) {
 		(int)args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "centisecDiff"), Number::New (isolate, centisecDiff));
+	result->Set (NanNew<String> ("centisecDiff"), NanNew<Number> (centisecDiff));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -627,22 +557,18 @@ void node_swe_difcsn  (const FunctionCallbackInfo <Value> & args) {
  *   degreeDiff: double
  * }
  */
-void node_swe_difdegn  (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_difdegn ) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDiff;
@@ -652,13 +578,12 @@ void node_swe_difdegn  (const FunctionCallbackInfo <Value> & args) {
 		args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "degreeDiff"), Number::New (isolate, degreeDiff));
+	result->Set (NanNew<String> ("degreeDiff"), NanNew<Number> (degreeDiff));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -668,22 +593,18 @@ void node_swe_difdegn  (const FunctionCallbackInfo <Value> & args) {
  *   centisecDistance180: double
  * }
  */
-void node_swe_difcs2n (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_difcs2n) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecDistance180;
@@ -693,13 +614,12 @@ void node_swe_difcs2n (const FunctionCallbackInfo <Value> & args) {
 		(int)args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "centisecDistance180"), Number::New (isolate, centisecDistance180));
+	result->Set (NanNew<String> ("centisecDistance180"), NanNew<Number> (centisecDistance180));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -709,22 +629,18 @@ void node_swe_difcs2n (const FunctionCallbackInfo <Value> & args) {
  *   degreeDistance180: double
  * }
  */
-void node_swe_difdeg2n (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_difdeg2n) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDistance180;
@@ -734,13 +650,12 @@ void node_swe_difdeg2n (const FunctionCallbackInfo <Value> & args) {
 		args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "degreeDistance180"), Number::New (isolate, degreeDistance180));
+	result->Set (NanNew<String> ("degreeDistance180"), NanNew<Number> (degreeDistance180));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -750,22 +665,18 @@ void node_swe_difdeg2n (const FunctionCallbackInfo <Value> & args) {
  *   degreeDistancePi: double
  * }
  */
-void node_swe_difrad2n (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_difrad2n) {
+	NanScope();
 
 	if (args.Length () < 2) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber () ||
 		!args [1]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDistancePi;
@@ -775,13 +686,12 @@ void node_swe_difrad2n (const FunctionCallbackInfo <Value> & args) {
 		args [1]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "degreeDistancePi"), Number::New (isolate, degreeDistancePi));
+	result->Set (NanNew<String> ("degreeDistancePi"), NanNew<Number> (degreeDistancePi));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -791,21 +701,17 @@ void node_swe_difrad2n (const FunctionCallbackInfo <Value> & args) {
  *   centisecRound: double
  * }
  */
-void node_swe_csroundsec (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_csroundsec) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecRound;
@@ -814,13 +720,12 @@ void node_swe_csroundsec (const FunctionCallbackInfo <Value> & args) {
 		(int)args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "centisecRound"), Number::New (isolate, centisecRound));
+	result->Set (NanNew<String> ("centisecRound"), NanNew<Number> (centisecRound));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -830,21 +735,17 @@ void node_swe_csroundsec (const FunctionCallbackInfo <Value> & args) {
  *   xRound: int
  * }
  */
-void node_swe_d2l (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_d2l) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int xRound;
@@ -853,13 +754,12 @@ void node_swe_d2l (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "xRound"), Number::New (isolate, xRound));
+	result->Set (NanNew<String> ("xRound"), NanNew<Number> (xRound));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -869,21 +769,17 @@ void node_swe_d2l (const FunctionCallbackInfo <Value> & args) {
  *   dayOfWeek: int
  * }
  */
-void node_swe_day_of_week (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_day_of_week) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	int dayOfWeek;
@@ -892,13 +788,12 @@ void node_swe_day_of_week (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "dayOfWeek"), Number::New (isolate, dayOfWeek));
+	result->Set (NanNew<String> ("dayOfWeek"), NanNew<Number> (dayOfWeek));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -908,14 +803,11 @@ void node_swe_day_of_week (const FunctionCallbackInfo <Value> & args) {
  *   timeString: string
  * }
  */
-void node_swe_cs2timestr (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_cs2timestr) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -923,8 +815,7 @@ void node_swe_cs2timestr (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char timeString [AS_MAXCH] = {0};
@@ -936,13 +827,12 @@ void node_swe_cs2timestr (const FunctionCallbackInfo <Value> & args) {
 		timeString
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "timeString"), String::NewFromUtf8 (isolate, timeString));
+	result->Set (NanNew<String> ("timeString"), NanNew<String> (timeString));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -952,14 +842,11 @@ void node_swe_cs2timestr (const FunctionCallbackInfo <Value> & args) {
  *   lonlatString: string
  * }
  */
-void node_swe_cs2lonlatstr (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_cs2lonlatstr) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -967,8 +854,7 @@ void node_swe_cs2lonlatstr (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsString () ||
 		!args [2]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char lonlatString [AS_MAXCH] = {0};
@@ -980,13 +866,12 @@ void node_swe_cs2lonlatstr (const FunctionCallbackInfo <Value> & args) {
 		lonlatString
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "lonlatString"), String::NewFromUtf8 (isolate, lonlatString));
+	result->Set (NanNew<String> ("lonlatString"), NanNew<String> (lonlatString));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -996,21 +881,17 @@ void node_swe_cs2lonlatstr (const FunctionCallbackInfo <Value> & args) {
  *   degreeString: string
  * }
  */
-void node_swe_cs2degstr (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent ();
-	HandleScope scope (isolate);
-	
+NAN_METHOD(node_swe_cs2degstr) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char degreeString [AS_MAXCH] = {0};
@@ -1020,11 +901,10 @@ void node_swe_cs2degstr (const FunctionCallbackInfo <Value> & args) {
 		degreeString
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "degreeString"), String::NewFromUtf8 (isolate, degreeString));
+	result->Set (NanNew<String> ("degreeString"), NanNew<String> (degreeString));
 
-    HandleCallback (isolate, args, result);
-
-	
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };

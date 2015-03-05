@@ -17,7 +17,7 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_heliacal_ut);
 
 /**
  * int32 swe_heliacal_pheno_ut(double tjd_ut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 helflag, double *darr, char *serr)
@@ -55,7 +55,7 @@ void node_swe_heliacal_ut (const FunctionCallbackInfo <Value> & args);
  *   error: string
  * }
  */
-void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_heliacal_pheno_ut);
 
 /**
  * int32 swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag, double *dret, char *serr)
@@ -72,6 +72,6 @@ void node_swe_heliacal_pheno_ut (const FunctionCallbackInfo <Value> & args);
  *   error: string
  * }
  */
-void node_swe_vis_limit_mag (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_vis_limit_mag);
 
 #endif // __swisseph_hel_h__

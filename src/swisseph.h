@@ -4,6 +4,7 @@
 #pragma warning (disable : 4251)
 
 #include <node.h>
+#include <nan.h>
 
 #include "swephexp.h"
 #include "callback.h"

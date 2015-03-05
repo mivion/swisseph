@@ -14,14 +14,14 @@ using namespace v8;
  *   error: string
  * }
  */
-void node_swe_date_conversion (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_date_conversion);
 
 /**
  * double swe_julday(int year, int month, int day, double hour, int gregflag)
  * =>
  * swe_julday(int year, int month, int day, double hour, int gregflag[, function callback (result)])
  */
-void node_swe_julday (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_julday);
 
 /**
  * void swe_revjul (double jd, int gregflag, int *jyear, int *jmon, int *jday, double *jut)
@@ -33,7 +33,7 @@ void node_swe_julday (const FunctionCallbackInfo <Value> & args);
  *   hour: double
  * }
  */
-void node_swe_revjul (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_revjul);
 
 /**
  * int32 swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag, double *dret, char *serr)
@@ -44,7 +44,7 @@ void node_swe_revjul (const FunctionCallbackInfo <Value> & args);
  *   error: string
  * }
  */
-void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_utc_to_jd);
 
 /**
  * void swe_jdet_to_utc(double tjd_et, int32 gregflag, int32 *iyear, int32 *imonth, int32 *iday, int32 *ihour, int32 *imin, double *dsec)
@@ -58,7 +58,7 @@ void node_swe_utc_to_jd (const FunctionCallbackInfo <Value> & args);
  *   second: double
  * }
  */
-void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_jdet_to_utc);
 
 /**
  * void swe_jdut1_to_utc(double tjd_et, int32 gregflag, int32 *iyear, int32 *imonth, int32 *iday, int32 *ihour, int32 *imin, double *dsec)
@@ -72,7 +72,7 @@ void node_swe_jdet_to_utc (const FunctionCallbackInfo <Value> & args);
  *   second: double
  * }
  */
-void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_jdut1_to_utc);
 
 /**
  * void swe_utc_time_zone(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, double d_timezone, int32 *iyear_out, int32 *imonth_out, int32 *iday_out, int32 *ihour_out, int32 *imin_out, double *dsec_out)
@@ -86,6 +86,6 @@ void node_swe_jdut1_to_utc (const FunctionCallbackInfo <Value> & args);
  *   second: double
  * }
  */
-void node_swe_utc_time_zone (const FunctionCallbackInfo <Value> & args);
+NAN_METHOD(node_swe_utc_time_zone);
 
 #endif // __swisseph_date_h__

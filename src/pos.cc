@@ -7,18 +7,17 @@ using namespace v8;
  * =>
  * string swe_version();
  */
-void node_swe_version (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_version) {
+	NanScope();
 
 	char version [AS_MAXCH];
 
 	::swe_version (version);
 
-	Local <String> result = String::NewFromUtf8 (isolate, version);
+	Local <String> result = NanNew<String> (version);
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -35,12 +34,11 @@ void node_swe_version (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_calc_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_calc_ut) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -48,8 +46,7 @@ void node_swe_calc_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x [6];
@@ -63,23 +60,22 @@ void node_swe_calc_ut (const FunctionCallbackInfo <Value> & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
-		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
-		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
-		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
-		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("longitude"), NanNew<Number> (x [0]));
+		result->Set (NanNew<String> ("latitude"), NanNew<Number> (x [1]));
+		result->Set (NanNew<String> ("distance"), NanNew<Number> (x [2]));
+		result->Set (NanNew<String> ("longitudeSpeed"), NanNew<Number> (x [3]));
+		result->Set (NanNew<String> ("latitudeSpeed"), NanNew<Number> (x [4]));
+		result->Set (NanNew<String> ("distanceSpeed"), NanNew<Number> (x [5]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -96,12 +92,11 @@ void node_swe_calc_ut (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_calc (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_calc) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -109,8 +104,7 @@ void node_swe_calc (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x [6];
@@ -124,23 +118,22 @@ void node_swe_calc (const FunctionCallbackInfo <Value> & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
-		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
-		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
-		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
-		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("longitude"), NanNew<Number> (x [0]));
+		result->Set (NanNew<String> ("latitude"), NanNew<Number> (x [1]));
+		result->Set (NanNew<String> ("distance"), NanNew<Number> (x [2]));
+		result->Set (NanNew<String> ("longitudeSpeed"), NanNew<Number> (x [3]));
+		result->Set (NanNew<String> ("latitudeSpeed"), NanNew<Number> (x [4]));
+		result->Set (NanNew<String> ("distanceSpeed"), NanNew<Number> (x [5]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -158,12 +151,11 @@ void node_swe_calc (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_fixstar (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_fixstar) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -171,8 +163,7 @@ void node_swe_fixstar (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x [6];
@@ -189,24 +180,23 @@ void node_swe_fixstar (const FunctionCallbackInfo <Value> & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
-		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
-		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
-		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
-		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("longitude"), NanNew<Number> (x [0]));
+		result->Set (NanNew<String> ("latitude"), NanNew<Number> (x [1]));
+		result->Set (NanNew<String> ("distance"), NanNew<Number> (x [2]));
+		result->Set (NanNew<String> ("longitudeSpeed"), NanNew<Number> (x [3]));
+		result->Set (NanNew<String> ("latitudeSpeed"), NanNew<Number> (x [4]));
+		result->Set (NanNew<String> ("distanceSpeed"), NanNew<Number> (x [5]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -223,12 +213,11 @@ void node_swe_fixstar (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_fixstar_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_fixstar_ut) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -236,8 +225,7 @@ void node_swe_fixstar_ut (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x [6];
@@ -254,24 +242,23 @@ void node_swe_fixstar_ut (const FunctionCallbackInfo <Value> & args) {
 		x, serr
 	);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "longitude"), Number::New (isolate, x [0]));
-		result->Set (String::NewFromUtf8 (isolate, "latitude"), Number::New (isolate, x [1]));
-		result->Set (String::NewFromUtf8 (isolate, "distance"), Number::New (isolate, x [2]));
-		result->Set (String::NewFromUtf8 (isolate, "longitudeSpeed"), Number::New (isolate, x [3]));
-		result->Set (String::NewFromUtf8 (isolate, "latitudeSpeed"), Number::New (isolate, x [4]));
-		result->Set (String::NewFromUtf8 (isolate, "distanceSpeed"), Number::New (isolate, x [5]));
-		result->Set (String::NewFromUtf8 (isolate, "rflag"), Number::New (isolate, rflag));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("longitude"), NanNew<Number> (x [0]));
+		result->Set (NanNew<String> ("latitude"), NanNew<Number> (x [1]));
+		result->Set (NanNew<String> ("distance"), NanNew<Number> (x [2]));
+		result->Set (NanNew<String> ("longitudeSpeed"), NanNew<Number> (x [3]));
+		result->Set (NanNew<String> ("latitudeSpeed"), NanNew<Number> (x [4]));
+		result->Set (NanNew<String> ("distanceSpeed"), NanNew<Number> (x [5]));
+		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -283,19 +270,17 @@ void node_swe_fixstar_ut (const FunctionCallbackInfo <Value> & args) {
  *   error: string
  * }
  */
-void node_swe_fixstar_mag (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_fixstar_mag) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char serr [AS_MAXCH];
@@ -307,18 +292,17 @@ void node_swe_fixstar_mag (const FunctionCallbackInfo <Value> & args) {
 
 	rflag = ::swe_fixstar_mag (star, &magnitude, serr);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
 	if (rflag < 0) {
-		result->Set (String::NewFromUtf8 (isolate, "error"), String::NewFromUtf8 (isolate, serr));
+		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
 	} else {
-		result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, star));
-		result->Set (String::NewFromUtf8 (isolate, "magnitude"), Number::New (isolate, magnitude));
+		result->Set (NanNew<String> ("name"), NanNew<String> (star));
+		result->Set (NanNew<String> ("magnitude"), NanNew<Number> (magnitude));
 	};
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -326,14 +310,13 @@ void node_swe_fixstar_mag (const FunctionCallbackInfo <Value> & args) {
  * =>
  * swe_close()
  */
-void node_swe_close (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_close) {
+	NanScope();
 
 	::swe_close ();
 
-    HandleCallback (isolate, args, Undefined (isolate));
-
-	return;
+    HandleCallback (args, NanUndefined());
+    NanReturnValue (NanUndefined());
 };
 
 /**
@@ -341,19 +324,17 @@ void node_swe_close (const FunctionCallbackInfo <Value> & args) {
  * =>
  * void swe_set_ephe_path(string path)
  */
-void node_swe_set_ephe_path (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_set_ephe_path) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_ephe_path (
@@ -362,9 +343,8 @@ void node_swe_set_ephe_path (const FunctionCallbackInfo <Value> & args) {
 
 	Local <Object> result = args [0]->ToObject ();
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -372,19 +352,17 @@ void node_swe_set_ephe_path (const FunctionCallbackInfo <Value> & args) {
  * =>
  * void swe_set_jpl_file(string fname)
  */
-void node_swe_set_jpl_file (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_set_jpl_file) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsString ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_jpl_file (
@@ -393,9 +371,8 @@ void node_swe_set_jpl_file (const FunctionCallbackInfo <Value> & args) {
 
 	Local <Object> result = args [0]->ToObject ();
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -405,32 +382,29 @@ void node_swe_set_jpl_file (const FunctionCallbackInfo <Value> & args) {
  *   name: string
  * }
  */
-void node_swe_get_planet_name (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_get_planet_name) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char name [AS_MAXCH] = {0};
 
 	::swe_get_planet_name ((int)args [0]->NumberValue (), name);
 
-	Local <Object> result = Object::New (isolate);
+	Local <Object> result = NanNew<Object> ();
 
-	result->Set (String::NewFromUtf8 (isolate, "name"), String::NewFromUtf8 (isolate, name));
+	result->Set (NanNew<String> ("name"), NanNew<String> (name));
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -438,12 +412,11 @@ void node_swe_get_planet_name (const FunctionCallbackInfo <Value> & args) {
  * =>
  * void swe_set_topo(double geolon, double geolat, double geoalt)
  */
-void node_swe_set_topo (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_set_topo) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -451,8 +424,7 @@ void node_swe_set_topo (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_topo (
@@ -461,9 +433,8 @@ void node_swe_set_topo (const FunctionCallbackInfo <Value> & args) {
 		args [2]->NumberValue ()
 	);
 
-    HandleCallback (isolate, args, Undefined (isolate));
-
-	return;
+    HandleCallback (args, NanUndefined());
+    NanReturnValue (NanUndefined());
 };
 
 /**
@@ -471,12 +442,11 @@ void node_swe_set_topo (const FunctionCallbackInfo <Value> & args) {
  * =>
  * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
  */
-void node_swe_set_sid_mode (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_set_sid_mode) {
+	NanScope();
 
 	if (args.Length () < 3) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
@@ -484,8 +454,7 @@ void node_swe_set_sid_mode (const FunctionCallbackInfo <Value> & args) {
 		!args [1]->IsNumber () ||
 		!args [2]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_sid_mode (
@@ -494,9 +463,8 @@ void node_swe_set_sid_mode (const FunctionCallbackInfo <Value> & args) {
 		args [2]->NumberValue ()
 	);
 
-    HandleCallback (isolate, args, Undefined (isolate));
-
-	return;
+    HandleCallback (args, NanUndefined());
+    NanReturnValue (NanUndefined());
 };
 
 /**
@@ -504,19 +472,17 @@ void node_swe_set_sid_mode (const FunctionCallbackInfo <Value> & args) {
  * =>
  * double swe_get_ayanamsa(double tjd_et)
  */
-void node_swe_get_ayanamsa (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_get_ayanamsa) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double val;
@@ -525,11 +491,10 @@ void node_swe_get_ayanamsa (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Number> result = Number::New (isolate, val);
+	Local <Number> result = NanNew<Number> (val);
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -537,19 +502,17 @@ void node_swe_get_ayanamsa (const FunctionCallbackInfo <Value> & args) {
  * =>
  * double swe_get_ayanamsa_ut(double tjd_ut)
  */
-void node_swe_get_ayanamsa_ut (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_get_ayanamsa_ut) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	double val;
@@ -558,11 +521,10 @@ void node_swe_get_ayanamsa_ut (const FunctionCallbackInfo <Value> & args) {
 		args [0]->NumberValue ()
 	);
 
-	Local <Number> result = Number::New (isolate, val);
+	Local <Number> result = NanNew<Number> (val);
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
 
 /**
@@ -570,19 +532,17 @@ void node_swe_get_ayanamsa_ut (const FunctionCallbackInfo <Value> & args) {
  * =>
  * string swe_get_ayanamsa_name(int32 isidmode)
  */
-void node_swe_get_ayanamsa_name (const FunctionCallbackInfo <Value> & args) {
-	Isolate * isolate = Isolate::GetCurrent (); HandleScope scope (isolate);
+NAN_METHOD(node_swe_get_ayanamsa_name) {
+	NanScope();
 
 	if (args.Length () < 1) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong number of arguments")));
-		return;
+		NanThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
 		!args [0]->IsNumber ()
 	) {
-		isolate->ThrowException (Exception::TypeError (String::NewFromUtf8 (isolate, "Wrong type of arguments")));
-		return;
+		NanThrowTypeError ("Wrong type of arguments");
 	};
 
 	char * val;
@@ -591,9 +551,8 @@ void node_swe_get_ayanamsa_name (const FunctionCallbackInfo <Value> & args) {
 		(int)args [0]->NumberValue ()
 	);
 
-	Local <String> result = String::NewFromUtf8 (isolate, val);
+	Local <String> result = NanNew<String> (val);
 
-    HandleCallback (isolate, args, result);
-
-
+    HandleCallback (args, result);
+    NanReturnValue (result);
 };
