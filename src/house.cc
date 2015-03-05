@@ -237,14 +237,11 @@ NAN_METHOD(node_swe_houses_pos) {
 		NanThrowTypeError ("Wrong type of arguments");
 	};
 
-	double cusps [20] = {0};
-	double ascmc [40] = {0};
 	double xpin [2] = {args [4]->NumberValue (), args [5]->NumberValue ()};
 	char serr [AS_MAXCH];
 	double rflag;
 
 	Local <Object> result = NanNew<Object> ();
-	Local <Array> house = NanNew<Array> ();
 
 	rflag = ::swe_house_pos (
 		args [0]->NumberValue (),
