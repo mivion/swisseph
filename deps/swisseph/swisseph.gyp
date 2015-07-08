@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      'target_name': 'swisseph',
+      'target_name': 'swissephz',
       'type': 'static_library',
       'direct_dependent_settings': {
         'include_dirs': ['.']
