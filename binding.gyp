@@ -13,7 +13,7 @@
         'src/eclipse.cc'
       ],
       'dependencies': [
-      	'deps/swisseph/swisseph.gyp:swisseph'
+      	'deps/swisseph/swisseph.gyp:swissephz'
       ],
       "include_dirs": ["<!(node -e \"require('nan')\")"]
     }
