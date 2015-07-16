@@ -1,3 +1,7 @@
+## 0.5.3
+
+- Fixed Windows Build
+
 ## 0.5.2
 
 - Add NAN building for node.js versions 0.10 and 0.12 support
