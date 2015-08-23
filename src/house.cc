@@ -34,25 +34,35 @@ NAN_METHOD(node_swe_houses) {
 		NanThrowTypeError ("Wrong type of arguments");
 	};
 
-	double cusps [20] = {0};
+	double cusps [40] = {0};
 	double ascmc [40] = {0};
 	int rflag;
+	size_t cuspsCount;
+	int hsys;
 
 	Local <Object> result = NanNew<Object> ();
 	Local <Array> house = NanNew<Array> ();
+
+	hsys = (* String::Utf8Value (args [3]->ToString ())) [0];
+	
+	if (hsys == 'G') {
+		cuspsCount = 36;
+	} else {
+		cuspsCount = 12;
+	}
 
 	rflag = ::swe_houses (
 		args [0]->NumberValue (),
 		args [1]->NumberValue (),
 		args [2]->NumberValue (),
-		(* String::Utf8Value (args [3]->ToString ())) [0],
+		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
 		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
-		for (size_t i = 0; i < 12; i ++) {
+		for (size_t i = 0; i < cuspsCount; i ++) {
 			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 
@@ -104,26 +114,36 @@ NAN_METHOD(node_swe_houses_ex) {
 		NanThrowTypeError ("Wrong type of arguments");
 	};
 
-	double cusps [20] = {0};
+	double cusps [40] = {0};
 	double ascmc [40] = {0};
 	int rflag;
+	size_t cuspsCount;
+	int hsys;
 
 	Local <Object> result = NanNew<Object> ();
 	Local <Array> house = NanNew<Array> ();
+
+	hsys = (* String::Utf8Value (args [4]->ToString ())) [0];
+	
+	if (hsys == 'G') {
+		cuspsCount = 36;
+	} else {
+		cuspsCount = 12;
+	}
 
 	rflag = ::swe_houses_ex (
 		args [0]->NumberValue (),
 		(int)args [1]->NumberValue (),
 		args [2]->NumberValue (),
 		args [3]->NumberValue (),
-		(* String::Utf8Value (args [4]->ToString ())) [0],
+		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
 		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
-		for (size_t i = 0; i < 12; i ++) {
+		for (size_t i = 0; i < cuspsCount; i ++) {
 			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 
@@ -174,25 +194,35 @@ NAN_METHOD(node_swe_houses_armc) {
 		NanThrowTypeError ("Wrong type of arguments");
 	};
 
-	double cusps [20] = {0};
+	double cusps [40] = {0};
 	double ascmc [40] = {0};
 	int rflag;
+	size_t cuspsCount;
+	int hsys;
 
 	Local <Object> result = NanNew<Object> ();
 	Local <Array> house = NanNew<Array> ();
 
+	hsys = (* String::Utf8Value (args [3]->ToString ())) [0];
+	
+	if (hsys == 'G') {
+		cuspsCount = 36;
+	} else {
+		cuspsCount = 12;
+	}
+	
 	rflag = ::swe_houses (
 		args [0]->NumberValue (),
 		args [1]->NumberValue (),
 		args [2]->NumberValue (),
-		(* String::Utf8Value (args [3]->ToString ())) [0],
+		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
 		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
 	} else {
-		for (size_t i = 0; i < 12; i ++) {
+		for (size_t i = 0; i < cuspsCount; i ++) {
 			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
 		};
 

@@ -19,13 +19,13 @@ $ npm install swisseph
 
 ## Requirements
 
-From version 0.5.0 only nodejs 0.12 or newer supported.
+From version 0.5.x only nodejs 0.12 or newer supported.
 
 To use with older nodejs version use swisseph 0.4.x or older.
 
-## Version 0.5.0 Notes
+## Version 0.5.x Notes
 
-From version 0.5.0 only nodejs 0.12 supported, because of C addons API compatibility.
+From version 0.5.x only nodejs 0.12 supported, because of C addons API compatibility.
 
 Also, project splited to [swisseph](https://github.com/mivion/swisseph) and [swisseph-api](https://github.com/mivion/swisseph).
 [swisseph](https://github.com/mivion/swisseph) responsible only for nodejs binding, but [swisseph-api](https://github.com/mivion/swisseph)

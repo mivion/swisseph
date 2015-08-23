@@ -1,3 +1,11 @@
+## 0.5.5
+
+- Fixed houses calculations for Gauquelin system
+
+## 0.5.4
+
+- Swisseph updated to v2.02.01
+
 ## 0.5.3
 
 - Fixed Windows Build

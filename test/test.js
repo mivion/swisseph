@@ -139,10 +139,20 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 		console.log ('Houses for date:', result);
     });
 
+    swisseph.swe_houses (julday_ut, 0, 0, 'G', function (result) {
+		assert (!result.error, result.error);
+		console.log ('Gauquelin houses for date:', result);
+    });
+
 	// Siderial houses
     swisseph.swe_houses_ex (julday_ut, 0, 0, 0, 'K', function (result) {
 		assert (!result.error, result.error);
 		console.log ('Siderial houses for date:', result);
+    });
+
+    swisseph.swe_houses_ex (julday_ut, 0, 0, 0, 'G', function (result) {
+		assert (!result.error, result.error);
+		console.log ('Siderial Gauquelin houses for date:', result);
     });
 
 	// ARMC houses
@@ -151,6 +161,11 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 	    swisseph.swe_houses_armc (ayanamsa, 0, 23, 'K', function (result) {
 			assert (!result.error, result.error);
 			console.log ('ARMC houses for date:', result);
+	    });
+	    
+	    swisseph.swe_houses_armc (ayanamsa, 0, 23, 'G', function (result) {
+			assert (!result.error, result.error);
+			console.log ('ARMC Gauquelin houses for date:', result);
 	    });
 	});
 });
