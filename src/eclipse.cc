@@ -12,25 +12,25 @@ using namespace v8;
  * }
  */
 NAN_METHOD(node_swe_gauquelin_sector) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 10) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 10) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsString () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber () ||
-		!args [7]->IsNumber () ||
-		!args [8]->IsNumber () ||
-		!args [9]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber () ||
+		!info [8]->IsNumber () ||
+		!info [9]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -39,35 +39,35 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
 
-	geopos [0] = args [5]->NumberValue ();
-	geopos [1] = args [6]->NumberValue ();
-	geopos [2] = args [7]->NumberValue ();
+	geopos [0] = info [5]->NumberValue ();
+	geopos [1] = info [6]->NumberValue ();
+	geopos [2] = info [7]->NumberValue ();
 
 	rflag = ::swe_gauquelin_sector (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		star,
-		(int)args [3]->NumberValue (),
-		(int)args [4]->NumberValue (),
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
 		geopos,
-		args [8]->NumberValue (),
-		args [9]->NumberValue (),
+		info [8]->NumberValue (),
+		info [9]->NumberValue (),
 		&dgsect, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("name"), NanNew<String> (star));
-		result->Set (NanNew<String> ("gauquelinSector"), NanNew<Number> (dgsect));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("gauquelinSector").ToLocalChecked(), Nan::New<Number> (dgsect));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -91,17 +91,17 @@ NAN_METHOD(node_swe_gauquelin_sector) {
  * }
  */
 NAN_METHOD(node_swe_sol_eclipse_where) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -110,33 +110,33 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
 	long rflag;
 
 	rflag = ::swe_sol_eclipse_where (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos, attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("longitude"),	NanNew<Number> (geopos [0]));
-		result->Set (NanNew<String> ("latitude"),	NanNew<Number> (geopos [1]));
-		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
-		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
-		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
-		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
+		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
+		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
+		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -157,19 +157,19 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
  * }
  */
 NAN_METHOD(node_swe_lun_occult_where) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsString () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -178,35 +178,35 @@ NAN_METHOD(node_swe_lun_occult_where) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
 
 	rflag = ::swe_lun_occult_where (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		star,
-		(int)args [3]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		geopos, attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("longitude"),	NanNew<Number> (geopos [0]));
-		result->Set (NanNew<String> ("latitude"),	NanNew<Number> (geopos [1]));
-		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
+		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	Nan::New<Number> (geopos [0]));
+		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	Nan::New<Number> (geopos [1]));
+		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -228,20 +228,20 @@ NAN_METHOD(node_swe_lun_occult_where) {
  * }
  */
 NAN_METHOD(node_swe_sol_eclipse_how) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 5) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 5) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -249,36 +249,36 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = args [2]->NumberValue ();
-	geopos [1] = args [3]->NumberValue ();
-	geopos [2] = args [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
 
 	rflag = ::swe_sol_eclipse_how (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos, attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
-		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
-		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
-		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
+		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -305,21 +305,21 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
  * }
  */
 NAN_METHOD(node_swe_sol_eclipse_when_loc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 6) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 6) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -328,43 +328,43 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = args [2]->NumberValue ();
-	geopos [1] = args [3]->NumberValue ();
-	geopos [2] = args [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
 
 	rflag = ::swe_sol_eclipse_when_loc (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos, tret, attr,
-		(int)args [5]->NumberValue (),
+		(int)info [5]->NumberValue (),
 		serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
-		result->Set (NanNew<String> ("first"),		NanNew<Number> (tret [1]));
-		result->Set (NanNew<String> ("second"),		NanNew<Number> (tret [2]));
-		result->Set (NanNew<String> ("third"),		NanNew<Number> (tret [3]));
-		result->Set (NanNew<String> ("forth"),		NanNew<Number> (tret [4]));
-		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
-		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
-		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
-		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		result->Set (Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("third").ToLocalChecked(),		Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -392,23 +392,23 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
  * }
  */
 NAN_METHOD(node_swe_lun_occult_when_loc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 8) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 8) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsString () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber () ||
-		!args [7]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -418,48 +418,48 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
 
-	geopos [0] = args [4]->NumberValue ();
-	geopos [1] = args [5]->NumberValue ();
-	geopos [2] = args [6]->NumberValue ();
+	geopos [0] = info [4]->NumberValue ();
+	geopos [1] = info [5]->NumberValue ();
+	geopos [2] = info [6]->NumberValue ();
 
 	rflag = ::swe_lun_occult_when_loc (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		star,
-		(int)args [3]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		geopos, tret, attr,
-		(int)args [7]->NumberValue (),
+		(int)info [7]->NumberValue (),
 		serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("name"), NanNew<String> (star));
-		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
-		result->Set (NanNew<String> ("first"),		NanNew<Number> (tret [1]));
-		result->Set (NanNew<String> ("second"),		NanNew<Number> (tret [2]));
-		result->Set (NanNew<String> ("third"),		NanNew<Number> (tret [3]));
-		result->Set (NanNew<String> ("forth"),		NanNew<Number> (tret [4]));
-		result->Set (NanNew<String> ("solarDiameterFraction"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("lonarToSolarDiameterRatio"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("solarDiscFraction"),			NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("coreShadow"),					NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("azimuth"),						NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),				NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),			NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("moonToSunAngularDistance"),	NanNew<Number> (attr [7]));
-		result->Set (NanNew<String> ("eclipseMagnitude"),			NanNew<Number> (attr [8]));
-		result->Set (NanNew<String> ("sarosNumber"),					NanNew<Number> (attr [9]));
-		result->Set (NanNew<String> ("sarosMember"),					NanNew<Number> (attr [10]));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		result->Set (Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("third").ToLocalChecked(),		Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -478,19 +478,19 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
  * }
  */
 NAN_METHOD(node_swe_sol_eclipse_when_glob) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -498,31 +498,31 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
 	long rflag;
 
 	rflag = ::swe_sol_eclipse_when_glob (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
 		tret,
-		(int)args [3]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
-		result->Set (NanNew<String> ("noon"),		NanNew<Number> (tret [1]));
-		result->Set (NanNew<String> ("begin"),		NanNew<Number> (tret [2]));
-		result->Set (NanNew<String> ("end"),			NanNew<Number> (tret [3]));
-		result->Set (NanNew<String> ("totalBegin"),	NanNew<Number> (tret [4]));
-		result->Set (NanNew<String> ("totalEnd"),	NanNew<Number> (tret [5]));
-		result->Set (NanNew<String> ("centerBegin"),	NanNew<Number> (tret [6]));
-		result->Set (NanNew<String> ("centerEnd"),	NanNew<Number> (tret [7]));
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
+		result->Set (Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		result->Set (Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -542,21 +542,21 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
  * }
  */
 NAN_METHOD(node_swe_lun_occult_when_glob) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 6) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 6) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsString () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -564,37 +564,37 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
 
 	rflag = ::swe_lun_occult_when_glob (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		star,
-		(int)args [3]->NumberValue (),
-		(int)args [4]->NumberValue (),
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
 		tret,
-		(int)args [5]->NumberValue (),
+		(int)info [5]->NumberValue (),
 		serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("name"), NanNew<String> (star));
-		result->Set (NanNew<String> ("maximum"),		NanNew<Number> (tret [0]));
-		result->Set (NanNew<String> ("noon"),		NanNew<Number> (tret [1]));
-		result->Set (NanNew<String> ("begin"),		NanNew<Number> (tret [2]));
-		result->Set (NanNew<String> ("end"),			NanNew<Number> (tret [3]));
-		result->Set (NanNew<String> ("totalBegin"),	NanNew<Number> (tret [4]));
-		result->Set (NanNew<String> ("totalEnd"),	NanNew<Number> (tret [5]));
-		result->Set (NanNew<String> ("centerBegin"),	NanNew<Number> (tret [6]));
-		result->Set (NanNew<String> ("centerEnd"),	NanNew<Number> (tret [7]));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
+		result->Set (Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		result->Set (Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -614,20 +614,20 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
  * }
  */
 NAN_METHOD(node_swe_lun_eclipse_how) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 5) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 5) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -635,34 +635,34 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = args [2]->NumberValue ();
-	geopos [1] = args [3]->NumberValue ();
-	geopos [2] = args [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
 
 	rflag = ::swe_lun_eclipse_how (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos, attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("umbralMagnitude"),		NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("penumbralMagnitude"),	NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("azimuth"),				NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (attr [5]));
-		result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (attr [6]));
-		result->Set (NanNew<String> ("oppositeDegreeDist"),	NanNew<Number> (attr [7]));
-		result->Set (NanNew<String> ("magnitude"),			NanNew<Number> (attr [8]));
-		result->Set (NanNew<String> ("sarosNumber"),			NanNew<Number> (attr [9]));
-		result->Set (NanNew<String> ("sarosMember"),			NanNew<Number> (attr [10]));
+		result->Set (Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("oppositeDegreeDist").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("magnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),			Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),			Nan::New<Number> (attr [10]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -680,19 +680,19 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
  * }
  */
 NAN_METHOD(node_swe_lun_eclipse_when) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tret [10] = {0};
@@ -700,30 +700,30 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
 	long rflag;
 
 	rflag = ::swe_lun_eclipse_when (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
 		tret,
-		(int)args [3]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("maximum"),			NanNew<Number> (tret [0]));
-		result->Set (NanNew<String> ("partialBegin"),	NanNew<Number> (tret [2]));
-		result->Set (NanNew<String> ("partialEnd"),		NanNew<Number> (tret [3]));
-		result->Set (NanNew<String> ("totalBegin"),		NanNew<Number> (tret [4]));
-		result->Set (NanNew<String> ("totalEnd"),		NanNew<Number> (tret [5]));
-		result->Set (NanNew<String> ("penumbralBegin"),	NanNew<Number> (tret [6]));
-		result->Set (NanNew<String> ("penumbralEnd"),	NanNew<Number> (tret [7]));
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),			Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("partialBegin").ToLocalChecked(),	Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("partialEnd").ToLocalChecked(),		Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),		Nan::New<Number> (tret [5]));
+		result->Set (Nan::New<String> ("penumbralBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		result->Set (Nan::New<String> ("penumbralEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -739,18 +739,18 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
  * }
  */
 NAN_METHOD(node_swe_pheno) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 3) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double attr [20];
@@ -758,27 +758,27 @@ NAN_METHOD(node_swe_pheno) {
 	long rflag;
 
 	rflag = ::swe_pheno (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
 		attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("phaseAngle"), NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("phase"), NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("elongation"), NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("apparentDiameter"), NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("apparentMagnitude"), NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
+		result->Set (Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -794,18 +794,18 @@ NAN_METHOD(node_swe_pheno) {
  * }
  */
 NAN_METHOD(node_swe_pheno_ut) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 3) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double attr [20];
@@ -813,27 +813,27 @@ NAN_METHOD(node_swe_pheno_ut) {
 	long rflag;
 
 	rflag = ::swe_pheno_ut (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
 		attr, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("phaseAngle"), NanNew<Number> (attr [0]));
-		result->Set (NanNew<String> ("phase"), NanNew<Number> (attr [1]));
-		result->Set (NanNew<String> ("elongation"), NanNew<Number> (attr [2]));
-		result->Set (NanNew<String> ("apparentDiameter"), NanNew<Number> (attr [3]));
-		result->Set (NanNew<String> ("apparentMagnitude"), NanNew<Number> (attr [4]));
-		result->Set (NanNew<String> ("rflag"), NanNew<Number> (rflag));
+		result->Set (Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
+		result->Set (Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
+		result->Set (Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -844,36 +844,36 @@ NAN_METHOD(node_swe_pheno_ut) {
  * }
  */
 NAN_METHOD(node_swe_refrac) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double refraction;
 
 	refraction = ::swe_refrac (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue (),
-		(int)args [3]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue (),
+		(int)info [3]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("refraction"), NanNew<Number> (refraction));
+	result->Set (Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -887,45 +887,45 @@ NAN_METHOD(node_swe_refrac) {
  * }
  */
 NAN_METHOD(node_swe_refrac_extended) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 6) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 6) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double refraction;
 	double dret [4];
 
 	refraction = ::swe_refrac_extended (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue (),
-		args [3]->NumberValue (),
-		args [4]->NumberValue (),
-		(int)args [5]->NumberValue (),
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue (),
+		info [3]->NumberValue (),
+		info [4]->NumberValue (),
+		(int)info [5]->NumberValue (),
 		dret
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("refraction"), NanNew<Number> (refraction));
-	result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (dret [0]));
-	result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (dret [1]));
-	result->Set (NanNew<String> ("horizonDip"),			NanNew<Number> (dret [3]));
+	result->Set (Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
+	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (dret [0]));
+	result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (dret [1]));
+	result->Set (Nan::New<String> ("horizonDip").ToLocalChecked(),			Nan::New<Number> (dret [3]));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -935,26 +935,26 @@ NAN_METHOD(node_swe_refrac_extended) {
  * }
  */
 NAN_METHOD(node_swe_set_lapse_rate) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_lapse_rate (
-        args [0]->NumberValue ()
+        info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -967,56 +967,56 @@ NAN_METHOD(node_swe_set_lapse_rate) {
  * }
  */
 NAN_METHOD(node_swe_azalt) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 10) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 10) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber () ||
-		!args [7]->IsNumber () ||
-		!args [8]->IsNumber () ||
-		!args [9]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber () ||
+		!info [8]->IsNumber () ||
+		!info [9]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
 	double xin [3] = {0};
 	double xaz [3] = {0};
 
-	geopos [0] = args [2]->NumberValue ();
-	geopos [1] = args [3]->NumberValue ();
-	geopos [2] = args [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
 
-	xin [0] = args [7]->NumberValue ();
-	xin [1] = args [8]->NumberValue ();
-	xin [2] = args [9]->NumberValue ();
+	xin [0] = info [7]->NumberValue ();
+	xin [1] = info [8]->NumberValue ();
+	xin [2] = info [9]->NumberValue ();
 
 	::swe_azalt (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos,
-		args [5]->NumberValue (),
-		args [6]->NumberValue (),
+		info [5]->NumberValue (),
+		info [6]->NumberValue (),
 		xin, xaz
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("azimuth"),				NanNew<Number> (xaz [0]));
-	result->Set (NanNew<String> ("trueAltitude"),		NanNew<Number> (xaz [1]));
-	result->Set (NanNew<String> ("apparentAltitude"),	NanNew<Number> (xaz [2]));
+	result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (xaz [0]));
+	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (xaz [1]));
+	result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (xaz [2]));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -1028,48 +1028,48 @@ NAN_METHOD(node_swe_azalt) {
  * }
  */
 NAN_METHOD(node_swe_azalt_rev) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 7) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 7) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
 	double xin [3] = {0};
 	double xout [3] = {0};
 
-	geopos [0] = args [2]->NumberValue ();
-	geopos [1] = args [3]->NumberValue ();
-	geopos [2] = args [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
 
-	xin [0] = args [5]->NumberValue ();
-	xin [1] = args [6]->NumberValue ();
+	xin [0] = info [5]->NumberValue ();
+	xin [1] = info [6]->NumberValue ();
 
 	::swe_azalt_rev (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		geopos, xin, xout
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("azimuth"),			NanNew<Number> (xout [0]));
-	result->Set (NanNew<String> ("trueAltitude"),	NanNew<Number> (xout [1]));
+	result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),			Nan::New<Number> (xout [0]));
+	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),	Nan::New<Number> (xout [1]));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -1081,25 +1081,25 @@ NAN_METHOD(node_swe_azalt_rev) {
  * }
  */
 NAN_METHOD(node_swe_rise_trans) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 10) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 10) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsString () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber () ||
-		!args [7]->IsNumber () ||
-		!args [8]->IsNumber () ||
-		!args [9]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber () ||
+		!info [8]->IsNumber () ||
+		!info [9]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double geopos [10] = {0};
@@ -1108,35 +1108,35 @@ NAN_METHOD(node_swe_rise_trans) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (args [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
 
-	geopos [0] = args [5]->NumberValue ();
-	geopos [1] = args [6]->NumberValue ();
-	geopos [2] = args [7]->NumberValue ();
+	geopos [0] = info [5]->NumberValue ();
+	geopos [1] = info [6]->NumberValue ();
+	geopos [2] = info [7]->NumberValue ();
 
 	rflag = ::swe_rise_trans (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		star,
-		(int)args [3]->NumberValue (),
-		(int)args [4]->NumberValue (),
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
 		geopos,
-		args [8]->NumberValue (),
-		args [9]->NumberValue (),
+		info [8]->NumberValue (),
+		info [9]->NumberValue (),
 		&tret, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("name"), NanNew<String> (star));
-		result->Set (NanNew<String> ("transitTime"), NanNew<Number> (tret));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -1179,19 +1179,19 @@ NAN_METHOD(node_swe_rise_trans) {
  * }
  */
 NAN_METHOD(node_swe_nod_aps) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xnasc [6] = {0};
@@ -1202,57 +1202,57 @@ NAN_METHOD(node_swe_nod_aps) {
 	long rflag;
 
 	rflag = ::swe_nod_aps (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		(int)args [3]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		Local <Object> ascending = NanNew<Object> ();
-		ascending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xnasc [0]));
-		ascending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xnasc [1]));
-		ascending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xnasc [2]));
-		ascending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xnasc [3]));
-		ascending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xnasc [4]));
-		ascending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xnasc [5]));
-		result->Set (NanNew<String> ("ascending"), ascending);
+		Local <Object> ascending = Nan::New<Object> ();
+		ascending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+		ascending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+		ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+		ascending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+		ascending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+		ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+		result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
-		Local <Object> descending = NanNew<Object> ();
-		descending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xndsc [0]));
-		descending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xndsc [1]));
-		descending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xndsc [2]));
-		descending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xndsc [3]));
-		descending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xndsc [4]));
-		descending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xndsc [5]));
-		result->Set (NanNew<String> ("descending"), descending);
+		Local <Object> descending = Nan::New<Object> ();
+		descending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+		descending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+		descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+		descending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+		descending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+		descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+		result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
 
-		Local <Object> perihelion = NanNew<Object> ();
-		perihelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xperi [0]));
-		perihelion->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xperi [1]));
-		perihelion->Set (NanNew<String> ("distance"), 		NanNew<Number> (xperi [2]));
-		perihelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xperi [3]));
-		perihelion->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xperi [4]));
-		perihelion->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xperi [5]));
-		result->Set (NanNew<String> ("perihelion"), perihelion);
+		Local <Object> perihelion = Nan::New<Object> ();
+		perihelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+		perihelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+		perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+		perihelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+		perihelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+		perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+		result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
-		Local <Object> aphelion = NanNew<Object> ();
-		aphelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xaphe [0]));
-		aphelion->Set (NanNew<String> ("latitude"), 			NanNew<Number> (xaphe [1]));
-		aphelion->Set (NanNew<String> ("distance"), 			NanNew<Number> (xaphe [2]));
-		aphelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xaphe [3]));
-		aphelion->Set (NanNew<String> ("latitudeSpeed"),		NanNew<Number> (xaphe [4]));
-		aphelion->Set (NanNew<String> ("distanceSpeed"),		NanNew<Number> (xaphe [5]));
-		result->Set (NanNew<String> ("aphelion"), aphelion);
+		Local <Object> aphelion = Nan::New<Object> ();
+		aphelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+		aphelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+		aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+		aphelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+		aphelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+		aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+		result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -1295,19 +1295,19 @@ NAN_METHOD(node_swe_nod_aps) {
  * }
  */
 NAN_METHOD(node_swe_nod_aps_ut) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xnasc [6] = {0};
@@ -1318,55 +1318,55 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 	long rflag;
 
 	rflag = ::swe_nod_aps_ut (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		(int)args [3]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		(int)info [3]->NumberValue (),
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		Local <Object> ascending = NanNew<Object> ();
-		ascending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xnasc [0]));
-		ascending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xnasc [1]));
-		ascending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xnasc [2]));
-		ascending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xnasc [3]));
-		ascending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xnasc [4]));
-		ascending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xnasc [5]));
-		result->Set (NanNew<String> ("ascending"), ascending);
+		Local <Object> ascending = Nan::New<Object> ();
+		ascending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+		ascending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+		ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+		ascending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+		ascending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+		ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+		result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
-		Local <Object> descending = NanNew<Object> ();
-		descending->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xndsc [0]));
-		descending->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xndsc [1]));
-		descending->Set (NanNew<String> ("distance"), 		NanNew<Number> (xndsc [2]));
-		descending->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xndsc [3]));
-		descending->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xndsc [4]));
-		descending->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xndsc [5]));
-		result->Set (NanNew<String> ("descending"), descending);
+		Local <Object> descending = Nan::New<Object> ();
+		descending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+		descending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+		descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+		descending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+		descending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+		descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+		result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
 
-		Local <Object> perihelion = NanNew<Object> ();
-		perihelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xperi [0]));
-		perihelion->Set (NanNew<String> ("latitude"), 		NanNew<Number> (xperi [1]));
-		perihelion->Set (NanNew<String> ("distance"), 		NanNew<Number> (xperi [2]));
-		perihelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xperi [3]));
-		perihelion->Set (NanNew<String> ("latitudeSpeed"),	NanNew<Number> (xperi [4]));
-		perihelion->Set (NanNew<String> ("distanceSpeed"),	NanNew<Number> (xperi [5]));
-		result->Set (NanNew<String> ("perihelion"), perihelion);
+		Local <Object> perihelion = Nan::New<Object> ();
+		perihelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+		perihelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+		perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+		perihelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+		perihelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+		perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+		result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
-		Local <Object> aphelion = NanNew<Object> ();
-		aphelion->Set (NanNew<String> ("longitude"), 		NanNew<Number> (xaphe [0]));
-		aphelion->Set (NanNew<String> ("latitude"), 			NanNew<Number> (xaphe [1]));
-		aphelion->Set (NanNew<String> ("distance"), 			NanNew<Number> (xaphe [2]));
-		aphelion->Set (NanNew<String> ("longitudeSpeed"),	NanNew<Number> (xaphe [3]));
-		aphelion->Set (NanNew<String> ("latitudeSpeed"),		NanNew<Number> (xaphe [4]));
-		aphelion->Set (NanNew<String> ("distanceSpeed"),		NanNew<Number> (xaphe [5]));
-		result->Set (NanNew<String> ("aphelion"), aphelion);
+		Local <Object> aphelion = Nan::New<Object> ();
+		aphelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+		aphelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+		aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+		aphelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+		aphelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+		aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+		result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };

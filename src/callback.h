@@ -6,6 +6,6 @@
 
 using namespace v8;
 
-void HandleCallback (_NAN_METHOD_ARGS_TYPE args, Handle <Value> result);
+void HandleCallback (Nan::NAN_METHOD_ARGS_TYPE info, Handle <Value> result);
 
 #endif // __swisseph_callback_h__

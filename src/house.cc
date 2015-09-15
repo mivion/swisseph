@@ -19,19 +19,19 @@ using namespace v8;
  * }
  */
 NAN_METHOD(node_swe_houses) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsString ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsString ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [40] = {0};
@@ -40,10 +40,10 @@ NAN_METHOD(node_swe_houses) {
 	size_t cuspsCount;
 	int hsys;
 
-	Local <Object> result = NanNew<Object> ();
-	Local <Array> house = NanNew<Array> ();
+	Local <Object> result = Nan::New<Object> ();
+	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (args [3]->ToString ())) [0];
+	hsys = (* String::Utf8Value (info [3]->ToString ())) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -52,33 +52,33 @@ NAN_METHOD(node_swe_houses) {
 	}
 
 	rflag = ::swe_houses (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue (),
 		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
+			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (NanNew<String> ("house"), house);
-		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
-		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
-		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
-		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
-		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
-		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
-		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
-		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
+		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
+		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -98,20 +98,20 @@ NAN_METHOD(node_swe_houses) {
  * }
  */
 NAN_METHOD(node_swe_houses_ex) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 5) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 5) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsString ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsString ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [40] = {0};
@@ -120,10 +120,10 @@ NAN_METHOD(node_swe_houses_ex) {
 	size_t cuspsCount;
 	int hsys;
 
-	Local <Object> result = NanNew<Object> ();
-	Local <Array> house = NanNew<Array> ();
+	Local <Object> result = Nan::New<Object> ();
+	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (args [4]->ToString ())) [0];
+	hsys = (* String::Utf8Value (info [4]->ToString ())) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -132,34 +132,34 @@ NAN_METHOD(node_swe_houses_ex) {
 	}
 
 	rflag = ::swe_houses_ex (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		args [2]->NumberValue (),
-		args [3]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		info [2]->NumberValue (),
+		info [3]->NumberValue (),
 		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
+			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (NanNew<String> ("house"), house);
-		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
-		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
-		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
-		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
-		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
-		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
-		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
-		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
+		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
+		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -179,19 +179,19 @@ NAN_METHOD(node_swe_houses_ex) {
  * }
  */
 NAN_METHOD(node_swe_houses_armc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 4) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 4) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsString ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsString ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double cusps [40] = {0};
@@ -200,10 +200,10 @@ NAN_METHOD(node_swe_houses_armc) {
 	size_t cuspsCount;
 	int hsys;
 
-	Local <Object> result = NanNew<Object> ();
-	Local <Array> house = NanNew<Array> ();
+	Local <Object> result = Nan::New<Object> ();
+	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (args [3]->ToString ())) [0];
+	hsys = (* String::Utf8Value (info [3]->ToString ())) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -212,33 +212,33 @@ NAN_METHOD(node_swe_houses_armc) {
 	}
 	
 	rflag = ::swe_houses (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue (),
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue (),
 		hsys,
 		cusps, ascmc
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (NanNew<Number> (i), NanNew<Number> (cusps [i + 1]));
+			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (NanNew<String> ("house"), house);
-		result->Set (NanNew<String> ("ascendant"), NanNew<Number> (ascmc [SE_ASC]));
-		result->Set (NanNew<String> ("mc"), NanNew<Number> (ascmc [SE_MC]));
-		result->Set (NanNew<String> ("armc"), NanNew<Number> (ascmc [SE_ARMC]));
-		result->Set (NanNew<String> ("vertex"), NanNew<Number> (ascmc [SE_VERTEX]));
-		result->Set (NanNew<String> ("equatorialAscendant"), NanNew<Number> (ascmc [SE_COASC1]));
-		result->Set (NanNew<String> ("kochCoAscendant"), NanNew<Number> (ascmc [SE_COASC2]));
-		result->Set (NanNew<String> ("munkaseyCoAscendant"), NanNew<Number> (ascmc [SE_POLASC]));
-		result->Set (NanNew<String> ("munkaseyPolarAscendant"), NanNew<Number> (ascmc [SE_NASCMC]));
+		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
+		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_NASCMC]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -250,43 +250,43 @@ NAN_METHOD(node_swe_houses_armc) {
  * }
  */
 NAN_METHOD(node_swe_houses_pos) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 6) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 6) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsString () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsString () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double xpin [2] = {args [4]->NumberValue (), args [5]->NumberValue ()};
+	double xpin [2] = {info [4]->NumberValue (), info [5]->NumberValue ()};
 	char serr [AS_MAXCH];
 	double rflag;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_house_pos (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue (),
-		(* String::Utf8Value (args [3]->ToString ())) [0],
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue (),
+		(* String::Utf8Value (info [3]->ToString ())) [0],
 		xpin, serr
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> ("Can't calculate houses."));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("housePosition"), NanNew<Number> (rflag));
+		result->Set (Nan::New<String> ("housePosition").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };

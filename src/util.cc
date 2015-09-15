@@ -10,30 +10,30 @@ using namespace v8;
  * }
  */
 NAN_METHOD(node_swe_deltat) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double deltat;
 
 	deltat = ::swe_deltat (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("delta"), NanNew<Number> (deltat));
+	result->Set (Nan::New<String> ("delta").ToLocalChecked(), Nan::New<Number> (deltat));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -45,16 +45,16 @@ NAN_METHOD(node_swe_deltat) {
  * }
  */
 NAN_METHOD(node_swe_time_equ) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double te;
@@ -62,20 +62,20 @@ NAN_METHOD(node_swe_time_equ) {
 	long rflag;
 
 	rflag = ::swe_time_equ (
-		args [0]->NumberValue (),
+		info [0]->NumberValue (),
 		&te, serr
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("timeEquation"), NanNew<Number> (te));
+		result->Set (Nan::New<String> ("timeEquation").ToLocalChecked(), Nan::New<Number> (te));
 	}
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -86,34 +86,34 @@ NAN_METHOD(node_swe_time_equ) {
  * }
  */
 NAN_METHOD(node_swe_sidtime0) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 3) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double st;
 
 	st = ::swe_sidtime0 (
-		args [0]->NumberValue (),
-		args [1]->NumberValue (),
-		args [2]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue (),
+		info [2]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("siderialTime"), NanNew<Number> (st));
+	result->Set (Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -124,30 +124,30 @@ NAN_METHOD(node_swe_sidtime0) {
  * }
  */
 NAN_METHOD(node_swe_sidtime) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double st;
 
 	st = ::swe_sidtime (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("siderialTime"), NanNew<Number> (st));
+	result->Set (Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -160,39 +160,39 @@ NAN_METHOD(node_swe_sidtime) {
  * }
  */
 NAN_METHOD(node_swe_cotrans) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsArray () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsArray () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xpn [3] = {0};
 	double xpo [3] = {0};
 
-	xpo [0] = args [0]->ToObject ()->Get (0)->NumberValue ();
-	xpo [1] = args [0]->ToObject ()->Get (1)->NumberValue ();
-	xpo [2] = args [0]->ToObject ()->Get (2)->NumberValue ();
+	xpo [0] = info [0]->ToObject ()->Get (0)->NumberValue ();
+	xpo [1] = info [0]->ToObject ()->Get (1)->NumberValue ();
+	xpo [2] = info [0]->ToObject ()->Get (2)->NumberValue ();
 
 	::swe_cotrans (
 		xpo, xpn,
-        args [1]->NumberValue ()
+        info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("longitude"), NanNew<Number> (xpn [0]));
-	result->Set (NanNew<String> ("latitude"), NanNew<Number> (xpn [1]));
-	result->Set (NanNew<String> ("distance"), NanNew<Number> (xpn [2]));
+	result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
+	result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
+	result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -205,39 +205,39 @@ NAN_METHOD(node_swe_cotrans) {
  * }
  */
 NAN_METHOD(node_swe_cotrans_sp) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsArray () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsArray () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xpn [3] = {0};
 	double xpo [3] = {0};
 
-	xpo [0] = args [0]->ToObject ()->Get (0)->NumberValue ();
-	xpo [1] = args [0]->ToObject ()->Get (1)->NumberValue ();
-	xpo [2] = args [0]->ToObject ()->Get (2)->NumberValue ();
+	xpo [0] = info [0]->ToObject ()->Get (0)->NumberValue ();
+	xpo [1] = info [0]->ToObject ()->Get (1)->NumberValue ();
+	xpo [2] = info [0]->ToObject ()->Get (2)->NumberValue ();
 
 	::swe_cotrans_sp (
 		xpo, xpn,
-        args [1]->NumberValue ()
+        info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("longitude"), NanNew<Number> (xpn [0]));
-	result->Set (NanNew<String> ("latitude"), NanNew<Number> (xpn [1]));
-	result->Set (NanNew<String> ("distance"), NanNew<Number> (xpn [2]));
+	result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
+	result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
+	result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -248,18 +248,18 @@ NAN_METHOD(node_swe_cotrans_sp) {
  * }
  */
 NAN_METHOD(node_swe_get_tid_acc) {
-	NanScope();
+	Nan::HandleScope scope;
 
 	double acceleration;
 
 	acceleration = ::swe_get_tid_acc ();
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("acceleration"), NanNew<Number> (acceleration));
+	result->Set (Nan::New<String> ("acceleration").ToLocalChecked(), Nan::New<Number> (acceleration));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -269,26 +269,26 @@ NAN_METHOD(node_swe_get_tid_acc) {
  * }
  */
 NAN_METHOD(node_swe_set_tid_acc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	::swe_set_tid_acc (
-        args [0]->NumberValue ()
+        info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -299,30 +299,30 @@ NAN_METHOD(node_swe_set_tid_acc) {
  * }
  */
 NAN_METHOD(node_swe_degnorm) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x360;
 
 	x360 = ::swe_degnorm (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("x360"), NanNew<Number> (x360));
+	result->Set (Nan::New<String> ("x360").ToLocalChecked(), Nan::New<Number> (x360));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -333,30 +333,30 @@ NAN_METHOD(node_swe_degnorm) {
  * }
  */
 NAN_METHOD(node_swe_radnorm) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double x2Pi;
 
 	x2Pi = ::swe_radnorm (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("x2Pi"), NanNew<Number> (x2Pi));
+	result->Set (Nan::New<String> ("x2Pi").ToLocalChecked(), Nan::New<Number> (x2Pi));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -367,32 +367,32 @@ NAN_METHOD(node_swe_radnorm) {
  * }
  */
 NAN_METHOD(node_swe_rad_midp) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xMid2Pi;
 
 	xMid2Pi = ::swe_rad_midp (
-		args [0]->NumberValue (),
-		args [1]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("xMid2Pi"), NanNew<Number> (xMid2Pi));
+	result->Set (Nan::New<String> ("xMid2Pi").ToLocalChecked(), Nan::New<Number> (xMid2Pi));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -403,32 +403,32 @@ NAN_METHOD(node_swe_rad_midp) {
  * }
  */
 NAN_METHOD(node_swe_deg_midp) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double xMid360;
 
 	xMid360 = ::swe_deg_midp (
-		args [0]->NumberValue (),
-		args [1]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("xMid360"), NanNew<Number> (xMid360));
+	result->Set (Nan::New<String> ("xMid360").ToLocalChecked(), Nan::New<Number> (xMid360));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -443,17 +443,17 @@ NAN_METHOD(node_swe_deg_midp) {
  * }
  */
 NAN_METHOD(node_swe_split_deg) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int ideg;
@@ -463,21 +463,21 @@ NAN_METHOD(node_swe_split_deg) {
 	int isgn;
 
 	::swe_split_deg (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		&ideg, &imin, &isec, &dsecfr, &isgn
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("degree"), NanNew<Number> (ideg));
-	result->Set (NanNew<String> ("min"), NanNew<Number> (imin));
-	result->Set (NanNew<String> ("second"), NanNew<Number> (isec));
-	result->Set (NanNew<String> ("secondFraction"), NanNew<Number> (dsecfr));
-	result->Set (NanNew<String> ("sign"), NanNew<Number> (isgn));
+	result->Set (Nan::New<String> ("degree").ToLocalChecked(), Nan::New<Number> (ideg));
+	result->Set (Nan::New<String> ("min").ToLocalChecked(), Nan::New<Number> (imin));
+	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (isec));
+	result->Set (Nan::New<String> ("secondFraction").ToLocalChecked(), Nan::New<Number> (dsecfr));
+	result->Set (Nan::New<String> ("sign").ToLocalChecked(), Nan::New<Number> (isgn));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -488,30 +488,30 @@ NAN_METHOD(node_swe_split_deg) {
  * }
  */
 NAN_METHOD(node_swe_csnorm) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisec360;
 
 	centisec360 = ::swe_csnorm (
-		(int)args [0]->NumberValue ()
+		(int)info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("centisec360"), NanNew<Number> (centisec360));
+	result->Set (Nan::New<String> ("centisec360").ToLocalChecked(), Nan::New<Number> (centisec360));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -522,32 +522,32 @@ NAN_METHOD(node_swe_csnorm) {
  * }
  */
 NAN_METHOD(node_swe_difcsn ) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecDiff;
 
 	centisecDiff = ::swe_difcsn (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue ()
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("centisecDiff"), NanNew<Number> (centisecDiff));
+	result->Set (Nan::New<String> ("centisecDiff").ToLocalChecked(), Nan::New<Number> (centisecDiff));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -558,32 +558,32 @@ NAN_METHOD(node_swe_difcsn ) {
  * }
  */
 NAN_METHOD(node_swe_difdegn ) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDiff;
 
 	degreeDiff = ::swe_difdegn (
-		args [0]->NumberValue (),
-		args [1]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("degreeDiff"), NanNew<Number> (degreeDiff));
+	result->Set (Nan::New<String> ("degreeDiff").ToLocalChecked(), Nan::New<Number> (degreeDiff));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -594,32 +594,32 @@ NAN_METHOD(node_swe_difdegn ) {
  * }
  */
 NAN_METHOD(node_swe_difcs2n) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecDistance180;
 
 	centisecDistance180 = ::swe_difcs2n (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue ()
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("centisecDistance180"), NanNew<Number> (centisecDistance180));
+	result->Set (Nan::New<String> ("centisecDistance180").ToLocalChecked(), Nan::New<Number> (centisecDistance180));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -630,32 +630,32 @@ NAN_METHOD(node_swe_difcs2n) {
  * }
  */
 NAN_METHOD(node_swe_difdeg2n) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDistance180;
 
 	degreeDistance180 = ::swe_difdeg2n (
-		args [0]->NumberValue (),
-		args [1]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("degreeDistance180"), NanNew<Number> (degreeDistance180));
+	result->Set (Nan::New<String> ("degreeDistance180").ToLocalChecked(), Nan::New<Number> (degreeDistance180));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -666,32 +666,32 @@ NAN_METHOD(node_swe_difdeg2n) {
  * }
  */
 NAN_METHOD(node_swe_difrad2n) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double degreeDistancePi;
 
 	degreeDistancePi = ::swe_difrad2n (
-		args [0]->NumberValue (),
-		args [1]->NumberValue ()
+		info [0]->NumberValue (),
+		info [1]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("degreeDistancePi"), NanNew<Number> (degreeDistancePi));
+	result->Set (Nan::New<String> ("degreeDistancePi").ToLocalChecked(), Nan::New<Number> (degreeDistancePi));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -702,30 +702,30 @@ NAN_METHOD(node_swe_difrad2n) {
  * }
  */
 NAN_METHOD(node_swe_csroundsec) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int centisecRound;
 
 	centisecRound = ::swe_csroundsec (
-		(int)args [0]->NumberValue ()
+		(int)info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("centisecRound"), NanNew<Number> (centisecRound));
+	result->Set (Nan::New<String> ("centisecRound").ToLocalChecked(), Nan::New<Number> (centisecRound));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -736,30 +736,30 @@ NAN_METHOD(node_swe_csroundsec) {
  * }
  */
 NAN_METHOD(node_swe_d2l) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int xRound;
 
 	xRound = ::swe_d2l (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("xRound"), NanNew<Number> (xRound));
+	result->Set (Nan::New<String> ("xRound").ToLocalChecked(), Nan::New<Number> (xRound));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -770,30 +770,30 @@ NAN_METHOD(node_swe_d2l) {
  * }
  */
 NAN_METHOD(node_swe_day_of_week) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	int dayOfWeek;
 
 	dayOfWeek = ::swe_day_of_week (
-		args [0]->NumberValue ()
+		info [0]->NumberValue ()
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("dayOfWeek"), NanNew<Number> (dayOfWeek));
+	result->Set (Nan::New<String> ("dayOfWeek").ToLocalChecked(), Nan::New<Number> (dayOfWeek));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -804,35 +804,35 @@ NAN_METHOD(node_swe_day_of_week) {
  * }
  */
 NAN_METHOD(node_swe_cs2timestr) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 3) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	char timeString [AS_MAXCH] = {0};
 
 	::swe_cs2timestr (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
 		timeString
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("timeString"), NanNew<String> (timeString));
+	result->Set (Nan::New<String> ("timeString").ToLocalChecked(), Nan::New<String> (timeString).ToLocalChecked());
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -843,35 +843,35 @@ NAN_METHOD(node_swe_cs2timestr) {
  * }
  */
 NAN_METHOD(node_swe_cs2lonlatstr) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 3) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsString () ||
-		!args [2]->IsString ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsString () ||
+		!info [2]->IsString ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	char lonlatString [AS_MAXCH] = {0};
 
 	::swe_cs2lonlatstr (
-		(int)args [0]->NumberValue (),
-		(* String::Utf8Value (args [1]->ToString ())) [0],
-		(* String::Utf8Value (args [2]->ToString ())) [0],
+		(int)info [0]->NumberValue (),
+		(* String::Utf8Value (info [1]->ToString ())) [0],
+		(* String::Utf8Value (info [2]->ToString ())) [0],
 		lonlatString
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("lonlatString"), NanNew<String> (lonlatString));
+	result->Set (Nan::New<String> ("lonlatString").ToLocalChecked(), Nan::New<String> (lonlatString).ToLocalChecked());
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -882,29 +882,29 @@ NAN_METHOD(node_swe_cs2lonlatstr) {
  * }
  */
 NAN_METHOD(node_swe_cs2degstr) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 1) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber ()
+		!info [0]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	char degreeString [AS_MAXCH] = {0};
 
 	::swe_cs2degstr (
-		(int)args [0]->NumberValue (),
+		(int)info [0]->NumberValue (),
 		degreeString
 	);
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (NanNew<String> ("degreeString"), NanNew<String> (degreeString));
+	result->Set (Nan::New<String>("degreeString").ToLocalChecked(), Nan::New<String>(degreeString).ToLocalChecked());
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };

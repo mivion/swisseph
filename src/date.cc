@@ -11,44 +11,44 @@ using namespace v8;
  * }
  */
 NAN_METHOD(node_swe_date_conversion) {
-	    NanScope();
+	    Nan::HandleScope scope;
 
-	if (args.Length () < 5) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 5) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		(!args [4]->IsString () && args [4]->ToString ()->Length () > 0)
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		(!info [4]->IsString () && info [4]->ToString ()->Length () > 0)
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tjd;
 	int rflag;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_date_conversion (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		args [3]->NumberValue (),
-		(* String::Utf8Value (args [4]->ToString ())) [0],
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		info [3]->NumberValue (),
+		(* String::Utf8Value (info [4]->ToString ())) [0],
 		&tjd
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> ("Input date is illegal."));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Input date is illegal.").ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("julianDay"), NanNew<Number> (tjd));
+		result->Set (Nan::New<String> ("julianDay").ToLocalChecked(), Nan::New<Number> (tjd));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -57,32 +57,32 @@ NAN_METHOD(node_swe_date_conversion) {
  * swe_julday(int year, int month, int day, double hour, int gregflag[, function callback (result)])
  */
 NAN_METHOD(node_swe_julday) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 5) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 5) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	Local <Number> result = NanNew<Number> (::swe_julday (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		args [3]->NumberValue (),
-		(int)args [4]->NumberValue ()
+	Local <Number> result = Nan::New<Number> (::swe_julday (
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		info [3]->NumberValue (),
+		(int)info [4]->NumberValue ()
 	));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -96,37 +96,37 @@ NAN_METHOD(node_swe_julday) {
  * }
  */
 NAN_METHOD(node_swe_revjul) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double hour;
 	int year, month, day;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	::swe_revjul (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		&year, &month, &day, &hour
 	);
 
-	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
-	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
-	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
-	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
+	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -139,50 +139,50 @@ NAN_METHOD(node_swe_revjul) {
  * }
  */
 NAN_METHOD(node_swe_utc_to_jd) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 7) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 7) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double tjd [2];
 	char serr [AS_MAXCH];
 	int rflag;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_utc_to_jd (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		(int)args [3]->NumberValue (),
-		(int)args [4]->NumberValue (),
-		args [5]->NumberValue (),
-		(int)args [6]->NumberValue (),
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
+		info [5]->NumberValue (),
+		(int)info [6]->NumberValue (),
 		tjd, serr
 	);
 
 	if (rflag < 0) {
-		result->Set (NanNew<String> ("error"), NanNew<String> (serr));
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (NanNew<String> ("julianDayUT"), NanNew<Number> (tjd [0]));
-		result->Set (NanNew<String> ("julianDayET"), NanNew<Number> (tjd [1]));
+		result->Set (Nan::New<String> ("julianDayUT").ToLocalChecked(), Nan::New<Number> (tjd [0]));
+		result->Set (Nan::New<String> ("julianDayET").ToLocalChecked(), Nan::New<Number> (tjd [1]));
 	};
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -198,39 +198,39 @@ NAN_METHOD(node_swe_utc_to_jd) {
  * }
  */
 NAN_METHOD(node_swe_jdet_to_utc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	::swe_jdet_to_utc (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
-	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
-	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
-	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
-	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
-	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
+	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -246,39 +246,39 @@ NAN_METHOD(node_swe_jdet_to_utc) {
  * }
  */
 NAN_METHOD(node_swe_jdut1_to_utc) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 2) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 2) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	::swe_jdut1_to_utc (
-		args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
-	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
-	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
-	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
-	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
-	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
+	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
 
 /**
@@ -294,47 +294,47 @@ NAN_METHOD(node_swe_jdut1_to_utc) {
  * }
  */
 NAN_METHOD(node_swe_utc_time_zone) {
-	NanScope();
+	Nan::HandleScope scope;
 
-	if (args.Length () < 7) {
-		NanThrowTypeError ("Wrong number of arguments");
+	if (info.Length () < 7) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!args [0]->IsNumber () ||
-		!args [1]->IsNumber () ||
-		!args [2]->IsNumber () ||
-		!args [3]->IsNumber () ||
-		!args [4]->IsNumber () ||
-		!args [5]->IsNumber () ||
-		!args [6]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber ()
 	) {
-		NanThrowTypeError ("Wrong type of arguments");
+		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
 	double second;
 	int year, month, day, hour, minute;
 
-	Local <Object> result = NanNew<Object> ();
+	Local <Object> result = Nan::New<Object> ();
 
 	::swe_utc_time_zone (
-		(int)args [0]->NumberValue (),
-		(int)args [1]->NumberValue (),
-		(int)args [2]->NumberValue (),
-		(int)args [3]->NumberValue (),
-		(int)args [4]->NumberValue (),
-		args [5]->NumberValue (),
-		args [6]->NumberValue (),
+		(int)info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
+		info [5]->NumberValue (),
+		info [6]->NumberValue (),
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (NanNew<String> ("year"), NanNew<Number> (year));
-	result->Set (NanNew<String> ("month"), NanNew<Number> (month));
-	result->Set (NanNew<String> ("day"), NanNew<Number> (day));
-	result->Set (NanNew<String> ("hour"), NanNew<Number> (hour));
-	result->Set (NanNew<String> ("minute"), NanNew<Number> (minute));
-	result->Set (NanNew<String> ("second"), NanNew<Number> (second));
+	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
-    HandleCallback (args, result);
-    NanReturnValue (result);
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
 };
