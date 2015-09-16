@@ -2,7 +2,7 @@
 
 using namespace v8;
 
-void Initialize (Handle <Object> exports) {
+void Initialize (Local <Object> exports) {
 	// util
 	Nan::SetMethod (exports, "swe_deltat", node_swe_deltat);
 	Nan::SetMethod (exports, "swe_time_equ", node_swe_time_equ);
