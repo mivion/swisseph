@@ -22,7 +22,7 @@
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
-    "node": "0.12.x"
+    "node": ">=0.12"
   },
   "scripts": {
     "install": "node-gyp rebuild",
