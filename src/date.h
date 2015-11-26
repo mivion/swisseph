@@ -39,8 +39,8 @@ NAN_METHOD(node_swe_revjul);
  * int32 swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag, double *dret, char *serr)
  * =>
  * swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag) {
- *   julianDayUT: double,
  *   julianDayET: double,
+ *   julianDayUT: double,
  *   error: string
  * }
  */
