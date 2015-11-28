@@ -1,3 +1,11 @@
+## 0.5.7
+
+- Fix UT/ET julian time
+
+## 0.5.6
+
+- Fix build for Node 4.x
+
 ## 0.5.5
 
 - Fixed houses calculations for Gauquelin system
