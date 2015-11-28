@@ -133,8 +133,8 @@ NAN_METHOD(node_swe_revjul) {
  * int32 swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag, double *dret, char *serr)
  * =>
  * swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag) {
- *   julianDayUT: double,
  *   julianDayET: double,
+ *   julianDayUT: double,
  *   error: string
  * }
  */
@@ -177,8 +177,8 @@ NAN_METHOD(node_swe_utc_to_jd) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("julianDayUT").ToLocalChecked(), Nan::New<Number> (tjd [0]));
-		result->Set (Nan::New<String> ("julianDayET").ToLocalChecked(), Nan::New<Number> (tjd [1]));
+		result->Set (Nan::New<String> ("julianDayET").ToLocalChecked(), Nan::New<Number> (tjd [0]));
+		result->Set (Nan::New<String> ("julianDayUT").ToLocalChecked(), Nan::New<Number> (tjd [1]));
 	};
 
     HandleCallback (info, result);
