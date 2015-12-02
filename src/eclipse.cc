@@ -1144,34 +1144,34 @@ NAN_METHOD(node_swe_rise_trans) {
  * =>
  * swe_nod_aps(double tjd_et, int32 ipl, int32 iflag, int32 method[, function callback (result)]) = {
  *   ascending: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   descending: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   perihelion: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   aphelion: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
@@ -1216,37 +1216,37 @@ NAN_METHOD(node_swe_nod_aps) {
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
-			ascending->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
 			ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-			ascending->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+			ascending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
 			ascending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
 			ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
 			result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 			Local <Object> descending = Nan::New<Object> ();
-			descending->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+			descending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
 			descending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
 			descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-			descending->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+			descending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
 			descending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
 			descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
 			result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 			Local <Object> perihelion = Nan::New<Object> ();
-			perihelion->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+			perihelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
 			perihelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
 			perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-			perihelion->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+			perihelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
 			perihelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
 			perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
 			result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 			Local <Object> aphelion = Nan::New<Object> ();
-			aphelion->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+			aphelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
 			aphelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
 			aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-			aphelion->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+			aphelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
 			aphelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
 			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
 			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
@@ -1334,34 +1334,34 @@ NAN_METHOD(node_swe_nod_aps) {
  * =>
  * swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32  method[, function callback (result)]) = {
  *   ascending: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   descending: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   perihelion: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
  *   aphelion: {
- *     longitude:      | rectascension:      | x:  double,
+ *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
  *     distance:       | distance:           | z:  double,
- *     longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *     longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *     latitudeSpeed:  | declinationSpeed:   | dy: double,
  *     distanceSpeed:  | distanceSpeed:      | dz: double
  *   },
@@ -1406,37 +1406,37 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
-			ascending->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
 			ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-			ascending->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+			ascending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
 			ascending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
 			ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
 			result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 			Local <Object> descending = Nan::New<Object> ();
-			descending->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+			descending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
 			descending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
 			descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-			descending->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+			descending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
 			descending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
 			descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
 			result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 			Local <Object> perihelion = Nan::New<Object> ();
-			perihelion->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+			perihelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
 			perihelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
 			perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-			perihelion->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+			perihelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
 			perihelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
 			perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
 			result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 			Local <Object> aphelion = Nan::New<Object> ();
-			aphelion->Set (Nan::New<String> ("rectascension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+			aphelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
 			aphelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
 			aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-			aphelion->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+			aphelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
 			aphelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
 			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
 			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);

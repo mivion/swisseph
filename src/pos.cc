@@ -24,10 +24,10 @@ NAN_METHOD(node_swe_version) {
  * int32 swe_calc_ut(double tjd_ut, int32 ipl, int32 iflag, double *xx, char *serr)
  * =>
  * swe_calc_ut(double tjd_ut, int32 ipl, int32 iflag[, function callback (result)]) = {
- *   longitude:      | rectascension:      | x:  double,
+ *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
  *   distance:       | distance:           | z:  double,
- *   longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *   latitudeSpeed:  | declinationSpeed:   | dy: double,
  *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
@@ -66,10 +66,10 @@ NAN_METHOD(node_swe_calc_ut) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("rectascension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
 			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
@@ -100,10 +100,10 @@ NAN_METHOD(node_swe_calc_ut) {
  * int32 swe_calc(double tjd, int ipl, int32 iflag, double *xx, char *serr)
  * =>
  * swe_calc(double tjd, int32 ipl, int32 iflag[, function callback (result)]) = {
- *   longitude:      | rectascension:      | x:  double,
+ *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
  *   distance:       | distance:           | z:  double,
- *   longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *   latitudeSpeed:  | declinationSpeed:   | dy: double,
  *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
@@ -142,10 +142,10 @@ NAN_METHOD(node_swe_calc) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("rectascension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
 			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
@@ -177,10 +177,10 @@ NAN_METHOD(node_swe_calc) {
  * =>
  * swe_fixstar(string star, double tjd, int32 iflag[, function callback (result)]) = {
  *   name: string,
- *   longitude:      | rectascension:      | x:  double,
+ *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
  *   distance:       | distance:           | z:  double,
- *   longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *   latitudeSpeed:  | declinationSpeed:   | dy: double,
  *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
@@ -223,10 +223,10 @@ NAN_METHOD(node_swe_fixstar) {
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectascension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
 			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
@@ -260,10 +260,10 @@ NAN_METHOD(node_swe_fixstar) {
  * =>
  * swe_fixstar_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
  *   name: string,
- *   longitude:      | rectascension:      | x:  double,
+ *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
  *   distance:       | distance:           | z:  double,
- *   longitudeSpeed: | rectascensionSpeed: | dx: double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
  *   latitudeSpeed:  | declinationSpeed:   | dy: double,
  *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
@@ -306,10 +306,10 @@ NAN_METHOD(node_swe_fixstar_ut) {
 	} else 
 		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectascension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectascensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
 			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
