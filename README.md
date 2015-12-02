@@ -81,6 +81,10 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 
 For more examples see *examples* and *test* folders.
 
+### Using ecliptic, equatorial or rectangular coordinates
+
+On computing planet, star, node or apside positions, and [using SEFLG_EQUATORIAL or SEFLG_XYZ in flag bits](http://www.astro.com/swisseph/swephprg.htm#_Toc433200761), name of the resulting property will be different from the case with ecliptic coordinates. Run *examples/issue-23.js* in details, please.
+
 ### Ephemeris settings
 
 There are 3 different types of ephemeris supported:

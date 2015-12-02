@@ -16,12 +16,12 @@ NAN_METHOD(node_swe_version);
  * int32 swe_calc_ut(double tjd_ut, int32 ipl, int32 iflag, double *xx, char *serr)
  * =>
  * swe_calc_ut(double tjd_ut, int32 ipl, int32 iflag[, function callback (result)]) = {
- *   longitude: double,
- *   latitude: double,
- *   distance: double,
- *   longitudeSpeed: double,
- *   latitudeSpeed: double,
- *   distanceSpeed: double,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
  *   error: string
  * }
@@ -32,12 +32,12 @@ NAN_METHOD(node_swe_calc_ut);
  * int32 swe_calc(double tjd, int ipl, int32 iflag, double *xx, char *serr)
  * =>
  * swe_calc(double tjd, int32 ipl, int32 iflag[, function callback (result)]) = {
- *   longitude: double,
- *   latitude: double,
- *   distance: double,
- *   longitudeSpeed: double,
- *   latitudeSpeed: double,
- *   distanceSpeed: double,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
  *   error: string
  * }
@@ -48,12 +48,13 @@ NAN_METHOD(node_swe_calc);
  * int32 swe_fixstar(char *star, double tjd, int32 iflag, double *xx, char *serr)
  * =>
  * swe_fixstar(string star, double tjd, int32 iflag[, function callback (result)]) = {
- *   longitude: double,
- *   latitude: double,
- *   distance: double,
- *   longitudeSpeed: double,
- *   latitudeSpeed: double,
- *   distanceSpeed: double,
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
  *   error: string
  * }
@@ -64,12 +65,13 @@ NAN_METHOD(node_swe_fixstar);
  * int32 swe_fixstar_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
  * =>
  * swe_fixstar_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
- *   longitude: double,
- *   latitude: double,
- *   distance: double,
- *   longitudeSpeed: double,
- *   latitudeSpeed: double,
- *   distanceSpeed: double,
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
  *   rflag: int32,
  *   error: string
  * }
