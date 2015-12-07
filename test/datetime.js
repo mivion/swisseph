@@ -16,7 +16,7 @@ var t, et, ut;
 with (testdate)
 swisseph.swe_utc_time_zone (
     getFullYear(), 
-    getMonth(), 
+    getMonth() + 1, 
     getDate(), 
     getHours(), 
     getMinutes(), 
@@ -70,7 +70,7 @@ if(intS > t.second)
 var mS = Math.round(1000 * (t.second - intS));
 
 with (t)
-var d = new Date(year, month, day, hour, minute, intS, mS);
+var d = new Date(year, month - 1, day, hour, minute, intS, mS);
 
 console.log('ET to Test date:', d, d.getMilliseconds(), 'ms');
 assert.equal(d.getTime(), testdate.getTime());
@@ -102,7 +102,7 @@ if(intS > t.second)
 var mS = Math.round(1000 * (t.second - intS));
 
 with (t)
-var d = new Date(year, month, day, hour, minute, intS, mS);
+var d = new Date(year, month - 1, day, hour, minute, intS, mS);
 
 console.log('UT to Test date:', d, d.getMilliseconds(), 'ms');
 assert.equal(d.getTime(), testdate.getTime());
