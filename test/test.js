@@ -60,7 +60,7 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 	swisseph.swe_set_topo (0, 0, 0);
 
 	// Sun name
-	swisseph.swe_get_planet_name (swisseph.SE_SUN, flag, function (body) {
+	swisseph.swe_get_planet_name (swisseph.SE_SUN, function (body) {
 		assert (!body.error, body.error);
 		console.log ('Sun name:', body);
 	});
@@ -98,7 +98,7 @@ swisseph.swe_julday (date.year, date.month, date.day, date.hour, swisseph.SE_GRE
 	});
 
 	// Chiron name
-	swisseph.swe_get_planet_name (swisseph.SE_CHIRON, flag, function (body) {
+	swisseph.swe_get_planet_name (swisseph.SE_CHIRON, function (body) {
 		assert (!body.error, body.error);
 		console.log ('Chiron name:', body);
 	});
