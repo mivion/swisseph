@@ -78,6 +78,7 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_lun_occult_when_glob", node_swe_lun_occult_when_glob);
 	Nan::SetMethod (exports, "swe_lun_eclipse_how", node_swe_lun_eclipse_how);
 	Nan::SetMethod (exports, "swe_lun_eclipse_when", node_swe_lun_eclipse_when);
+	Nan::SetMethod (exports, "swe_lun_eclipse_when_loc", node_swe_lun_eclipse_when_loc);
 	Nan::SetMethod (exports, "swe_pheno", node_swe_pheno);
 	Nan::SetMethod (exports, "swe_pheno_ut", node_swe_pheno);
 	Nan::SetMethod (exports, "swe_refrac", node_swe_refrac);
