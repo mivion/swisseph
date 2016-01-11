@@ -74,6 +74,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
  * int32 swe_sol_eclipse_where(double tjd, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_sol_eclipse_where(double tjd, int32 ifl[, function callback (result)]) = {
+ *   rflag: long,
  *   longitude: double,                    // geopos [0]
  *   latitude: double,                     // geopos [1]
  *   solarDiameterFraction: double,        // attr [0]
@@ -120,6 +121,7 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
 		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
 		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
@@ -143,6 +145,7 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
  * int32 swe_lun_occult_where(double tjd, int32 ipl, char *starname, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_lun_occult_where(double tjd, int32 ipl, char *starname, int32 ifl[, function callback (result)]) = {
+ *   rflag: long,
  *   longitude: double,                    // geopos [0]
  *   latitude: double,                     // geopos [1]
  *   solarDiameterFraction: double,        // attr [0]
@@ -193,8 +196,9 @@ NAN_METHOD(node_swe_lun_occult_where) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	Nan::New<Number> (geopos [0]));
-		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	Nan::New<Number> (geopos [1]));
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
+		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
 		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
 		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
 		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
@@ -213,6 +217,7 @@ NAN_METHOD(node_swe_lun_occult_where) {
  * int32 swe_sol_eclipse_how(double tjd, int32 ifl, double *geopos (in[3]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_sol_eclipse_how(double tjd, int32 ifl, double longitude, double latitude, double height[, function callback (result)]) = {
+ *   rflag: long,
  *   solarDiameterFraction: double,        // attr [0]
  *   lonarToSolarDiameterRatio: double,    // attr [1]
  *   solarDiscFraction: double,            // attr [2]
@@ -264,6 +269,7 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
 		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
 		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
@@ -285,6 +291,7 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
  * int32 swe_sol_eclipse_when_loc(double tjd_start, int32 ifl, double *geopos (in[3]), double *tret (out[10]), double *attr (out[20]), int32 backward, char *serr (out[AS_MAXCH]))
  * =>
  * swe_sol_eclipse_when_loc(double tjd_start, int32 ifl, double longitude, double latitude, double height, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
  *   maximum: double,                      // tret [0]
  *   first: double,                        // tret [1]
  *   second: double,                       // tret [2]
@@ -345,6 +352,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
 		result->Set (Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
 		result->Set (Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
@@ -371,6 +379,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
  * int32 swe_lun_occult_when_loc(double tjd_start, int32 ipl, char *starname, int32 ifl, double *geopos (in[3]), double *tret (out[10]), double *attr (out[20]), int32 backward, char *serr (out[AS_MAXCH]))
  * =>
  * swe_lun_occult_when_loc(double tjd_start, int32 ipl, char *starname, int32 ifl, double longitude, double latitude, double height, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
  *   star: string,
  *   maximum: double,                      // tret [0]
  *   first: double,                        // tret [1]
@@ -439,12 +448,13 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
-		result->Set (Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("third").ToLocalChecked(),		Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(),                        Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		                Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("first").ToLocalChecked(),		                Nan::New<Number> (tret [1]));
+		result->Set (Nan::New<String> ("second").ToLocalChecked(),		                Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("third").ToLocalChecked(),		                Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		                Nan::New<Number> (tret [4]));
 		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
 		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
 		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
@@ -466,6 +476,7 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
  * int32 swe_sol_eclipse_when_glob(double tjd_start, int32 ifl, int32 ifltype, double *tret (out[10]), int32 backward, char *serr (out[AS_MAXCH]))
  * =>
  * swe_sol_eclipse_when_glob(double tjd_start, int32 ifl, int32 ifltype, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
  *   maximum: double,      // tret [0]
  *   noon: double,         // tret [1]
  *   begin: double,        // tret [2]
@@ -511,6 +522,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
 		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
 		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
@@ -529,6 +541,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
  * int32 swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, double *tret (out[10]), int32 backward, char *serr (out[AS_MAXCH]))
  * =>
  * swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
  *   name: string,
  *   maximum: double,      // tret [0]
  *   noon: double,         // tret [1]
@@ -582,7 +595,8 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
+		result->Set (Nan::New<String> ("name").ToLocalChecked(),        Nan::New<String> (star).ToLocalChecked());
 		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
 		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
 		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
@@ -601,6 +615,7 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
  * int32 swe_lun_eclipse_how(double tjd_ut, int32 ifl, double *geopos (in[3]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_lun_eclipse_how(double tjd_ut, int32 ifl, double longitude, double latitude, double height[, function callback (result)]) = {
+ *   rflag: long,
  *   umbralMagnitude: double,          // attr [0]
  *   penumbralMagnitude: double,       // attr [1]
  *   azimuth: double,                  // attr [4] not implemented
@@ -650,6 +665,7 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	            Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		Nan::New<Number> (attr [0]));
 		result->Set (Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	Nan::New<Number> (attr [1]));
 		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (attr [4]));
@@ -669,6 +685,7 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
  * int32 swe_lun_eclipse_when(double tjd_start, int32 ifl, int32 ifltype, double *tret (out[10]), int32 backward, char *serr (out[AS_MAXCH]))
  * =>
  * swe_lun_eclipse_when(double tjd_start, int32 ifl, int32 ifltype, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
  *   maximum: double,        // tret [0]
  *   partialBegin: double,   // tret [2]
  *   partialEnd: double,     // tret [3]
@@ -713,6 +730,7 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	        Nan::New<Number> (rflag));
 		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),			Nan::New<Number> (tret [0]));
 		result->Set (Nan::New<String> ("partialBegin").ToLocalChecked(),	Nan::New<Number> (tret [2]));
 		result->Set (Nan::New<String> ("partialEnd").ToLocalChecked(),		Nan::New<Number> (tret [3]));
@@ -720,6 +738,96 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
 		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),		Nan::New<Number> (tret [5]));
 		result->Set (Nan::New<String> ("penumbralBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
 		result->Set (Nan::New<String> ("penumbralEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
+	};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+/**
+ * int32 swe_lun_eclipse_when_loc(double tjd_start, int32 ifl, double *geopos (in[3]), double *tret (out[10]), double *attr (out[20]), int32 backward, char *serr (out[AS_MAXCH]))
+ * =>
+ * swe_lun_eclipse_when_loc(double tjd_start, int32 ifl, double longitude, double latitude, double height, int32 backward[, function callback (result)]) = {
+ *   rflag: long,
+ *   maximum: double,                      // tret [0]
+ *   partialBegin: double,                 // tret [2]
+ *   partialEnd: double,                   // tret [3]
+ *   totalBegin: double,                   // tret [4]
+ *   totalEnd: double,                     // tret [5]
+ *   penumbralBegin: double,               // tret [6]
+ *   penumbralEnd: double,                 // tret [7]
+ *   moonRise: double                      // tret [8]
+ *   moonSet: double,                      // tret [9]
+ *   umbralMagnitude: double,              // attr [0]
+ *   penumbralMagnitude: double,           // attr [1]
+ *   azimuth: double,                      // attr [4]
+ *   trueAltitude: double,                 // attr [5]
+ *   apparentAltitude: double,             // attr [6]
+ *   moonDistanceFromOpposition: double,   // attr [7]
+ *   sarosNumber: double,                  // attr [9]
+ *   sarosMember: double,                  // attr [10]
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_lun_eclipse_when_loc) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 6) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double geopos [10] = {0};
+	double tret [10] = {0};
+	double attr [20] = {0};
+	char serr [AS_MAXCH];
+	long rflag;
+
+	geopos [0] = info [2]->NumberValue ();
+	geopos [1] = info [3]->NumberValue ();
+	geopos [2] = info [4]->NumberValue ();
+
+	rflag = ::swe_lun_eclipse_when_loc (
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		geopos, tret, attr,
+		(int)info [5]->NumberValue (),
+		serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),			            Nan::New<Number> (tret [0]));
+		result->Set (Nan::New<String> ("partialBegin").ToLocalChecked(),	            Nan::New<Number> (tret [2]));
+		result->Set (Nan::New<String> ("partialEnd").ToLocalChecked(),		            Nan::New<Number> (tret [3]));
+		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),		            Nan::New<Number> (tret [4]));
+		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),		            Nan::New<Number> (tret [5]));
+		result->Set (Nan::New<String> ("penumbralBegin").ToLocalChecked(),	            Nan::New<Number> (tret [6]));
+		result->Set (Nan::New<String> ("penumbralEnd").ToLocalChecked(),	            Nan::New<Number> (tret [7]));
+		result->Set (Nan::New<String> ("moonRise").ToLocalChecked(),	                Nan::New<Number> (tret [8]));
+		result->Set (Nan::New<String> ("moonSet").ToLocalChecked(),	                    Nan::New<Number> (tret [9]));
+		result->Set (Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		        Nan::New<Number> (attr [0]));
+		result->Set (Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	        Nan::New<Number> (attr [1]));
+		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),			            Nan::New<Number> (attr [4]));
+		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		result->Set (Nan::New<String> ("moonDistanceFromOpposition").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
