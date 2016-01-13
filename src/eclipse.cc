@@ -6,7 +6,7 @@ using namespace v8;
  * int32 swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double *geopos (in[3]), double atpress, double attemp, double *dgsect (out[1]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
- *   name: string,
+ *   name: string,            //star
  *   gauquelinSector: double,
  *   error: string
  * }
@@ -380,7 +380,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
  * =>
  * swe_lun_occult_when_loc(double tjd_start, int32 ipl, char *starname, int32 ifl, double longitude, double latitude, double height, int32 backward[, function callback (result)]) = {
  *   rflag: long,
- *   star: string,
+ *   name: string,                         // star 
  *   maximum: double,                      // tret [0]
  *   first: double,                        // tret [1]
  *   second: double,                       // tret [2]
@@ -542,7 +542,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
  * =>
  * swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, int32 backward[, function callback (result)]) = {
  *   rflag: long,
- *   name: string,
+ *   name: string,         // star
  *   maximum: double,      // tret [0]
  *   noon: double,         // tret [1]
  *   begin: double,        // tret [2]
@@ -1184,6 +1184,7 @@ NAN_METHOD(node_swe_azalt_rev) {
  * int32 swe_rise_trans(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double *geopos (in[3]), double atpress, double attemp, double *tret (out[1]), char *serr (out[AS_MAXCH]))
  * =>
  * swe_rise_trans(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
+ *   name: string,        // star
  *   transitTime: double, // tret [0]
  *   error: string
  * }
@@ -1235,10 +1236,88 @@ NAN_METHOD(node_swe_rise_trans) {
 	);
 
 	Local <Object> result = Nan::New<Object> ();
-
-	if (rflag < 0) {
+	
+	// http://www.astro.com/swisseph/swephprg.htm#_Toc433200782
+	if (rflag == -1) {     //  if an error occurred (usually an ephemeris problem)
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		if (rflag == -2) { // if a rising or setting event was not found because the object is circumpolar  
+			tret = -2;
+		};
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
+	};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+/**
+ * int32 swe_rise_trans_true_hor(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double *geopos (in[3]), double atpress, double attemp, double horhgt, double *tret (out[1]), char *serr (out[AS_MAXCH]))
+ * =>
+ * swe_rise_trans_true_hor(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double longitude, double latitude, double height, double atpress, double horhgt, double attemp[, function callback (result)]) = {
+ *   name: string,        // star
+ *   transitTime: double, // tret [0]
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_rise_trans_true_hor) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 11) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber () ||
+		!info [8]->IsNumber () ||
+		!info [9]->IsNumber () ||
+		!info [10]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double geopos [10] = {0};
+	double tret;
+	char star [AS_MAXCH];
+	char serr [AS_MAXCH];
+	long rflag;
+
+	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+
+	geopos [0] = info [5]->NumberValue ();
+	geopos [1] = info [6]->NumberValue ();
+	geopos [2] = info [7]->NumberValue ();
+
+	rflag = ::swe_rise_trans_true_hor (
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		star,
+		(int)info [3]->NumberValue (),
+		(int)info [4]->NumberValue (),
+		geopos,
+		info [8]->NumberValue (),
+		info [9]->NumberValue (),
+		info [10]->NumberValue (),
+		&tret, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	// http://www.astro.com/swisseph/swephprg.htm#_Toc433200782
+	if (rflag == -1) {     //  if an error occurred (usually an ephemeris problem)
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		if (rflag == -2) { // if a rising or setting event was not found because the object is circumpolar  
+			tret = -2;
+		};
 		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 		result->Set (Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
 	};

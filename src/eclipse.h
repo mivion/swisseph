@@ -10,7 +10,7 @@ using namespace v8;
  * int32 swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double *geopos, double atpress, double attemp, double *dgsect, char *serr)
  * =>
  * swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
- *   name: string,
+ *   name: string,            //star
  *   gauquelinSector: double,
  *   error: string
  * }
@@ -112,7 +112,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc);
  * =>
  * swe_lun_occult_when_loc(double tjd_start, int32 ipl, char *starname, int32 ifl, double longitude, double latitude, double height, int32 backward[, function callback (result)]) = {
  *   rflag: long,
- *   star: string,
+ *   name: string,                         // star 
  *   maximum: double,                      // tret [0]
  *   first: double,                        // tret [1]
  *   second: double,                       // tret [2]
@@ -157,7 +157,7 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob);
  * =>
  * swe_lun_occult_when_glob(double tjd_start, int32 ipl, char *starname, int32 ifl, int32 ifltype, int32 backward[, function callback (result)]) = {
  *   rflag: long,
- *   name: string,
+ *   name: string,         // star
  *   maximum: double,      // tret [0]
  *   noon: double,         // tret [1]
  *   begin: double,        // tret [2]
@@ -316,11 +316,23 @@ NAN_METHOD(node_swe_azalt_rev);
  * int32 swe_rise_trans(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double *geopos, double atpress, double attemp, double *tret, char *serr)
  * =>
  * swe_rise_trans(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
+ *   name: string,        // star
  *   transitTime: double, // tret [0]
  *   error: string
  * }
  */
 NAN_METHOD(node_swe_rise_trans);
+
+/**
+ * int32 swe_rise_trans_true_hor(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double *geopos (in[3]), double atpress, double attemp, double horhgt, double *tret (out[1]), char *serr (out[AS_MAXCH]))
+ * =>
+ * swe_rise_trans_true_hor(double tjd_ut, int32 ipl, char *starname, int32 epheflag, int32 rsmi, double longitude, double latitude, double height, double atpress, double horhgt, double attemp[, function callback (result)]) = {
+ *   name: string,        // star
+ *   transitTime: double, // tret [0]
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_rise_trans_true_hor);
 
 /**
  * int32 swe_nod_aps(double tjd_et, int32 ipl, int32 iflag, int32  method, double *xnasc, double *xndsc, double *xperi, double *xaphe, char *serr)
