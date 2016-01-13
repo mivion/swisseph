@@ -87,6 +87,7 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_azalt", node_swe_azalt);
 	Nan::SetMethod (exports, "swe_azalt_rev", node_swe_azalt_rev);
 	Nan::SetMethod (exports, "swe_rise_trans", node_swe_rise_trans);
+	Nan::SetMethod (exports, "swe_rise_trans_true_hor", node_swe_rise_trans_true_hor);
 	Nan::SetMethod (exports, "swe_nod_aps", node_swe_nod_aps);
 	Nan::SetMethod (exports, "swe_nod_aps_ut", node_swe_nod_aps_ut);
 }
