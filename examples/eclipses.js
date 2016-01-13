@@ -145,7 +145,7 @@ function MoonEclipseWhenGlob(jET) {
 			glob.flag = result.rflag;
 		});
 	var loc = MoonEclipseWhenLoc(glob.et - 1);
-	glob.local = Math.abs(glob.et - loc.et) < 1;
+	glob.loc = Math.abs(glob.et - loc.et) < 1;
 	if(glob.loc) {
 		glob.et    = loc.et;
 		glob.flag += loc.flag;
