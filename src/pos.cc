@@ -43,7 +43,7 @@ NAN_METHOD(node_swe_calc_ut) {
 
 	if (
 		!info [0]->IsNumber () ||
-		!info [1]->IsNumber () ||
+		(!info [1]->IsNumber () && !info [2]->IsString ()) ||
 		!info [2]->IsNumber ()
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
@@ -53,12 +53,21 @@ NAN_METHOD(node_swe_calc_ut) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	rflag = ::swe_calc_ut (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		x, serr
-	);
+	if (info[1]->IsNumber()) {
+		rflag = ::swe_calc_ut (
+			info [0]->NumberValue (),
+			(int)info [1]->NumberValue (),
+			(int)info [2]->NumberValue (),
+			x, serr
+		);
+	} else {
+		rflag = ::swe_calc_ut (
+			info [0]->NumberValue (),
+			(char *)info [1]->StringValue (),
+			(int)info [2]->NumberValue (),
+			x, serr
+		);
+	}
 
 	Local <Object> result = Nan::New<Object> ();
 
@@ -119,7 +128,7 @@ NAN_METHOD(node_swe_calc) {
 
 	if (
 		!info [0]->IsNumber () ||
-		!info [1]->IsNumber () ||
+		(!info [1]->IsNumber () && !info [2]->IsString ()) ||
 		!info [2]->IsNumber ()
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
@@ -129,12 +138,21 @@ NAN_METHOD(node_swe_calc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	rflag = ::swe_calc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		x, serr
-	);
+	if (info[1]->IsNumber()) {
+		rflag = ::swe_calc (
+			info [0]->NumberValue (),
+			(int)info [1]->NumberValue (),
+			(int)info [2]->NumberValue (),
+			x, serr
+		);
+	} else {
+		rflag = ::swe_calc (
+			info [0]->NumberValue (),
+			(char *)info [1]->StringValue (),
+			(int)info [2]->NumberValue (),
+			x, serr
+		);
+	}
 
 	Local <Object> result = Nan::New<Object> ();
 
