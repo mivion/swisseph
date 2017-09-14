@@ -622,7 +622,7 @@ NAN_METHOD(node_swe_get_ayanamsa_name) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	char * val;
+	const char * val;
 
 	val = ::swe_get_ayanamsa_name (
 		(int)info [0]->NumberValue ()
