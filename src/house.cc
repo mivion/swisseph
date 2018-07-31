@@ -211,7 +211,7 @@ NAN_METHOD(node_swe_houses_armc) {
 		cuspsCount = 12;
 	}
 	
-	rflag = ::swe_houses (
+	rflag = ::swe_houses_armc (
 		info [0]->NumberValue (),
 		info [1]->NumberValue (),
 		info [2]->NumberValue (),
