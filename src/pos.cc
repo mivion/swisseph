@@ -819,6 +819,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
  * =>
  * ???
  */
+/*
 NAN_METHOD(node_swe_get_ayanamsa_ex) {
 	Nan::HandleScope scope;
 
@@ -843,12 +844,14 @@ NAN_METHOD(node_swe_get_ayanamsa_ex) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+*/
 
 /**
  * int32 swe_get_ayanamsa_ex_ut(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
  * ???
  */
+/*
 NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
 	Nan::HandleScope scope;
 
@@ -873,6 +876,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+*/
 
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)
