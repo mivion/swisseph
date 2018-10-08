@@ -46,6 +46,9 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_fixstar", node_swe_fixstar);
 	Nan::SetMethod (exports, "swe_fixstar_ut", node_swe_fixstar_ut);
 	Nan::SetMethod (exports, "swe_fixstar_mag", node_swe_fixstar_mag);
+	Nan::SetMethod (exports, "swe_fixstar2", node_swe_fixstar);
+	Nan::SetMethod (exports, "swe_fixstar2_ut", node_swe_fixstar_ut);
+	Nan::SetMethod (exports, "swe_fixstar2_mag", node_swe_fixstar_mag);
 	Nan::SetMethod (exports, "swe_close", node_swe_close);
 	Nan::SetMethod (exports, "swe_set_ephe_path", node_swe_set_ephe_path);
 	Nan::SetMethod (exports, "swe_set_jpl_file", node_swe_set_jpl_file);
@@ -54,6 +57,8 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_set_sid_mode", node_swe_set_sid_mode);
 	Nan::SetMethod (exports, "swe_get_ayanamsa", node_swe_get_ayanamsa);
 	Nan::SetMethod (exports, "swe_get_ayanamsa_ut", node_swe_get_ayanamsa_ut);
+	Nan::SetMethod (exports, "swe_get_ayanamsa_ex", node_swe_get_ayanamsa);
+	Nan::SetMethod (exports, "swe_get_ayanamsa_ex_ut", node_swe_get_ayanamsa_ut);
 	Nan::SetMethod (exports, "swe_get_ayanamsa_name", node_swe_get_ayanamsa_name);
 
 	// hel
