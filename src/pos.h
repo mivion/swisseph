@@ -90,6 +90,51 @@ NAN_METHOD(node_swe_fixstar_ut);
 NAN_METHOD(node_swe_fixstar_mag);
 
 /**
+ * int32 swe_fixstar2(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * =>
+ * swe_fixstar2(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
+ *   rflag: int32,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2);
+
+/**
+ * int32 swe_fixstar2_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * =>
+ * swe_fixstar2_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
+ *   rflag: int32,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2_ut);
+
+/**
+ * int32 swe_fixstar2_mag(char *star, double *mag, char *serr);
+ * =>
+ * swe_fixstar2_mag(string star[, function callback (result)]) = {
+ *   name: string,
+ *   magnitude: double,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2_mag);
+
+/**
  * void swe_close(void);
  * =>
  * swe_close()
@@ -146,6 +191,20 @@ NAN_METHOD(node_swe_get_ayanamsa);
  * double swe_get_ayanamsa_ut(double tjd_ut)
  */
 NAN_METHOD(node_swe_get_ayanamsa_ut);
+
+/**
+ * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
+ * =>
+ * ???
+ */
+NAN_METHOD(node_swe_get_ayanamsa_ex);
+
+/**
+ * int32 swe_get_ayanamsa_ex_ut(double tjd_et, int32 iflag, double *daya, char *serr);
+ * =>
+ * ???
+ */
+NAN_METHOD(node_swe_get_ayanamsa_ex_ut);
 
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)

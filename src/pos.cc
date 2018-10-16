@@ -383,6 +383,216 @@ NAN_METHOD(node_swe_fixstar_mag) {
 };
 
 /**
+ * int32 swe_fixstar2(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * =>
+ * swe_fixstar2(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
+ *   rflag: int32,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsString () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double x [6];
+	char serr [AS_MAXCH];
+	long rflag = 0;
+	char star [AS_MAXCH];
+
+	::strcpy (star, * String::Utf8Value (info [0]->ToString ()));
+
+	rflag = ::swe_fixstar2 (
+		star,
+		info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		x, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else 
+		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		} else
+			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			} else {
+				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+/**
+ * int32 swe_fixstar2_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * =>
+ * swe_fixstar2_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ *   name: string,
+ *   longitude:      | rectAscension:      | x:  double,
+ *   latitude:       | declination:        | y:  double,
+ *   distance:       | distance:           | z:  double,
+ *   longitudeSpeed: | rectAscensionSpeed: | dx: double,
+ *   latitudeSpeed:  | declinationSpeed:   | dy: double,
+ *   distanceSpeed:  | distanceSpeed:      | dz: double,
+ *   rflag: int32,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2_ut) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsString () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double x [6];
+	char serr [AS_MAXCH];
+	long rflag = 0;
+	char star [AS_MAXCH];
+
+	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+
+	rflag = ::swe_fixstar2_ut (
+		star,
+		info [1]->NumberValue (),
+		(int)info [2]->NumberValue (),
+		x, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else 
+		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		} else
+			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			} else {
+				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+/**
+ * ext_def(int32) swe_fixstar2_mag(char *star, double *mag, char *serr);
+ * =>
+ * swe_fixstar2_mag(string star[, function callback (result)]) = {
+ *   name: string,
+ *   magnitude: double,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_fixstar2_mag) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsString ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	char serr [AS_MAXCH];
+	char star [AS_MAXCH];
+	long rflag;
+	double magnitude;
+
+	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+
+	rflag = ::swe_fixstar2_mag (star, &magnitude, serr);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		result->Set (Nan::New<String> ("magnitude").ToLocalChecked(), Nan::New<Number> (magnitude));
+	};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+/**
  * void swe_close(void);
  * =>
  * swe_close()
@@ -603,6 +813,70 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+
+/**
+ * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
+ * =>
+ * ???
+ */
+/*
+NAN_METHOD(node_swe_get_ayanamsa_ex) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double val;
+
+	val = ::swe_get_ayanamsa_ex (
+		info [0]->NumberValue ()
+	);
+
+	Local <Number> result = Nan::New<Number> (val);
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+*/
+
+/**
+ * int32 swe_get_ayanamsa_ex_ut(double tjd_et, int32 iflag, double *daya, char *serr);
+ * =>
+ * ???
+ */
+/*
+NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 1) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double val;
+
+	val = ::swe_get_ayanamsa_ex_ut (
+		info [0]->NumberValue ()
+	);
+
+	Local <Number> result = Nan::New<Number> (val);
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+*/
 
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)

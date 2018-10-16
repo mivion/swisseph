@@ -1794,14 +1794,15 @@ double CALL_CONV swe_house_pos(
 	double armc, double geolat, double eps, int hsys, double *xpin, char *serr)
 {
   double xp[6], xeq[6], ra, de, mdd, mdn, sad, san;
-  double hpos, sinad, ad, a, admc, adp, samc, demc, asc, mc, acmc, tant;
+  double hpos, sinad, ad, a, admc, adp, samc, asc, mc, acmc, tant;
+  //double demc;
   double fh, ra0, tanfi, fac, dfac, tanx;
   double x[3], xasc[3], raep, raaz, oblaz, xtemp; /* BK 21.02.2006 */
   double hcusp[36], ascmc[10];
   double sine = sind(eps);
   double cose = cosd(eps);
   double c1, c2, d, hsize;
-  int i, j;
+  int i, j, nloop;
   double dsun = 0, darmc, harmc, y, sinpsi, sa;
   AS_BOOL is_western_half = FALSE;
   hsys = toupper(hsys);
@@ -2003,7 +2004,7 @@ if (1) {
      * if possible; make sure house positions 4 - 9 only appear on western
      * hemisphere */
     case 'K': // Koch
-      demc = atand(sind(armc) * tand(eps));
+      //demc = atand(sind(armc) * tand(eps));
       is_invalid = FALSE;
       is_circumpolar = FALSE;
       /* object is within a circumpolar circle */
@@ -2293,13 +2294,19 @@ if (1) {
       hpos = xp[0] / 30.0 + 1;
       break;
     case 'T': // Polich-Page ("topocentric")
+      fh = geolat;
+      if (fh > 89.999)
+	fh = 89.999;
+      if (fh < -89.999)
+	fh = -89.999;
       mdd = swe_degnorm(mdd);
       if (de > 90 - VERY_SMALL)
 	de = 90 - VERY_SMALL;
       if (de < -90 + VERY_SMALL)
 	de = -90 + VERY_SMALL;
-      sinad = tand(de) * tand(geolat);
-      ad = asind(sinad);
+      sinad = tand(de) * tand(fh);
+      if (sinad > 1.0) sinad = 1.0;
+      if (sinad < -1.0) sinad = -1.0;
       a = sinad + cosd(mdd);
       if (a >= 0)
         is_above_hor = TRUE;
@@ -2315,13 +2322,13 @@ if (1) {
 	ra = swe_degnorm(armc - mdd);
       }
       /* binary search for "topocentric" position line of body */
-      tanfi = tand(geolat);
-      fh = geolat;
+      tanfi = tand(fh);
       ra0 = swe_degnorm(armc + 90);
       xp[1] = 1;
       xeq[1] = de;
       fac = 2;
-      while (fabs(xp[1]) > 0.000001) {
+      nloop = 0;
+      while (fabs(xp[1]) > 0.000001 && nloop < 1000) {
 	if (xp[1] > 0) {
 	  fh = atand(tand(fh) - tanfi / fac);
 	  ra0 -= 90 / fac;
@@ -2332,6 +2339,7 @@ if (1) {
 	xeq[0] = swe_degnorm(ra - ra0);
         swe_cotrans(xeq, xp, 90 - fh);
 	fac *= 2;
+	nloop++;
       }
       hpos = swe_degnorm(ra0 - armc);
       /* mirror back to west */
@@ -2452,16 +2460,13 @@ static int sunshine_solution_makransky(double ramc, double lat, double ecl, stru
   double md;
   double zd;	// zenith distance of house circle, along prime vertical
   double pole, q, w, a, b, c, f, cu, r, rah;
-  double sinlat, coslat, tanlat, sindec, cosdec, tandec, sinecl, cosecl;
+  double sinlat, coslat, tanlat, tandec, sinecl;
   double dec = hsp->sundec;
   sinlat = sind(lat);
   coslat = cosd(lat);
   tanlat = tand(lat);
-  sindec = sind(dec);
-  cosdec = cosd(dec);
   tandec = tand(dec);
   sinecl = sind(ecl);
-  cosecl = cosd(ecl);
   int ih;
   // if (90 - fabs(lat) <= ecl) {
   //   strcpy(hsp->serr, "Sunshine in polar circle not allowed");
@@ -2594,8 +2599,8 @@ static int sunshine_solution_makransky(double ramc, double lat, double ecl, stru
 static int sunshine_solution_treindl(double ramc, double lat, double ecl, struct houses *hsp)
 {
   double xh[13];
-  double mcdec, sinlat, coslat, sindec, cosdec, tandec, sinecl, cosecl;
-  double xhs, pole, a, cosa, alph, alpha2, c, cosc, b, sinzd, zd, rax, equa, hc;
+  double mcdec, sinlat, coslat, cosdec, tandec, sinecl, cosecl;
+  double xhs, pole, a, cosa, alph, alpha2, c, cosc, b, sinzd, zd, rax, hc;
   int ih, retval = OK;
   AS_BOOL mc_under_horizon;
   double dec = hsp->sundec;
@@ -2605,7 +2610,6 @@ static int sunshine_solution_treindl(double ramc, double lat, double ecl, struct
   // }
   sinlat = sind(lat);
   coslat = cosd(lat);
-  sindec = sind(dec);
   cosdec = cosd(dec);
   tandec = tand(dec);
   sinecl = sind(ecl);
@@ -2666,7 +2670,6 @@ static int sunshine_solution_treindl(double ramc, double lat, double ecl, struct
     // night side: triangle north point
     // sides: 90 - lat, angle zd
     rax = atand(coslat * tand(zd));
-    equa = acosd(sinlat * sinzd);	// not used
     // compute pole height (distance of house circle pole from equator
     // with triangle at west point
     pole = asind(sinzd * sinlat);
