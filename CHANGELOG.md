@@ -1,3 +1,11 @@
+## 0.5.9
+
+- Swisseph updated to v2.07.01
+- New functions fixstar2 and ayanamsa_ex
+- Include basic ephemeris files for 1800-2399 (including chiron)
+- Fix polar ascendant
+- Updated stars and asteroids list (sefstars.txt and seasnam.txt)
+
 ## 0.5.7
 
 - Fix UT/ET julian time
