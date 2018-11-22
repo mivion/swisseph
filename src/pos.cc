@@ -817,66 +817,90 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
 /**
  * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
- * ???
+ * swe_get_ayanamsa_ex(double tjd_et, int32 iflag, function callback (result)]) = {
+ *   ayanamsa: string,
+ *   error: string
+ * }
  */
-/*
+
 NAN_METHOD(node_swe_get_ayanamsa_ex) {
 	Nan::HandleScope scope;
 
-	if (info.Length () < 1) {
+	if (info.Length () < 2) {
 		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!info [0]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double val;
+	double daya [1];
+	char serr [AS_MAXCH];
+	long val;
 
 	val = ::swe_get_ayanamsa_ex (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		daya, serr
 	);
 
-	Local <Number> result = Nan::New<Number> (val);
+	Local <Object> result = Nan::New<Object> ();
+
+	if (val < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else 
+		result->Set (Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
-*/
 
 /**
- * int32 swe_get_ayanamsa_ex_ut(double tjd_et, int32 iflag, double *daya, char *serr);
+ * int32 swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, double *daya, char *serr);
  * =>
- * ???
+ * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, function callback (result)]) = {
+ *   ayanamsa: string,
+ *   error: string
+ * }
  */
-/*
+
 NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
 	Nan::HandleScope scope;
 
-	if (info.Length () < 1) {
+	if (info.Length () < 2) {
 		Nan::ThrowTypeError ("Wrong number of arguments");
 	};
 
 	if (
-		!info [0]->IsNumber ()
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber ()
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double val;
+	double daya [1];
+	char serr [AS_MAXCH];
+	long val;
 
 	val = ::swe_get_ayanamsa_ex_ut (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (),
+		(int)info [1]->NumberValue (),
+		daya, serr
 	);
 
-	Local <Number> result = Nan::New<Number> (val);
+	Local <Object> result = Nan::New<Object> ();
+
+	if (val < 0) {
+		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else 
+		result->Set (Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
-*/
 
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)
