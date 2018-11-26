@@ -195,14 +195,20 @@ NAN_METHOD(node_swe_get_ayanamsa_ut);
 /**
  * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
- * ???
+ * swe_get_ayanamsa_ex(double tjd_et, int32 iflag, function callback (result)]) = {
+ *   ayanamsa: string,
+ *   error: string
+ * }
  */
 NAN_METHOD(node_swe_get_ayanamsa_ex);
 
 /**
- * int32 swe_get_ayanamsa_ex_ut(double tjd_et, int32 iflag, double *daya, char *serr);
+ * int32 swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, double *daya, char *serr);
  * =>
- * ???
+ * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, function callback (result)]) = {
+ *   ayanamsa: string,
+ *   error: string
+ * }
  */
 NAN_METHOD(node_swe_get_ayanamsa_ex_ut);
 
