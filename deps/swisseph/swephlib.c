@@ -789,7 +789,7 @@ static void owen_pre_matrix(double tjd, double *rp, int iflag)
     oma  += (k[i] * owen_oma_coef[icof][i]);
     chia += (k[i] * owen_chia_coef[icof][i]);
   }
-  if (iflag & (SEFLG_JPLHOR || SEFLG_JPLHOR_APPROX)) {
+  if (iflag & (SEFLG_JPLHOR | SEFLG_JPLHOR_APPROX)) {
     /* 
      * In comparison with JPL Horizons we have an almost constant offset
      * almost constant offset in ecl. longitude of about -0.000019 deg. 

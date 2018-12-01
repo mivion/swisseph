@@ -22,7 +22,7 @@ NAN_METHOD(node_swe_date_conversion) {
 		!info [1]->IsNumber () ||
 		!info [2]->IsNumber () ||
 		!info [3]->IsNumber () ||
-		(!info [4]->IsString () && info [4]->ToString ()->Length () > 0)
+		(!info [4]->IsString () && info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())->Length () > 0)
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
@@ -33,11 +33,11 @@ NAN_METHOD(node_swe_date_conversion) {
 	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_date_conversion (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		info [3]->NumberValue (),
-		(* String::Utf8Value (info [4]->ToString ())) [0],
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(* String::Utf8Value (Isolate::GetCurrent(), info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0],
 		&tjd
 	);
 
@@ -74,11 +74,11 @@ NAN_METHOD(node_swe_julday) {
 	};
 
 	Local <Number> result = Nan::New<Number> (::swe_julday (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		info [3]->NumberValue (),
-		(int)info [4]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	));
 
     HandleCallback (info, result);
@@ -115,8 +115,8 @@ NAN_METHOD(node_swe_revjul) {
 	Local <Object> result = Nan::New<Object> ();
 
 	::swe_revjul (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&year, &month, &day, &hour
 	);
 
@@ -164,13 +164,13 @@ NAN_METHOD(node_swe_utc_to_jd) {
 	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_utc_to_jd (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
-		info [5]->NumberValue (),
-		(int)info [6]->NumberValue (),
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		tjd, serr
 	);
 
@@ -217,8 +217,8 @@ NAN_METHOD(node_swe_jdet_to_utc) {
 	Local <Object> result = Nan::New<Object> ();
 
 	::swe_jdet_to_utc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&year, &month, &day, &hour, &minute, &second
 	);
 
@@ -265,8 +265,8 @@ NAN_METHOD(node_swe_jdut1_to_utc) {
 	Local <Object> result = Nan::New<Object> ();
 
 	::swe_jdut1_to_utc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&year, &month, &day, &hour, &minute, &second
 	);
 
@@ -318,13 +318,13 @@ NAN_METHOD(node_swe_utc_time_zone) {
 	Local <Object> result = Nan::New<Object> ();
 
 	::swe_utc_time_zone (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
-		info [5]->NumberValue (),
-		info [6]->NumberValue (),
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&year, &month, &day, &hour, &minute, &second
 	);
 

@@ -6524,7 +6524,7 @@ static int32 search_star_in_list(char *sstar, struct fixed_star *stardata, char 
   } else if (!is_bayer && (sp = strchr(sstar, '%')) != NULL) {
     stardatabegp = &(swed.fixed_stars[swed.n_fixstars_real]);
     ndata = swed.n_fixstars_named;
-    if (sp - sstar != strlen(sstar) - 1) {
+    if (sp - sstar != (unsigned)(strlen(sstar) - 1)) {
       if (serr != NULL)
 	sprintf(serr, "error, swe_fixstar(): invalid search string %s", sstar);
       return ERR;

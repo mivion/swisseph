@@ -43,7 +43,7 @@ NAN_METHOD(node_swe_houses) {
 	Local <Object> result = Nan::New<Object> ();
 	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (info [3]->ToString ())) [0];
+	hsys = (* String::Utf8Value (Isolate::GetCurrent(), info [3]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -52,9 +52,9 @@ NAN_METHOD(node_swe_houses) {
 	}
 
 	rflag = ::swe_houses (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		hsys,
 		cusps, ascmc
 	);
@@ -123,7 +123,7 @@ NAN_METHOD(node_swe_houses_ex) {
 	Local <Object> result = Nan::New<Object> ();
 	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (info [4]->ToString ())) [0];
+	hsys = (* String::Utf8Value (Isolate::GetCurrent(), info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -132,10 +132,10 @@ NAN_METHOD(node_swe_houses_ex) {
 	}
 
 	rflag = ::swe_houses_ex (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		info [2]->NumberValue (),
-		info [3]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		hsys,
 		cusps, ascmc
 	);
@@ -203,7 +203,7 @@ NAN_METHOD(node_swe_houses_armc) {
 	Local <Object> result = Nan::New<Object> ();
 	Local <Array> house = Nan::New<Array> ();
 
-	hsys = (* String::Utf8Value (info [3]->ToString ())) [0];
+	hsys = (* String::Utf8Value (Isolate::GetCurrent(), info [3]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0];
 	
 	if (hsys == 'G') {
 		cuspsCount = 36;
@@ -212,9 +212,9 @@ NAN_METHOD(node_swe_houses_armc) {
 	}
 	
 	rflag = ::swe_houses_armc (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		hsys,
 		cusps, ascmc
 	);
@@ -267,17 +267,17 @@ NAN_METHOD(node_swe_houses_pos) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double xpin [2] = {info [4]->NumberValue (), info [5]->NumberValue ()};
+	double xpin [2] = {info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(), info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked()};
 	char serr [AS_MAXCH];
 	double rflag;
 
 	Local <Object> result = Nan::New<Object> ();
 
 	rflag = ::swe_house_pos (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue (),
-		(* String::Utf8Value (info [3]->ToString ())) [0],
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(* String::Utf8Value (Isolate::GetCurrent(), info [3]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0],
 		xpin, serr
 	);
 

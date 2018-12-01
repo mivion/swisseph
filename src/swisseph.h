@@ -1,7 +1,7 @@
 #ifndef __swisseph_swisseph_h__
 #define __swisseph_swisseph_h__
 
-#pragma warning (disable : 4251)
+//#pragma warning (disable : 4251)
 
 #include <node.h>
 #include <nan.h>

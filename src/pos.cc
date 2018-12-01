@@ -54,9 +54,9 @@ NAN_METHOD(node_swe_calc_ut) {
 	long rflag;
 
 	rflag = ::swe_calc_ut (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -65,7 +65,7 @@ NAN_METHOD(node_swe_calc_ut) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
@@ -74,7 +74,7 @@ NAN_METHOD(node_swe_calc_ut) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
 				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
@@ -130,9 +130,9 @@ NAN_METHOD(node_swe_calc) {
 	long rflag;
 
 	rflag = ::swe_calc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -141,7 +141,7 @@ NAN_METHOD(node_swe_calc) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
 			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
@@ -150,7 +150,7 @@ NAN_METHOD(node_swe_calc) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
 				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
@@ -207,12 +207,12 @@ NAN_METHOD(node_swe_fixstar) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, * String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar (
 		star,
-		info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -221,7 +221,7 @@ NAN_METHOD(node_swe_fixstar) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -231,7 +231,7 @@ NAN_METHOD(node_swe_fixstar) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -290,12 +290,12 @@ NAN_METHOD(node_swe_fixstar_ut) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar_ut (
 		star,
-		info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -304,7 +304,7 @@ NAN_METHOD(node_swe_fixstar_ut) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -314,7 +314,7 @@ NAN_METHOD(node_swe_fixstar_ut) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -365,7 +365,7 @@ NAN_METHOD(node_swe_fixstar_mag) {
 	long rflag;
 	double magnitude;
 
-	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar_mag (star, &magnitude, serr);
 
@@ -417,12 +417,12 @@ NAN_METHOD(node_swe_fixstar2) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, * String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar2 (
 		star,
-		info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -431,7 +431,7 @@ NAN_METHOD(node_swe_fixstar2) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -441,7 +441,7 @@ NAN_METHOD(node_swe_fixstar2) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -500,12 +500,12 @@ NAN_METHOD(node_swe_fixstar2_ut) {
 	long rflag = 0;
 	char star [AS_MAXCH];
 
-	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar2_ut (
 		star,
-		info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		x, serr
 	);
 
@@ -514,7 +514,7 @@ NAN_METHOD(node_swe_fixstar2_ut) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
 			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -524,7 +524,7 @@ NAN_METHOD(node_swe_fixstar2_ut) {
 			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
 			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
 				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
@@ -575,7 +575,7 @@ NAN_METHOD(node_swe_fixstar2_mag) {
 	long rflag;
 	double magnitude;
 
-	::strcpy (star, *String::Utf8Value (info [0]->ToString ()));
+	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar2_mag (star, &magnitude, serr);
 
@@ -625,10 +625,10 @@ NAN_METHOD(node_swe_set_ephe_path) {
 	};
 
 	::swe_set_ephe_path (
-		*String::Utf8Value (info [0]->ToString ())
+		*String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))
 	);
 
-	Local <Object> result = info [0]->ToObject ();
+	Local <Object> result = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -653,10 +653,10 @@ NAN_METHOD(node_swe_set_jpl_file) {
 	};
 
 	::swe_set_jpl_file (
-		*String::Utf8Value (info [0]->ToString ())
+		*String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))
 	);
 
-	Local <Object> result = info [0]->ToObject ();
+	Local <Object> result = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -684,7 +684,7 @@ NAN_METHOD(node_swe_get_planet_name) {
 
 	char name [AS_MAXCH] = {0};
 
-	::swe_get_planet_name ((int)info [0]->NumberValue (), name);
+	::swe_get_planet_name ((int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(), name);
 
 	Local <Object> result = Nan::New<Object> ();
 
@@ -715,9 +715,9 @@ NAN_METHOD(node_swe_set_topo) {
 	};
 
 	::swe_set_topo (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
     HandleCallback (info, Nan::Undefined());
@@ -745,9 +745,9 @@ NAN_METHOD(node_swe_set_sid_mode) {
 	};
 
 	::swe_set_sid_mode (
-		(int)info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
     HandleCallback (info, Nan::Undefined());
@@ -775,7 +775,7 @@ NAN_METHOD(node_swe_get_ayanamsa) {
 	double val;
 
 	val = ::swe_get_ayanamsa (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Number> result = Nan::New<Number> (val);
@@ -805,7 +805,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
 	double val;
 
 	val = ::swe_get_ayanamsa_ut (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Number> result = Nan::New<Number> (val);
@@ -842,8 +842,8 @@ NAN_METHOD(node_swe_get_ayanamsa_ex) {
 	long val;
 
 	val = ::swe_get_ayanamsa_ex (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		daya, serr
 	);
 
@@ -886,8 +886,8 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
 	long val;
 
 	val = ::swe_get_ayanamsa_ex_ut (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		daya, serr
 	);
 
@@ -923,7 +923,7 @@ NAN_METHOD(node_swe_get_ayanamsa_name) {
 	const char * val;
 
 	val = ::swe_get_ayanamsa_name (
-		(int)info [0]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <String> result = Nan::New<String> (val).ToLocalChecked();

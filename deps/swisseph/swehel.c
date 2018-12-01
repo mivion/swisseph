@@ -228,7 +228,7 @@ static double OpticFactor(double Bback, double kX, double *dobs, double JDNDaysU
   double OpticDia = dobs[4];
   double OpticTrans = dobs[5];
   AS_BOOL is_scotopic = FALSE;
-  JDNDaysUT = JDNDaysUT; /* currently not used, statement prevents compiler warning */
+  //JDNDaysUT = JDNDaysUT; /* currently not used, statement prevents compiler warning */
   SNi = SN;
   if (SNi <= 0.00000001) SNi = 0.00000001;
   /* 23 jaar as standard from Garstang*/
@@ -553,7 +553,7 @@ static double SunRA(double JDNDaysUT, int32 helflag, char *serr)
   double dut;
   static TLS double tjdlast;
   static TLS double ralast;
-  helflag = helflag; /* statement prevents compiler warning */
+  //helflag = helflag; /* statement prevents compiler warning */
   *serr = '\0';
   if (JDNDaysUT == tjdlast)
     return ralast;
@@ -1265,7 +1265,7 @@ static double Bday(double AltO, double AziO, double AltS, double AziS, double su
 static double Bcity(double Value, double Press)
 {
   double Bcity = Value;
-  Press = Press; /* unused; statement prevents compiler warning */
+  //Press = Press; /* unused; statement prevents compiler warning */
   Bcity = mymax(Bcity, 0);
   return Bcity;
 }

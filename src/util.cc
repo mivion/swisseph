@@ -25,7 +25,7 @@ NAN_METHOD(node_swe_deltat) {
 	double deltat;
 
 	deltat = ::swe_deltat (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -62,7 +62,7 @@ NAN_METHOD(node_swe_time_equ) {
 	long rflag;
 
 	rflag = ::swe_time_equ (
-		info [0]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&te, serr
 	);
 
@@ -103,9 +103,9 @@ NAN_METHOD(node_swe_sidtime0) {
 	double st;
 
 	st = ::swe_sidtime0 (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -139,7 +139,7 @@ NAN_METHOD(node_swe_sidtime) {
 	double st;
 
 	st = ::swe_sidtime (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -176,13 +176,13 @@ NAN_METHOD(node_swe_cotrans) {
 	double xpn [3] = {0};
 	double xpo [3] = {0};
 
-	xpo [0] = info [0]->ToObject ()->Get (0)->NumberValue ();
-	xpo [1] = info [0]->ToObject ()->Get (1)->NumberValue ();
-	xpo [2] = info [0]->ToObject ()->Get (2)->NumberValue ();
+	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::swe_cotrans (
 		xpo, xpn,
-        info [1]->NumberValue ()
+        info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -221,13 +221,13 @@ NAN_METHOD(node_swe_cotrans_sp) {
 	double xpn [3] = {0};
 	double xpo [3] = {0};
 
-	xpo [0] = info [0]->ToObject ()->Get (0)->NumberValue ();
-	xpo [1] = info [0]->ToObject ()->Get (1)->NumberValue ();
-	xpo [2] = info [0]->ToObject ()->Get (2)->NumberValue ();
+	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::swe_cotrans_sp (
 		xpo, xpn,
-        info [1]->NumberValue ()
+        info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -282,7 +282,7 @@ NAN_METHOD(node_swe_set_tid_acc) {
 	};
 
 	::swe_set_tid_acc (
-        info [0]->NumberValue ()
+        info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -314,7 +314,7 @@ NAN_METHOD(node_swe_degnorm) {
 	double x360;
 
 	x360 = ::swe_degnorm (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -348,7 +348,7 @@ NAN_METHOD(node_swe_radnorm) {
 	double x2Pi;
 
 	x2Pi = ::swe_radnorm (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -383,8 +383,8 @@ NAN_METHOD(node_swe_rad_midp) {
 	double xMid2Pi;
 
 	xMid2Pi = ::swe_rad_midp (
-		info [0]->NumberValue (),
-		info [1]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -419,8 +419,8 @@ NAN_METHOD(node_swe_deg_midp) {
 	double xMid360;
 
 	xMid360 = ::swe_deg_midp (
-		info [0]->NumberValue (),
-		info [1]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -463,8 +463,8 @@ NAN_METHOD(node_swe_split_deg) {
 	int isgn;
 
 	::swe_split_deg (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&ideg, &imin, &isec, &dsecfr, &isgn
 	);
 
@@ -503,7 +503,7 @@ NAN_METHOD(node_swe_csnorm) {
 	int centisec360;
 
 	centisec360 = ::swe_csnorm (
-		(int)info [0]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -538,8 +538,8 @@ NAN_METHOD(node_swe_difcsn ) {
 	int centisecDiff;
 
 	centisecDiff = ::swe_difcsn (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -574,8 +574,8 @@ NAN_METHOD(node_swe_difdegn ) {
 	double degreeDiff;
 
 	degreeDiff = ::swe_difdegn (
-		info [0]->NumberValue (),
-		info [1]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -610,8 +610,8 @@ NAN_METHOD(node_swe_difcs2n) {
 	int centisecDistance180;
 
 	centisecDistance180 = ::swe_difcs2n (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -646,8 +646,8 @@ NAN_METHOD(node_swe_difdeg2n) {
 	double degreeDistance180;
 
 	degreeDistance180 = ::swe_difdeg2n (
-		info [0]->NumberValue (),
-		info [1]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -682,8 +682,8 @@ NAN_METHOD(node_swe_difrad2n) {
 	double degreeDistancePi;
 
 	degreeDistancePi = ::swe_difrad2n (
-		info [0]->NumberValue (),
-		info [1]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -717,7 +717,7 @@ NAN_METHOD(node_swe_csroundsec) {
 	int centisecRound;
 
 	centisecRound = ::swe_csroundsec (
-		(int)info [0]->NumberValue ()
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -751,7 +751,7 @@ NAN_METHOD(node_swe_d2l) {
 	int xRound;
 
 	xRound = ::swe_d2l (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -785,7 +785,7 @@ NAN_METHOD(node_swe_day_of_week) {
 	int dayOfWeek;
 
 	dayOfWeek = ::swe_day_of_week (
-		info [0]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -821,9 +821,9 @@ NAN_METHOD(node_swe_cs2timestr) {
 	char timeString [AS_MAXCH] = {0};
 
 	::swe_cs2timestr (
-		(int)info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		timeString
 	);
 
@@ -860,9 +860,9 @@ NAN_METHOD(node_swe_cs2lonlatstr) {
 	char lonlatString [AS_MAXCH] = {0};
 
 	::swe_cs2lonlatstr (
-		(int)info [0]->NumberValue (),
-		(* String::Utf8Value (info [1]->ToString ())) [0],
-		(* String::Utf8Value (info [2]->ToString ())) [0],
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(* String::Utf8Value (Isolate::GetCurrent(), info [1]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0],
+		(* String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))) [0],
 		lonlatString
 	);
 
@@ -897,7 +897,7 @@ NAN_METHOD(node_swe_cs2degstr) {
 	char degreeString [AS_MAXCH] = {0};
 
 	::swe_cs2degstr (
-		(int)info [0]->NumberValue (),
+		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		degreeString
 	);
 

@@ -39,21 +39,21 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	geopos [0] = info [5]->NumberValue ();
-	geopos [1] = info [6]->NumberValue ();
-	geopos [2] = info [7]->NumberValue ();
+	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_gauquelin_sector (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos,
-		info [8]->NumberValue (),
-		info [9]->NumberValue (),
+		info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&dgsect, serr
 	);
 
@@ -111,8 +111,8 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
 	long rflag;
 
 	rflag = ::swe_sol_eclipse_where (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, attr, serr
 	);
 
@@ -181,13 +181,13 @@ NAN_METHOD(node_swe_lun_occult_where) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_lun_occult_where (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, attr, serr
 	);
 
@@ -254,13 +254,13 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_sol_eclipse_how (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, attr, serr
 	);
 
@@ -335,15 +335,15 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_sol_eclipse_when_loc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, tret, attr,
-		(int)info [5]->NumberValue (),
+		(int)info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -427,19 +427,19 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	geopos [0] = info [4]->NumberValue ();
-	geopos [1] = info [5]->NumberValue ();
-	geopos [2] = info [6]->NumberValue ();
+	geopos [0] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_lun_occult_when_loc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, tret, attr,
-		(int)info [7]->NumberValue (),
+		(int)info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -509,11 +509,11 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
 	long rflag;
 
 	rflag = ::swe_sol_eclipse_when_glob (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		tret,
-		(int)info [3]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -577,16 +577,16 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_lun_occult_when_glob (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		tret,
-		(int)info [5]->NumberValue (),
+		(int)info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -650,13 +650,13 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_lun_eclipse_how (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, attr, serr
 	);
 
@@ -717,11 +717,11 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
 	long rflag;
 
 	rflag = ::swe_lun_eclipse_when (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		tret,
-		(int)info [3]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -793,15 +793,15 @@ NAN_METHOD(node_swe_lun_eclipse_when_loc) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_lun_eclipse_when_loc (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, tret, attr,
-		(int)info [5]->NumberValue (),
+		(int)info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		serr
 	);
 
@@ -866,9 +866,9 @@ NAN_METHOD(node_swe_pheno) {
 	long rflag;
 
 	rflag = ::swe_pheno (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		attr, serr
 	);
 
@@ -921,9 +921,9 @@ NAN_METHOD(node_swe_pheno_ut) {
 	long rflag;
 
 	rflag = ::swe_pheno_ut (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		attr, serr
 	);
 
@@ -970,10 +970,10 @@ NAN_METHOD(node_swe_refrac) {
 	double refraction;
 
 	refraction = ::swe_refrac (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue (),
-		(int)info [3]->NumberValue ()
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -1016,12 +1016,12 @@ NAN_METHOD(node_swe_refrac_extended) {
 	double dret [4];
 
 	refraction = ::swe_refrac_extended (
-		info [0]->NumberValue (),
-		info [1]->NumberValue (),
-		info [2]->NumberValue (),
-		info [3]->NumberValue (),
-		info [4]->NumberValue (),
-		(int)info [5]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		dret
 	);
 
@@ -1056,7 +1056,7 @@ NAN_METHOD(node_swe_set_lapse_rate) {
 	};
 
 	::swe_set_lapse_rate (
-        info [0]->NumberValue ()
+        info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
 	);
 
 	Local <Object> result = Nan::New<Object> ();
@@ -1100,20 +1100,20 @@ NAN_METHOD(node_swe_azalt) {
 	double xin [3] = {0};
 	double xaz [3] = {0};
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	xin [0] = info [7]->NumberValue ();
-	xin [1] = info [8]->NumberValue ();
-	xin [2] = info [9]->NumberValue ();
+	xin [0] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xin [1] = info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xin [2] = info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::swe_azalt (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos,
-		info [5]->NumberValue (),
-		info [6]->NumberValue (),
+		info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		xin, xaz
 	);
 
@@ -1158,16 +1158,16 @@ NAN_METHOD(node_swe_azalt_rev) {
 	double xin [3] = {0};
 	double xout [3] = {0};
 
-	geopos [0] = info [2]->NumberValue ();
-	geopos [1] = info [3]->NumberValue ();
-	geopos [2] = info [4]->NumberValue ();
+	geopos [0] = info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	xin [0] = info [5]->NumberValue ();
-	xin [1] = info [6]->NumberValue ();
+	xin [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xin [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::swe_azalt_rev (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos, xin, xout
 	);
 
@@ -1217,21 +1217,21 @@ NAN_METHOD(node_swe_rise_trans) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	geopos [0] = info [5]->NumberValue ();
-	geopos [1] = info [6]->NumberValue ();
-	geopos [2] = info [7]->NumberValue ();
+	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_rise_trans (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos,
-		info [8]->NumberValue (),
-		info [9]->NumberValue (),
+		info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&tret, serr
 	);
 
@@ -1290,22 +1290,22 @@ NAN_METHOD(node_swe_rise_trans_true_hor) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (info [2]->ToString ()));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	geopos [0] = info [5]->NumberValue ();
-	geopos [1] = info [6]->NumberValue ();
-	geopos [2] = info [7]->NumberValue ();
+	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_rise_trans_true_hor (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		star,
-		(int)info [3]->NumberValue (),
-		(int)info [4]->NumberValue (),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos,
-		info [8]->NumberValue (),
-		info [9]->NumberValue (),
-		info [10]->NumberValue (),
+		info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [10]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&tret, serr
 	);
 
@@ -1389,10 +1389,10 @@ NAN_METHOD(node_swe_nod_aps) {
 	long rflag;
 
 	rflag = ::swe_nod_aps (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		(int)info [3]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
@@ -1401,7 +1401,7 @@ NAN_METHOD(node_swe_nod_aps) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
 			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
@@ -1438,7 +1438,7 @@ NAN_METHOD(node_swe_nod_aps) {
 			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
 			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				Local <Object> ascending = Nan::New<Object> ();
 				ascending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 				ascending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
@@ -1579,10 +1579,10 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 	long rflag;
 
 	rflag = ::swe_nod_aps_ut (
-		info [0]->NumberValue (),
-		(int)info [1]->NumberValue (),
-		(int)info [2]->NumberValue (),
-		(int)info [3]->NumberValue (),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		xnasc, xndsc, xperi, xaphe, serr
 	);
 
@@ -1591,7 +1591,7 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 	if (rflag < 0) {
 		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue () & SEFLG_EQUATORIAL) {
+		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
 			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
@@ -1628,7 +1628,7 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
 			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 		} else
-			if ((int)info [2]->NumberValue () & SEFLG_XYZ) {
+			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				Local <Object> ascending = Nan::New<Object> ();
 				ascending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
 				ascending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
