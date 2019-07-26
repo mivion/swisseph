@@ -42,9 +42,9 @@ NAN_METHOD(node_swe_date_conversion) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Input date is illegal.").ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Input date is illegal.").ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("julianDay").ToLocalChecked(), Nan::New<Number> (tjd));
+		Nan::Set(result,Nan::New<String> ("julianDay").ToLocalChecked(), Nan::New<Number> (tjd));
 	};
 
     HandleCallback (info, result);
@@ -120,10 +120,10 @@ NAN_METHOD(node_swe_revjul) {
 		&year, &month, &day, &hour
 	);
 
-	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
-	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
-	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
-	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	Nan::Set(result,Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	Nan::Set(result,Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	Nan::Set(result,Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	Nan::Set(result,Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -175,10 +175,10 @@ NAN_METHOD(node_swe_utc_to_jd) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("julianDayET").ToLocalChecked(), Nan::New<Number> (tjd [0]));
-		result->Set (Nan::New<String> ("julianDayUT").ToLocalChecked(), Nan::New<Number> (tjd [1]));
+		Nan::Set(result,Nan::New<String> ("julianDayET").ToLocalChecked(), Nan::New<Number> (tjd [0]));
+		Nan::Set(result,Nan::New<String> ("julianDayUT").ToLocalChecked(), Nan::New<Number> (tjd [1]));
 	};
 
     HandleCallback (info, result);
@@ -222,12 +222,12 @@ NAN_METHOD(node_swe_jdet_to_utc) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
-	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
-	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
-	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
-	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
-	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
+	Nan::Set(result,Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	Nan::Set(result,Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	Nan::Set(result,Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	Nan::Set(result,Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	Nan::Set(result,Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -270,12 +270,12 @@ NAN_METHOD(node_swe_jdut1_to_utc) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
-	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
-	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
-	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
-	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
-	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
+	Nan::Set(result,Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	Nan::Set(result,Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	Nan::Set(result,Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	Nan::Set(result,Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	Nan::Set(result,Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -328,12 +328,12 @@ NAN_METHOD(node_swe_utc_time_zone) {
 		&year, &month, &day, &hour, &minute, &second
 	);
 
-	result->Set (Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
-	result->Set (Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
-	result->Set (Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
-	result->Set (Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
-	result->Set (Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
-	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
+	Nan::Set(result,Nan::New<String> ("year").ToLocalChecked(), Nan::New<Number> (year));
+	Nan::Set(result,Nan::New<String> ("month").ToLocalChecked(), Nan::New<Number> (month));
+	Nan::Set(result,Nan::New<String> ("day").ToLocalChecked(), Nan::New<Number> (day));
+	Nan::Set(result,Nan::New<String> ("hour").ToLocalChecked(), Nan::New<Number> (hour));
+	Nan::Set(result,Nan::New<String> ("minute").ToLocalChecked(), Nan::New<Number> (minute));
+	Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (second));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);

@@ -60,21 +60,21 @@ NAN_METHOD(node_swe_houses) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
+			Nan::Set(house,Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
-		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
-		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
-		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
-		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
-		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
-		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
-		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
-		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		Nan::Set(result,Nan::New<String> ("house").ToLocalChecked(), house);
+		Nan::Set(result,Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		Nan::Set(result,Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		Nan::Set(result,Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		Nan::Set(result,Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		Nan::Set(result,Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
+		Nan::Set(result,Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		Nan::Set(result,Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		Nan::Set(result,Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
 	};
 
     HandleCallback (info, result);
@@ -141,21 +141,21 @@ NAN_METHOD(node_swe_houses_ex) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
+			Nan::Set(house,Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
-		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
-		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
-		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
-		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
-		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
-		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
-		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
-		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		Nan::Set(result,Nan::New<String> ("house").ToLocalChecked(), house);
+		Nan::Set(result,Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		Nan::Set(result,Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		Nan::Set(result,Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		Nan::Set(result,Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		Nan::Set(result,Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
+		Nan::Set(result,Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		Nan::Set(result,Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		Nan::Set(result,Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
 	};
 
     HandleCallback (info, result);
@@ -220,21 +220,21 @@ NAN_METHOD(node_swe_houses_armc) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
 		for (size_t i = 0; i < cuspsCount; i ++) {
-			house->Set (Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
+			Nan::Set(house,Nan::New<Number> (i), Nan::New<Number> (cusps [i + 1]));
 		};
 
-		result->Set (Nan::New<String> ("house").ToLocalChecked(), house);
-		result->Set (Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
-		result->Set (Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
-		result->Set (Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
-		result->Set (Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
-		result->Set (Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
-		result->Set (Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
-		result->Set (Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
-		result->Set (Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
+		Nan::Set(result,Nan::New<String> ("house").ToLocalChecked(), house);
+		Nan::Set(result,Nan::New<String> ("ascendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ASC]));
+		Nan::Set(result,Nan::New<String> ("mc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_MC]));
+		Nan::Set(result,Nan::New<String> ("armc").ToLocalChecked(), Nan::New<Number> (ascmc [SE_ARMC]));
+		Nan::Set(result,Nan::New<String> ("vertex").ToLocalChecked(), Nan::New<Number> (ascmc [SE_VERTEX]));
+		Nan::Set(result,Nan::New<String> ("equatorialAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_EQUASC]));
+		Nan::Set(result,Nan::New<String> ("kochCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC1]));
+		Nan::Set(result,Nan::New<String> ("munkaseyCoAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_COASC2]));
+		Nan::Set(result,Nan::New<String> ("munkaseyPolarAscendant").ToLocalChecked(), Nan::New<Number> (ascmc [SE_POLASC]));
 	};
 
     HandleCallback (info, result);
@@ -282,9 +282,9 @@ NAN_METHOD(node_swe_houses_pos) {
 	);
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> ("Can't calculate houses.").ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("housePosition").ToLocalChecked(), Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("housePosition").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
     HandleCallback (info, result);

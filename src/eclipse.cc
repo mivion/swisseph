@@ -60,14 +60,14 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("gauquelinSector").ToLocalChecked(), Nan::New<Number> (dgsect));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("gauquelinSector").ToLocalChecked(), Nan::New<Number> (dgsect));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -119,26 +119,26 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
-		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
-		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
+		Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -194,23 +194,23 @@ NAN_METHOD(node_swe_lun_occult_where) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
-		result->Set (Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
-		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(),	                Nan::New<Number> (geopos [0]));
+		Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(),	                Nan::New<Number> (geopos [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -267,24 +267,24 @@ NAN_METHOD(node_swe_sol_eclipse_how) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -350,29 +350,29 @@ NAN_METHOD(node_swe_sol_eclipse_when_loc) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
-		result->Set (Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("third").ToLocalChecked(),		Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("first").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("third").ToLocalChecked(),		Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("forth").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -446,30 +446,30 @@ NAN_METHOD(node_swe_lun_occult_when_loc) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("name").ToLocalChecked(),                        Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		                Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("first").ToLocalChecked(),		                Nan::New<Number> (tret [1]));
-		result->Set (Nan::New<String> ("second").ToLocalChecked(),		                Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("third").ToLocalChecked(),		                Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("forth").ToLocalChecked(),		                Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(),                        Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),		                Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("first").ToLocalChecked(),		                Nan::New<Number> (tret [1]));
+		Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(),		                Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("third").ToLocalChecked(),		                Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("forth").ToLocalChecked(),		                Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("solarDiameterFraction").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("lonarToSolarDiameterRatio").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("solarDiscFraction").ToLocalChecked(),			Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("coreShadow").ToLocalChecked(),					Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),						Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonToSunAngularDistance").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("eclipseMagnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -520,21 +520,21 @@ NAN_METHOD(node_swe_sol_eclipse_when_glob) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
-		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
-		result->Set (Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
-		result->Set (Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		Nan::Set(result,Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
+		Nan::Set(result,Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		Nan::Set(result,Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -593,22 +593,22 @@ NAN_METHOD(node_swe_lun_occult_when_glob) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("name").ToLocalChecked(),        Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
-		result->Set (Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
-		result->Set (Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
-		result->Set (Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(),        Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),		Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("noon").ToLocalChecked(),		Nan::New<Number> (tret [1]));
+		Nan::Set(result,Nan::New<String> ("begin").ToLocalChecked(),		Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("end").ToLocalChecked(),			Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("totalBegin").ToLocalChecked(),	Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("totalEnd").ToLocalChecked(),	Nan::New<Number> (tret [5]));
+		Nan::Set(result,Nan::New<String> ("centerBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		Nan::Set(result,Nan::New<String> ("centerEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -663,22 +663,22 @@ NAN_METHOD(node_swe_lun_eclipse_how) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	            Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("oppositeDegreeDist").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("magnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),			Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),			Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	            Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("oppositeDegreeDist").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("magnitude").ToLocalChecked(),			Nan::New<Number> (attr [8]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),			Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),			Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -728,20 +728,20 @@ NAN_METHOD(node_swe_lun_eclipse_when) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	        Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),			Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("partialBegin").ToLocalChecked(),	Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("partialEnd").ToLocalChecked(),		Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),		Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),		Nan::New<Number> (tret [5]));
-		result->Set (Nan::New<String> ("penumbralBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
-		result->Set (Nan::New<String> ("penumbralEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	        Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),			Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("partialBegin").ToLocalChecked(),	Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("partialEnd").ToLocalChecked(),		Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("totalBegin").ToLocalChecked(),		Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("totalEnd").ToLocalChecked(),		Nan::New<Number> (tret [5]));
+		Nan::Set(result,Nan::New<String> ("penumbralBegin").ToLocalChecked(),	Nan::New<Number> (tret [6]));
+		Nan::Set(result,Nan::New<String> ("penumbralEnd").ToLocalChecked(),	Nan::New<Number> (tret [7]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -808,30 +808,30 @@ NAN_METHOD(node_swe_lun_eclipse_when_loc) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
-		result->Set (Nan::New<String> ("maximum").ToLocalChecked(),			            Nan::New<Number> (tret [0]));
-		result->Set (Nan::New<String> ("partialBegin").ToLocalChecked(),	            Nan::New<Number> (tret [2]));
-		result->Set (Nan::New<String> ("partialEnd").ToLocalChecked(),		            Nan::New<Number> (tret [3]));
-		result->Set (Nan::New<String> ("totalBegin").ToLocalChecked(),		            Nan::New<Number> (tret [4]));
-		result->Set (Nan::New<String> ("totalEnd").ToLocalChecked(),		            Nan::New<Number> (tret [5]));
-		result->Set (Nan::New<String> ("penumbralBegin").ToLocalChecked(),	            Nan::New<Number> (tret [6]));
-		result->Set (Nan::New<String> ("penumbralEnd").ToLocalChecked(),	            Nan::New<Number> (tret [7]));
-		result->Set (Nan::New<String> ("moonRise").ToLocalChecked(),	                Nan::New<Number> (tret [8]));
-		result->Set (Nan::New<String> ("moonSet").ToLocalChecked(),	                    Nan::New<Number> (tret [9]));
-		result->Set (Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		        Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	        Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),			            Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
-		result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
-		result->Set (Nan::New<String> ("moonDistanceFromOpposition").ToLocalChecked(),	Nan::New<Number> (attr [7]));
-		result->Set (Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
-		result->Set (Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(),	                    Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("maximum").ToLocalChecked(),			            Nan::New<Number> (tret [0]));
+		Nan::Set(result,Nan::New<String> ("partialBegin").ToLocalChecked(),	            Nan::New<Number> (tret [2]));
+		Nan::Set(result,Nan::New<String> ("partialEnd").ToLocalChecked(),		            Nan::New<Number> (tret [3]));
+		Nan::Set(result,Nan::New<String> ("totalBegin").ToLocalChecked(),		            Nan::New<Number> (tret [4]));
+		Nan::Set(result,Nan::New<String> ("totalEnd").ToLocalChecked(),		            Nan::New<Number> (tret [5]));
+		Nan::Set(result,Nan::New<String> ("penumbralBegin").ToLocalChecked(),	            Nan::New<Number> (tret [6]));
+		Nan::Set(result,Nan::New<String> ("penumbralEnd").ToLocalChecked(),	            Nan::New<Number> (tret [7]));
+		Nan::Set(result,Nan::New<String> ("moonRise").ToLocalChecked(),	                Nan::New<Number> (tret [8]));
+		Nan::Set(result,Nan::New<String> ("moonSet").ToLocalChecked(),	                    Nan::New<Number> (tret [9]));
+		Nan::Set(result,Nan::New<String> ("umbralMagnitude").ToLocalChecked(),		        Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("penumbralMagnitude").ToLocalChecked(),	        Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),			            Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),				Nan::New<Number> (attr [5]));
+		Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),			Nan::New<Number> (attr [6]));
+		Nan::Set(result,Nan::New<String> ("moonDistanceFromOpposition").ToLocalChecked(),	Nan::New<Number> (attr [7]));
+		Nan::Set(result,Nan::New<String> ("sarosNumber").ToLocalChecked(),					Nan::New<Number> (attr [9]));
+		Nan::Set(result,Nan::New<String> ("sarosMember").ToLocalChecked(),					Nan::New<Number> (attr [10]));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -875,18 +875,18 @@ NAN_METHOD(node_swe_pheno) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -930,18 +930,18 @@ NAN_METHOD(node_swe_pheno_ut) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
-		result->Set (Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
-		result->Set (Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
-		result->Set (Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
-		result->Set (Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
-		result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		Nan::Set(result,Nan::New<String> ("phaseAngle").ToLocalChecked(), Nan::New<Number> (attr [0]));
+		Nan::Set(result,Nan::New<String> ("phase").ToLocalChecked(), Nan::New<Number> (attr [1]));
+		Nan::Set(result,Nan::New<String> ("elongation").ToLocalChecked(), Nan::New<Number> (attr [2]));
+		Nan::Set(result,Nan::New<String> ("apparentDiameter").ToLocalChecked(), Nan::New<Number> (attr [3]));
+		Nan::Set(result,Nan::New<String> ("apparentMagnitude").ToLocalChecked(), Nan::New<Number> (attr [4]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -978,10 +978,10 @@ NAN_METHOD(node_swe_refrac) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
+	Nan::Set(result,Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1027,13 +1027,13 @@ NAN_METHOD(node_swe_refrac_extended) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
-	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (dret [0]));
-	result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (dret [1]));
-	result->Set (Nan::New<String> ("horizonDip").ToLocalChecked(),			Nan::New<Number> (dret [3]));
+	Nan::Set(result,Nan::New<String> ("refraction").ToLocalChecked(), Nan::New<Number> (refraction));
+	Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (dret [0]));
+	Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (dret [1]));
+	Nan::Set(result,Nan::New<String> ("horizonDip").ToLocalChecked(),			Nan::New<Number> (dret [3]));
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1062,7 +1062,7 @@ NAN_METHOD(node_swe_set_lapse_rate) {
 	Local <Object> result = Nan::New<Object> ();
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1119,12 +1119,12 @@ NAN_METHOD(node_swe_azalt) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (xaz [0]));
-	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (xaz [1]));
-	result->Set (Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (xaz [2]));
+	Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),				Nan::New<Number> (xaz [0]));
+	Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),		Nan::New<Number> (xaz [1]));
+	Nan::Set(result,Nan::New<String> ("apparentAltitude").ToLocalChecked(),	Nan::New<Number> (xaz [2]));
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1173,11 +1173,11 @@ NAN_METHOD(node_swe_azalt_rev) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("azimuth").ToLocalChecked(),			Nan::New<Number> (xout [0]));
-	result->Set (Nan::New<String> ("trueAltitude").ToLocalChecked(),	Nan::New<Number> (xout [1]));
+	Nan::Set(result,Nan::New<String> ("azimuth").ToLocalChecked(),			Nan::New<Number> (xout [0]));
+	Nan::Set(result,Nan::New<String> ("trueAltitude").ToLocalChecked(),	Nan::New<Number> (xout [1]));
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1239,17 +1239,17 @@ NAN_METHOD(node_swe_rise_trans) {
 	
 	// http://www.astro.com/swisseph/swephprg.htm#_Toc433200782
 	if (rflag == -1) {     //  if an error occurred (usually an ephemeris problem)
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
 		if (rflag == -2) { // if a rising or setting event was not found because the object is circumpolar  
 			tret = -2;
 		};
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1313,17 +1313,17 @@ NAN_METHOD(node_swe_rise_trans_true_hor) {
 
 	// http://www.astro.com/swisseph/swephprg.htm#_Toc433200782
 	if (rflag == -1) {     //  if an error occurred (usually an ephemeris problem)
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
 		if (rflag == -2) { // if a rising or setting event was not found because the object is circumpolar  
 			tret = -2;
 		};
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("transitTime").ToLocalChecked(), Nan::New<Number> (tret));
 	};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1399,121 +1399,121 @@ NAN_METHOD(node_swe_nod_aps) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
 		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
-			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-			ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-			ascending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-			ascending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-			ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-			result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+			Nan::Set(ascending,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+			Nan::Set(ascending,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+			Nan::Set(ascending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+			Nan::Set(ascending,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+			Nan::Set(ascending,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+			Nan::Set(ascending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+			Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 			Local <Object> descending = Nan::New<Object> ();
-			descending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-			descending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-			descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-			descending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-			descending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-			descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-			result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+			Nan::Set(descending,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+			Nan::Set(descending,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+			Nan::Set(descending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+			Nan::Set(descending,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+			Nan::Set(descending,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+			Nan::Set(descending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+			Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 			Local <Object> perihelion = Nan::New<Object> ();
-			perihelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-			perihelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-			perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-			perihelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-			perihelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-			perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-			result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+			Nan::Set(perihelion,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+			Nan::Set(perihelion,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+			Nan::Set(perihelion,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+			Nan::Set(perihelion,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+			Nan::Set(perihelion,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+			Nan::Set(perihelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+			Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 			Local <Object> aphelion = Nan::New<Object> ();
-			aphelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-			aphelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-			aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-			aphelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-			aphelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+			Nan::Set(aphelion,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+			Nan::Set(aphelion,Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+			Nan::Set(aphelion,Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+			Nan::Set(aphelion,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+			Nan::Set(aphelion,Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+			Nan::Set(aphelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+			Nan::Set(result,Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 		} else
 			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				Local <Object> ascending = Nan::New<Object> ();
-				ascending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-				ascending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-				ascending->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-				ascending->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-				ascending->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-				ascending->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-				result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+				Nan::Set(ascending,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+				Nan::Set(ascending,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+				Nan::Set(ascending,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+				Nan::Set(ascending,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+				Nan::Set(ascending,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+				Nan::Set(ascending,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+				Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 				Local <Object> descending = Nan::New<Object> ();
-				descending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-				descending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-				descending->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-				descending->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-				descending->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-				descending->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-				result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+				Nan::Set(descending,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+				Nan::Set(descending,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+				Nan::Set(descending,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+				Nan::Set(descending,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+				Nan::Set(descending,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+				Nan::Set(descending,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+				Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 				Local <Object> perihelion = Nan::New<Object> ();
-				perihelion->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-				perihelion->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-				perihelion->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-				perihelion->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-				perihelion->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-				perihelion->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-				result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+				Nan::Set(perihelion,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+				Nan::Set(perihelion,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+				Nan::Set(perihelion,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+				Nan::Set(perihelion,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+				Nan::Set(perihelion,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+				Nan::Set(perihelion,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+				Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 				Local <Object> aphelion = Nan::New<Object> ();
-				aphelion->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-				aphelion->Set (Nan::New<String> ("y").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-				aphelion->Set (Nan::New<String> ("z").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-				aphelion->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-				aphelion->Set (Nan::New<String> ("dy").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-				aphelion->Set (Nan::New<String> ("dz").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-				result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+				Nan::Set(aphelion,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+				Nan::Set(aphelion,Nan::New<String> ("y").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+				Nan::Set(aphelion,Nan::New<String> ("z").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+				Nan::Set(aphelion,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+				Nan::Set(aphelion,Nan::New<String> ("dy").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+				Nan::Set(aphelion,Nan::New<String> ("dz").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+				Nan::Set(result,Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 			} else {
 				Local <Object> ascending = Nan::New<Object> ();
-				ascending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-				ascending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-				ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-				ascending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-				ascending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-				ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-				result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+				Nan::Set(ascending,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+				Nan::Set(ascending,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+				Nan::Set(ascending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+				Nan::Set(ascending,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+				Nan::Set(ascending,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+				Nan::Set(ascending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+				Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 				Local <Object> descending = Nan::New<Object> ();
-				descending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-				descending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-				descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-				descending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-				descending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-				descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-				result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+				Nan::Set(descending,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+				Nan::Set(descending,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+				Nan::Set(descending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+				Nan::Set(descending,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+				Nan::Set(descending,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+				Nan::Set(descending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+				Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 				Local <Object> perihelion = Nan::New<Object> ();
-				perihelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-				perihelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-				perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-				perihelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-				perihelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-				perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-				result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+				Nan::Set(perihelion,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+				Nan::Set(perihelion,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+				Nan::Set(perihelion,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+				Nan::Set(perihelion,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+				Nan::Set(perihelion,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+				Nan::Set(perihelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+				Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 				Local <Object> aphelion = Nan::New<Object> ();
-				aphelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-				aphelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-				aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-				aphelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-				aphelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-				aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-				result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+				Nan::Set(aphelion,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+				Nan::Set(aphelion,Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+				Nan::Set(aphelion,Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+				Nan::Set(aphelion,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+				Nan::Set(aphelion,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+				Nan::Set(aphelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+				Nan::Set(result,Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 			};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };
 
 /**
@@ -1589,119 +1589,119 @@ NAN_METHOD(node_swe_nod_aps_ut) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
 		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
 			Local <Object> ascending = Nan::New<Object> ();
-			ascending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-			ascending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-			ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-			ascending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-			ascending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-			ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-			result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+			Nan::Set(ascending,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+			Nan::Set(ascending,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+			Nan::Set(ascending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+			Nan::Set(ascending,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+			Nan::Set(ascending,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+			Nan::Set(ascending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+			Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 			Local <Object> descending = Nan::New<Object> ();
-			descending->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-			descending->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-			descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-			descending->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-			descending->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-			descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-			result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+			Nan::Set(descending,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+			Nan::Set(descending,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+			Nan::Set(descending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+			Nan::Set(descending,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+			Nan::Set(descending,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+			Nan::Set(descending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+			Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 			Local <Object> perihelion = Nan::New<Object> ();
-			perihelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-			perihelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-			perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-			perihelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-			perihelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-			perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-			result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+			Nan::Set(perihelion,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+			Nan::Set(perihelion,Nan::New<String> ("declination").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+			Nan::Set(perihelion,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+			Nan::Set(perihelion,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+			Nan::Set(perihelion,Nan::New<String> ("declinationSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+			Nan::Set(perihelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+			Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 			Local <Object> aphelion = Nan::New<Object> ();
-			aphelion->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-			aphelion->Set (Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-			aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-			aphelion->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-			aphelion->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-			aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-			result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+			Nan::Set(aphelion,Nan::New<String> ("rectAscension").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+			Nan::Set(aphelion,Nan::New<String> ("declination").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+			Nan::Set(aphelion,Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+			Nan::Set(aphelion,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+			Nan::Set(aphelion,Nan::New<String> ("declinationSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+			Nan::Set(aphelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+			Nan::Set(result,Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 		} else
 			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
 				Local <Object> ascending = Nan::New<Object> ();
-				ascending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-				ascending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-				ascending->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-				ascending->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-				ascending->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-				ascending->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-				result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+				Nan::Set(ascending,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+				Nan::Set(ascending,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+				Nan::Set(ascending,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+				Nan::Set(ascending,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+				Nan::Set(ascending,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+				Nan::Set(ascending,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+				Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 				Local <Object> descending = Nan::New<Object> ();
-				descending->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-				descending->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-				descending->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-				descending->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-				descending->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-				descending->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-				result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+				Nan::Set(descending,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+				Nan::Set(descending,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+				Nan::Set(descending,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+				Nan::Set(descending,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+				Nan::Set(descending,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+				Nan::Set(descending,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+				Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 				Local <Object> perihelion = Nan::New<Object> ();
-				perihelion->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-				perihelion->Set (Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-				perihelion->Set (Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-				perihelion->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-				perihelion->Set (Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-				perihelion->Set (Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-				result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+				Nan::Set(perihelion,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+				Nan::Set(perihelion,Nan::New<String> ("y").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+				Nan::Set(perihelion,Nan::New<String> ("z").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+				Nan::Set(perihelion,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+				Nan::Set(perihelion,Nan::New<String> ("dy").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+				Nan::Set(perihelion,Nan::New<String> ("dz").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+				Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 				Local <Object> aphelion = Nan::New<Object> ();
-				aphelion->Set (Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-				aphelion->Set (Nan::New<String> ("y").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-				aphelion->Set (Nan::New<String> ("z").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-				aphelion->Set (Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-				aphelion->Set (Nan::New<String> ("dy").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-				aphelion->Set (Nan::New<String> ("dz").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-				result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+				Nan::Set(aphelion,Nan::New<String> ("x").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+				Nan::Set(aphelion,Nan::New<String> ("y").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+				Nan::Set(aphelion,Nan::New<String> ("z").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+				Nan::Set(aphelion,Nan::New<String> ("dx").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+				Nan::Set(aphelion,Nan::New<String> ("dy").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+				Nan::Set(aphelion,Nan::New<String> ("dz").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
+				Nan::Set(result,Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 			} else {
 				Local <Object> ascending = Nan::New<Object> ();
-				ascending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
-				ascending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
-				ascending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
-				ascending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
-				ascending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
-				ascending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
-				result->Set (Nan::New<String> ("ascending").ToLocalChecked(), ascending);
+				Nan::Set(ascending,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [0]));
+				Nan::Set(ascending,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xnasc [1]));
+				Nan::Set(ascending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xnasc [2]));
+				Nan::Set(ascending,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [3]));
+				Nan::Set(ascending,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [4]));
+				Nan::Set(ascending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xnasc [5]));
+				Nan::Set(result,Nan::New<String> ("ascending").ToLocalChecked(), ascending);
 
 				Local <Object> descending = Nan::New<Object> ();
-				descending->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
-				descending->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
-				descending->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
-				descending->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
-				descending->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
-				descending->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
-				result->Set (Nan::New<String> ("descending").ToLocalChecked(), descending);
+				Nan::Set(descending,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [0]));
+				Nan::Set(descending,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xndsc [1]));
+				Nan::Set(descending,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xndsc [2]));
+				Nan::Set(descending,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [3]));
+				Nan::Set(descending,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [4]));
+				Nan::Set(descending,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xndsc [5]));
+				Nan::Set(result,Nan::New<String> ("descending").ToLocalChecked(), descending);
 
 				Local <Object> perihelion = Nan::New<Object> ();
-				perihelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
-				perihelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
-				perihelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
-				perihelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
-				perihelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
-				perihelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
-				result->Set (Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
+				Nan::Set(perihelion,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xperi [0]));
+				Nan::Set(perihelion,Nan::New<String> ("latitude").ToLocalChecked(), 		Nan::New<Number> (xperi [1]));
+				Nan::Set(perihelion,Nan::New<String> ("distance").ToLocalChecked(), 		Nan::New<Number> (xperi [2]));
+				Nan::Set(perihelion,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [3]));
+				Nan::Set(perihelion,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [4]));
+				Nan::Set(perihelion,Nan::New<String> ("distanceSpeed").ToLocalChecked(),	Nan::New<Number> (xperi [5]));
+				Nan::Set(result,Nan::New<String> ("perihelion").ToLocalChecked(), perihelion);
 
 				Local <Object> aphelion = Nan::New<Object> ();
-				aphelion->Set (Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
-				aphelion->Set (Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
-				aphelion->Set (Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
-				aphelion->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
-				aphelion->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
-				aphelion->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [5]));
-				result->Set (Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
+				Nan::Set(aphelion,Nan::New<String> ("longitude").ToLocalChecked(), 		Nan::New<Number> (xaphe [0]));
+				Nan::Set(aphelion,Nan::New<String> ("latitude").ToLocalChecked(), 			Nan::New<Number> (xaphe [1]));
+				Nan::Set(aphelion,Nan::New<String> ("distance").ToLocalChecked(), 			Nan::New<Number> (xaphe [2]));
+				Nan::Set(aphelion,Nan::New<String> ("longitudeSpeed").ToLocalChecked(),	Nan::New<Number> (xaphe [3]));
+				Nan::Set(aphelion,Nan::New<String> ("latitudeSpeed").ToLocalChecked(),		Nan::New<Number> (xaphe [4]));
+        Nan::Set(aphelion, Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (xaphe [5]));
+        Nan::Set(result, Nan::New<String> ("aphelion").ToLocalChecked(), aphelion);
 			};
 
     HandleCallback (info, result);
-    info.GetReturnValue().Set (result);
+    info.GetReturnValue().Set(result);
 };

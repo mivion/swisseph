@@ -54,42 +54,42 @@ NAN_METHOD(node_swe_calc_ut) {
 	long rflag;
 
 	rflag = ::swe_calc_ut (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -130,42 +130,42 @@ NAN_METHOD(node_swe_calc) {
 	long rflag;
 
 	rflag = ::swe_calc (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -204,51 +204,51 @@ NAN_METHOD(node_swe_fixstar) {
 
 	double x [6];
 	char serr [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag = 0;
-	char star [AS_MAXCH];
-
-	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+ 
+ ::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar (
 		star,
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -287,51 +287,51 @@ NAN_METHOD(node_swe_fixstar_ut) {
 
 	double x [6];
 	char serr [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag = 0;
-	char star [AS_MAXCH];
-
-	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+ 
+ ::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar_ut (
 		star,
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -361,21 +361,25 @@ NAN_METHOD(node_swe_fixstar_mag) {
 	};
 
 	char serr [AS_MAXCH];
-	char star [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag;
 	double magnitude;
 
-	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	rflag = ::swe_fixstar_mag (star, &magnitude, serr);
+	rflag = ::swe_fixstar_mag (
+    star,
+    &magnitude,
+    serr
+ );
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("magnitude").ToLocalChecked(), Nan::New<Number> (magnitude));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("magnitude").ToLocalChecked(), Nan::New<Number> (magnitude));
 	};
 
     HandleCallback (info, result);
@@ -414,51 +418,51 @@ NAN_METHOD(node_swe_fixstar2) {
 
 	double x [6];
 	char serr [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag = 0;
-	char star [AS_MAXCH];
-
-	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+ 
+ ::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar2 (
 		star,
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -497,51 +501,51 @@ NAN_METHOD(node_swe_fixstar2_ut) {
 
 	double x [6];
 	char serr [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag = 0;
-	char star [AS_MAXCH];
-
-	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+ 
+ ::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	rflag = ::swe_fixstar2_ut (
 		star,
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
 		x, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_EQUATORIAL) {
-			result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-			result->Set (Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
-			result->Set (Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
-			result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-			result->Set (Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-			result->Set (Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-			result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-			result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+		if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_EQUATORIAL) {
+			Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+			Nan::Set(result,Nan::New<String> ("rectAscension").ToLocalChecked(), Nan::New<Number> (x [0]));
+			Nan::Set(result,Nan::New<String> ("declination").ToLocalChecked(), Nan::New<Number> (x [1]));
+			Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+			Nan::Set(result,Nan::New<String> ("rectAscensionSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+			Nan::Set(result,Nan::New<String> ("declinationSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+			Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+			Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 		} else
-			if ((int)info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked() & SEFLG_XYZ) {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+			if (Nan::To<int32_t>(info[2]).FromJust() & SEFLG_XYZ) {
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("x").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("y").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("z").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("dx").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("dy").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("dz").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			} else {
-				result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-				result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
-				result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
-				result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
-				result->Set (Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
-				result->Set (Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
-				result->Set (Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
-				result->Set (Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+				Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+				Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (x [0]));
+				Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (x [1]));
+				Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (x [2]));
+				Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [3]));
+				Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (x [4]));
+				Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (x [5]));
+				Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
 			};
 
     HandleCallback (info, result);
@@ -571,21 +575,25 @@ NAN_METHOD(node_swe_fixstar2_mag) {
 	};
 
 	char serr [AS_MAXCH];
-	char star [AS_MAXCH];
+ char star [AS_MAXCH];
 	long rflag;
 	double magnitude;
+ 
+ ::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	::strcpy (star, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
-
-	rflag = ::swe_fixstar2_mag (star, &magnitude, serr);
+	rflag = ::swe_fixstar2_mag (
+   star,
+   &magnitude,
+   serr
+ );
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
-		result->Set (Nan::New<String> ("magnitude").ToLocalChecked(), Nan::New<Number> (magnitude));
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("magnitude").ToLocalChecked(), Nan::New<Number> (magnitude));
 	};
 
     HandleCallback (info, result);
@@ -623,12 +631,16 @@ NAN_METHOD(node_swe_set_ephe_path) {
 	) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
+ 
+ char path [AS_MAXCH];
+ 
+ ::strcpy (path, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	::swe_set_ephe_path (
-		*String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))
+		path
 	);
 
-	Local <Object> result = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>());
+ Local <Object> result = Nan::To<v8::Object>(info[0]).ToLocalChecked();
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -652,11 +664,15 @@ NAN_METHOD(node_swe_set_jpl_file) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
+ char path [AS_MAXCH];
+ 
+ ::strcpy (path, *String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+ 
 	::swe_set_jpl_file (
-		*String::Utf8Value (Isolate::GetCurrent(), info [0]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()))
+		path
 	);
 
-	Local <Object> result = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>());
+	Local <Object> result = Nan::To<v8::Object>(info[0]).ToLocalChecked();
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -684,11 +700,11 @@ NAN_METHOD(node_swe_get_planet_name) {
 
 	char name [AS_MAXCH] = {0};
 
-	::swe_get_planet_name ((int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(), name);
+	::swe_get_planet_name (Nan::To<int32_t>(info[0]).FromJust(), name);
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (name).ToLocalChecked());
+	Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (name).ToLocalChecked());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -715,9 +731,9 @@ NAN_METHOD(node_swe_set_topo) {
 	};
 
 	::swe_set_topo (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked()
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<double>(info[2]).FromJust()
 	);
 
     HandleCallback (info, Nan::Undefined());
@@ -745,9 +761,9 @@ NAN_METHOD(node_swe_set_sid_mode) {
 	};
 
 	::swe_set_sid_mode (
-		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		info [2]->NumberValue (Nan::GetCurrentContext()).ToChecked()
+		Nan::To<int32_t>(info[0]).FromJust(),
+		Nan::To<double>(info[1]).FromJust(),
+		Nan::To<double>(info[2]).FromJust()
 	);
 
     HandleCallback (info, Nan::Undefined());
@@ -775,7 +791,7 @@ NAN_METHOD(node_swe_get_ayanamsa) {
 	double val;
 
 	val = ::swe_get_ayanamsa (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
+		Nan::To<double>(info[0]).FromJust()
 	);
 
 	Local <Number> result = Nan::New<Number> (val);
@@ -805,7 +821,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
 	double val;
 
 	val = ::swe_get_ayanamsa_ut (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
+		Nan::To<double>(info[0]).FromJust()
 	);
 
 	Local <Number> result = Nan::New<Number> (val);
@@ -842,17 +858,17 @@ NAN_METHOD(node_swe_get_ayanamsa_ex) {
 	long val;
 
 	val = ::swe_get_ayanamsa_ex (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
 		daya, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (val < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		result->Set (Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
+		Nan::Set(result,Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -886,21 +902,22 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
 	long val;
 
 	val = ::swe_get_ayanamsa_ex_ut (
-		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
-		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
 		daya, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
 
 	if (val < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else 
-		result->Set (Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
+		Nan::Set(result,Nan::New<String> ("ayanamsa").ToLocalChecked(), Nan::New<Number> (daya [0]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+
 
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)
@@ -923,7 +940,7 @@ NAN_METHOD(node_swe_get_ayanamsa_name) {
 	const char * val;
 
 	val = ::swe_get_ayanamsa_name (
-		(int)info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked()
+		Nan::To<int32_t>(info[0]).FromJust()
 	);
 
 	Local <String> result = Nan::New<String> (val).ToLocalChecked();
