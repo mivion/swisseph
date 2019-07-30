@@ -30,7 +30,7 @@ NAN_METHOD(node_swe_deltat) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("delta").ToLocalChecked(), Nan::New<Number> (deltat));
+	Nan::Set(result,Nan::New<String> ("delta").ToLocalChecked(), Nan::New<Number> (deltat));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -69,9 +69,9 @@ NAN_METHOD(node_swe_time_equ) {
 	Local <Object> result = Nan::New<Object> ();
 
 	if (rflag < 0) {
-		result->Set (Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
-		result->Set (Nan::New<String> ("timeEquation").ToLocalChecked(), Nan::New<Number> (te));
+		Nan::Set(result,Nan::New<String> ("timeEquation").ToLocalChecked(), Nan::New<Number> (te));
 	}
 
     HandleCallback (info, result);
@@ -110,7 +110,7 @@ NAN_METHOD(node_swe_sidtime0) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
+	Nan::Set(result,Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -144,7 +144,7 @@ NAN_METHOD(node_swe_sidtime) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
+	Nan::Set(result,Nan::New<String> ("siderialTime").ToLocalChecked(), Nan::New<Number> (st));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -187,9 +187,9 @@ NAN_METHOD(node_swe_cotrans) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
-	result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
-	result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
+	Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
+	Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
+	Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -232,9 +232,9 @@ NAN_METHOD(node_swe_cotrans_sp) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
-	result->Set (Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
-	result->Set (Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
+	Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
+	Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
+	Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -256,7 +256,7 @@ NAN_METHOD(node_swe_get_tid_acc) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("acceleration").ToLocalChecked(), Nan::New<Number> (acceleration));
+	Nan::Set(result,Nan::New<String> ("acceleration").ToLocalChecked(), Nan::New<Number> (acceleration));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -319,7 +319,7 @@ NAN_METHOD(node_swe_degnorm) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("x360").ToLocalChecked(), Nan::New<Number> (x360));
+	Nan::Set(result,Nan::New<String> ("x360").ToLocalChecked(), Nan::New<Number> (x360));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -353,7 +353,7 @@ NAN_METHOD(node_swe_radnorm) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("x2Pi").ToLocalChecked(), Nan::New<Number> (x2Pi));
+	Nan::Set(result,Nan::New<String> ("x2Pi").ToLocalChecked(), Nan::New<Number> (x2Pi));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -389,7 +389,7 @@ NAN_METHOD(node_swe_rad_midp) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("xMid2Pi").ToLocalChecked(), Nan::New<Number> (xMid2Pi));
+	Nan::Set(result,Nan::New<String> ("xMid2Pi").ToLocalChecked(), Nan::New<Number> (xMid2Pi));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -425,7 +425,7 @@ NAN_METHOD(node_swe_deg_midp) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("xMid360").ToLocalChecked(), Nan::New<Number> (xMid360));
+	Nan::Set(result,Nan::New<String> ("xMid360").ToLocalChecked(), Nan::New<Number> (xMid360));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -470,11 +470,11 @@ NAN_METHOD(node_swe_split_deg) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("degree").ToLocalChecked(), Nan::New<Number> (ideg));
-	result->Set (Nan::New<String> ("min").ToLocalChecked(), Nan::New<Number> (imin));
-	result->Set (Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (isec));
-	result->Set (Nan::New<String> ("secondFraction").ToLocalChecked(), Nan::New<Number> (dsecfr));
-	result->Set (Nan::New<String> ("sign").ToLocalChecked(), Nan::New<Number> (isgn));
+	Nan::Set(result,Nan::New<String> ("degree").ToLocalChecked(), Nan::New<Number> (ideg));
+	Nan::Set(result,Nan::New<String> ("min").ToLocalChecked(), Nan::New<Number> (imin));
+	Nan::Set(result,Nan::New<String> ("second").ToLocalChecked(), Nan::New<Number> (isec));
+	Nan::Set(result,Nan::New<String> ("secondFraction").ToLocalChecked(), Nan::New<Number> (dsecfr));
+	Nan::Set(result,Nan::New<String> ("sign").ToLocalChecked(), Nan::New<Number> (isgn));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -508,7 +508,7 @@ NAN_METHOD(node_swe_csnorm) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("centisec360").ToLocalChecked(), Nan::New<Number> (centisec360));
+	Nan::Set(result,Nan::New<String> ("centisec360").ToLocalChecked(), Nan::New<Number> (centisec360));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -544,7 +544,7 @@ NAN_METHOD(node_swe_difcsn ) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("centisecDiff").ToLocalChecked(), Nan::New<Number> (centisecDiff));
+	Nan::Set(result,Nan::New<String> ("centisecDiff").ToLocalChecked(), Nan::New<Number> (centisecDiff));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -580,7 +580,7 @@ NAN_METHOD(node_swe_difdegn ) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("degreeDiff").ToLocalChecked(), Nan::New<Number> (degreeDiff));
+	Nan::Set(result,Nan::New<String> ("degreeDiff").ToLocalChecked(), Nan::New<Number> (degreeDiff));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -616,7 +616,7 @@ NAN_METHOD(node_swe_difcs2n) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("centisecDistance180").ToLocalChecked(), Nan::New<Number> (centisecDistance180));
+	Nan::Set(result,Nan::New<String> ("centisecDistance180").ToLocalChecked(), Nan::New<Number> (centisecDistance180));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -652,7 +652,7 @@ NAN_METHOD(node_swe_difdeg2n) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("degreeDistance180").ToLocalChecked(), Nan::New<Number> (degreeDistance180));
+	Nan::Set(result,Nan::New<String> ("degreeDistance180").ToLocalChecked(), Nan::New<Number> (degreeDistance180));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -688,7 +688,7 @@ NAN_METHOD(node_swe_difrad2n) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("degreeDistancePi").ToLocalChecked(), Nan::New<Number> (degreeDistancePi));
+	Nan::Set(result,Nan::New<String> ("degreeDistancePi").ToLocalChecked(), Nan::New<Number> (degreeDistancePi));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -722,7 +722,7 @@ NAN_METHOD(node_swe_csroundsec) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("centisecRound").ToLocalChecked(), Nan::New<Number> (centisecRound));
+	Nan::Set(result,Nan::New<String> ("centisecRound").ToLocalChecked(), Nan::New<Number> (centisecRound));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -756,7 +756,7 @@ NAN_METHOD(node_swe_d2l) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("xRound").ToLocalChecked(), Nan::New<Number> (xRound));
+	Nan::Set(result,Nan::New<String> ("xRound").ToLocalChecked(), Nan::New<Number> (xRound));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -790,7 +790,7 @@ NAN_METHOD(node_swe_day_of_week) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("dayOfWeek").ToLocalChecked(), Nan::New<Number> (dayOfWeek));
+	Nan::Set(result,Nan::New<String> ("dayOfWeek").ToLocalChecked(), Nan::New<Number> (dayOfWeek));
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -829,7 +829,7 @@ NAN_METHOD(node_swe_cs2timestr) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("timeString").ToLocalChecked(), Nan::New<String> (timeString).ToLocalChecked());
+	Nan::Set(result,Nan::New<String> ("timeString").ToLocalChecked(), Nan::New<String> (timeString).ToLocalChecked());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -868,7 +868,7 @@ NAN_METHOD(node_swe_cs2lonlatstr) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String> ("lonlatString").ToLocalChecked(), Nan::New<String> (lonlatString).ToLocalChecked());
+	Nan::Set(result,Nan::New<String> ("lonlatString").ToLocalChecked(), Nan::New<String> (lonlatString).ToLocalChecked());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -903,7 +903,7 @@ NAN_METHOD(node_swe_cs2degstr) {
 
 	Local <Object> result = Nan::New<Object> ();
 
-	result->Set (Nan::New<String>("degreeString").ToLocalChecked(), Nan::New<String>(degreeString).ToLocalChecked());
+	Nan::Set(result,Nan::New<String>("degreeString").ToLocalChecked(), Nan::New<String>(degreeString).ToLocalChecked());
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
