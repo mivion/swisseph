@@ -40,21 +40,21 @@ NAN_METHOD(node_swe_heliacal_ut) {
 	char name [AS_MAXCH];
 	long rflag;
 
-	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (4)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (5)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),4).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),5).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::strcpy (name, *String::Utf8Value (Isolate::GetCurrent(), info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
@@ -147,21 +147,21 @@ NAN_METHOD(node_swe_heliacal_pheno_ut) {
 	char name [AS_MAXCH];
 	long rflag;
 
-	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (4)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (5)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),4).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),5).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::strcpy (name, *String::Utf8Value (Isolate::GetCurrent(), info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
@@ -257,21 +257,21 @@ NAN_METHOD(node_swe_vis_limit_mag) {
 	char name [AS_MAXCH];
 	long rflag;
 
-	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [0] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [1] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dgeo [2] = info [1]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [0] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [1] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [2] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	datm [3] = info [2]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
-	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (3)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (4)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (5)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [0] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [1] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [2] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [3] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [4] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),4).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	dobs [5] = info [3]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),5).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::strcpy (name, *String::Utf8Value (Isolate::GetCurrent(), info [4]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 

@@ -29,6 +29,7 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_cs2timestr", node_swe_cs2timestr);
 	Nan::SetMethod (exports, "swe_cs2lonlatstr", node_swe_cs2lonlatstr);
 	Nan::SetMethod (exports, "swe_cs2degstr", node_swe_cs2degstr);
+	Nan::SetMethod (exports, "swe_get_orbital_elements", node_swe_get_orbital_elements);
 
 	// date
 	Nan::SetMethod (exports, "swe_date_conversion", node_swe_date_conversion);

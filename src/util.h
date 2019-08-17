@@ -60,7 +60,10 @@ NAN_METHOD(node_swe_cotrans);
  * swe_cotrans_sp(double *xpo, double eps[, function callback (result)]) = {
  *   longitude: double,
  *   latitude: double,
- *   distance: double
+ *   distance: double,
+ *   longitudeSpeed: double,
+ *   latitudeSpeed: double,
+ *   distanceSpeed: double
  * }
  */
 NAN_METHOD(node_swe_cotrans_sp);
@@ -238,5 +241,32 @@ NAN_METHOD(node_swe_cs2lonlatstr);
  * }
  */
 NAN_METHOD(node_swe_cs2degstr);
+
+/**
+ * void swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag, double *dret, char *serr)
+ * =>
+ * swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag[, function callback (result)]) = {
+ *   aphelionDistance: double
+ *   ascendingNode: double
+ *   eccentricAnomaly: double
+ *   eccentricity: double
+ *   inclination: double
+ *   meanAnomaly: double
+ *   meanDailyMotion: double
+ *   meanLongitude: double
+ *   periapsis: double
+ *   periapsisArg: double
+ *   perihelionDistance: double
+ *   perihelionPassage: double
+ *   semimajorAxis: double
+ *   siderealPeriod: double
+ *   synodicPeriod: double
+ *   tropicalPeriod: double
+ *   trueAnomaly: double
+ *   rflag: int
+ * }
+ */
+NAN_METHOD(node_swe_get_orbital_elements);
+
 
 #endif // __swisseph_util_h__
