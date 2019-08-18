@@ -948,3 +948,135 @@ NAN_METHOD(node_swe_get_ayanamsa_name) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+
+/**
+ * void swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag, double *dret, char *serr)
+ * =>
+ * swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag[, function callback (result)]) = {
+ *   aphelionDistance: double
+ *   ascendingNode: double
+ *   eccentricAnomaly: double
+ *   eccentricity: double
+ *   inclination: double
+ *   meanAnomaly: double
+ *   meanDailyMotion: double
+ *   meanLongitude: double
+ *   periapsis: double
+ *   periapsisArg: double
+ *   perihelionDistance: double
+ *   perihelionPassage: double
+ *   semimajorAxis: double
+ *   siderealPeriod: double
+ *   synodicPeriod: double
+ *   tropicalPeriod: double
+ *   trueAnomaly: double
+ *   rflag: int
+ * }
+ */
+NAN_METHOD(node_swe_get_orbital_elements) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double dret [50];
+	char serr [AS_MAXCH];
+	long rflag;
+
+	rflag = ::swe_get_orbital_elements (
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
+		dret, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		Nan::Set(result,Nan::New<String> ("semimajorAxis").ToLocalChecked(), Nan::New<Number> (dret [0]));
+		Nan::Set(result,Nan::New<String> ("eccentricity").ToLocalChecked(), Nan::New<Number> (dret [1]));
+		Nan::Set(result,Nan::New<String> ("inclination").ToLocalChecked(), Nan::New<Number> (dret [2]));
+		Nan::Set(result,Nan::New<String> ("ascendingNode").ToLocalChecked(), Nan::New<Number> (dret [3]));
+		Nan::Set(result,Nan::New<String> ("periapsisArg").ToLocalChecked(), Nan::New<Number> (dret [4]));
+		Nan::Set(result,Nan::New<String> ("periapsis").ToLocalChecked(), Nan::New<Number> (dret [5]));
+		Nan::Set(result,Nan::New<String> ("meanAnomaly").ToLocalChecked(), Nan::New<Number> (dret [6]));
+		Nan::Set(result,Nan::New<String> ("trueAnomaly").ToLocalChecked(), Nan::New<Number> (dret [7]));
+		Nan::Set(result,Nan::New<String> ("eccentricAnomaly").ToLocalChecked(), Nan::New<Number> (dret [8]));
+		Nan::Set(result,Nan::New<String> ("meanLongitude").ToLocalChecked(), Nan::New<Number> (dret [9]));
+		Nan::Set(result,Nan::New<String> ("siderealPeriod").ToLocalChecked(), Nan::New<Number> (dret [10]));
+		Nan::Set(result,Nan::New<String> ("meanDailyMotion").ToLocalChecked(), Nan::New<Number> (dret [11]));
+		Nan::Set(result,Nan::New<String> ("tropicalPeriod").ToLocalChecked(), Nan::New<Number> (dret [12]));
+		Nan::Set(result,Nan::New<String> ("synodicPeriod").ToLocalChecked(), Nan::New<Number> (dret [13]));
+		Nan::Set(result,Nan::New<String> ("perihelionPassage").ToLocalChecked(), Nan::New<Number> (dret [14]));
+		Nan::Set(result,Nan::New<String> ("perihelionDistance").ToLocalChecked(), Nan::New<Number> (dret [15]));
+		Nan::Set(result,Nan::New<String> ("aphelionDistance").ToLocalChecked(), Nan::New<Number> (dret [16]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+	}
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+
+
+/**
+ * int32 swe_orbit_max_min_true_distance(double tjd_et, int32 ipl, int32 iflag, double *dmax, double *dmin, double *dtrue, char *serr)
+ * =>
+ * swe_orbit_max_min_true_distance(double tjd_et, int32 ipl, in32 iflag[, function callback (result)]) = {
+ *   maxDistance: double
+ *   minDistance: double
+ *   trueDistance: double
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_orbit_max_min_true_distance) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 3) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double dmax [1];
+	double dmin [1];
+	double dtrue [1];
+	char serr [AS_MAXCH];
+	long rflag;
+
+	rflag = ::swe_orbit_max_min_true_distance(
+		Nan::To<double>(info[0]).FromJust(),
+		Nan::To<int32_t>(info[1]).FromJust(),
+		Nan::To<int32_t>(info[2]).FromJust(),
+		dmax, dmin, dtrue, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		Nan::Set(result,Nan::New<String> ("maxDistance").ToLocalChecked(), Nan::New<Number> (dmax[0]));
+		Nan::Set(result,Nan::New<String> ("minDistance").ToLocalChecked(), Nan::New<Number> (dmin[0]));
+		Nan::Set(result,Nan::New<String> ("trueDistance").ToLocalChecked(), Nan::New<Number> (dtrue[0]));
+		Nan::Set(result,Nan::New<String> ("rflag").ToLocalChecked(), Nan::New<Number> (rflag));
+	}
+    HandleCallback (info, result);
+    info.GetReturnValue().Set (result);
+};
+

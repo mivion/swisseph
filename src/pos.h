@@ -219,4 +219,43 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut);
  */
 NAN_METHOD(node_swe_get_ayanamsa_name);
 
+/**
+ * int32 swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag, double *dret, char *serr)
+ * =>
+ * swe_get_orbital_elements(double tjd_et, int32 ipl, in32 iflag[, function callback (result)]) = {
+ *   aphelionDistance: double
+ *   ascendingNode: double
+ *   eccentricAnomaly: double
+ *   eccentricity: double
+ *   inclination: double
+ *   meanAnomaly: double
+ *   meanDailyMotion: double
+ *   meanLongitude: double
+ *   periapsis: double
+ *   periapsisArg: double
+ *   perihelionDistance: double
+ *   perihelionPassage: double
+ *   semimajorAxis: double
+ *   siderealPeriod: double
+ *   synodicPeriod: double
+ *   tropicalPeriod: double
+ *   trueAnomaly: double
+ *   rflag: int
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_get_orbital_elements);
+
+/**
+ * int32 swe_orbit_max_min_true_distance(double tjd_et, int32 ipl, int32 iflag, double *dmax, double *dmin, double *dtrue, char *serr)
+ * =>
+ * swe_orbit_max_min_true_distance(double tjd_et, int32 ipl, in32 iflag[, function callback (result)]) = {
+ *   maxDistance: double
+ *   minDistance: double
+ *   trueDistance: double
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_orbit_max_min_true_distance);
+
 #endif // __swisseph_pos_h__
