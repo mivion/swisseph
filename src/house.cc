@@ -324,11 +324,18 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 
 	double geopos [3] = {0};
 	double dgsect [1];
-	char starname [1];
+	char starname [AS_MAXCH];
 	char serr [AS_MAXCH];
 	long rflag;
 
-	starname[0] = '\0';
+Nan::Utf8String utf8_value(info[0]);
+int len = utf8_value.length();
+if (len <= 0) {
+	*starname = '\n';
+} else {
+	::strcpy (starname, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+}
+
 	geopos [0] = Nan::To<double>(info[5]).FromJust();
 	geopos [1] = Nan::To<double>(info[6]).FromJust();
 	geopos [2] = Nan::To<double>(info[7]).FromJust();
