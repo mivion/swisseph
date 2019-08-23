@@ -322,27 +322,27 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double geopos [3] = {0};
+	double geopos [10] = {0};
 	double dgsect;
-	char starname [AS_MAXCH];
+	char star [AS_MAXCH];
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (starname, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
-	geopos [0] = Nan::To<double>(info[5]).FromJust();
-	geopos [1] = Nan::To<double>(info[6]).FromJust();
-	geopos [2] = Nan::To<double>(info[7]).FromJust();
+	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	rflag = ::swe_gauquelin_sector (
-		Nan::To<double>(info[0]).FromJust(),
-		Nan::To<int32_t>(info[1]).FromJust(),
-		NULL,
-		Nan::To<int32_t>(info[3]).FromJust(),
-		Nan::To<int32_t>(info[4]).FromJust(),
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		star,
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		geopos,
-		Nan::To<double>(info[8]).FromJust(),
-		Nan::To<double>(info[9]).FromJust(),
+		info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
 		&dgsect, serr
 	);
 
@@ -351,6 +351,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	if (rflag < 0) {
 		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
 	} else {
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
 		Nan::Set(result,Nan::New<String> ("gauquelinSector").ToLocalChecked(), Nan::New<Number> (dgsect));
 	};
 
