@@ -323,13 +323,14 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 
 	double geopos [10] = {0};
 	double dgsect;
-	char star [AS_MAXCH];
 	char serr [AS_MAXCH];
 	long rflag;
 
 	if(info [2]->IsString()) {
+		char star [AS_MAXCH];
 		::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 	} else {
+		Isolate* star = Isolate::GetCurrent();
 v8::Null(star);
 	}
 
