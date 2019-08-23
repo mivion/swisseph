@@ -7,17 +7,6 @@
 using namespace v8;
 
 /**
- * int32 swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double *geopos, double atpress, double attemp, double *dgsect, char *serr)
- * =>
- * swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
- *   name: string,            //star
- *   gauquelinSector: double,
- *   error: string
- * }
- */
-NAN_METHOD(node_swe_gauquelin_sector);
-
-/**
  * int32 swe_sol_eclipse_where(double tjd, int32 ifl, double *geopos, double *attr, char *serr)
  * =>
  * swe_sol_eclipse_where(double tjd, int32 ifl[, function callback (result)]) = {

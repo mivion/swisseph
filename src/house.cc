@@ -290,3 +290,71 @@ NAN_METHOD(node_swe_houses_pos) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+
+/**
+ * int32 swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double *geopos (in[3]), double atpress, double attemp, double *dgsect (out[1]), char *serr (out[AS_MAXCH]))
+ * =>
+ * swe_gauquelin_sector(double t_ut, int32 ipl, char *starname, int32 iflag, int32 imeth, double longitude, double latitude, double height, double atpress, double attemp[, function callback (result)]) = {
+ *   name: string,            //star
+ *   gauquelinSector: double,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_gauquelin_sector) {
+	Nan::HandleScope scope;
+
+	if (info.Length () < 10) {
+		Nan::ThrowTypeError ("Wrong number of arguments");
+	};
+
+	if (
+		!info [0]->IsNumber () ||
+		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
+		!info [3]->IsNumber () ||
+		!info [4]->IsNumber () ||
+		!info [5]->IsNumber () ||
+		!info [6]->IsNumber () ||
+		!info [7]->IsNumber () ||
+		!info [8]->IsNumber () ||
+		!info [9]->IsNumber ()
+	) {
+		Nan::ThrowTypeError ("Wrong type of arguments");
+	};
+
+	double geopos [10] = {0};
+	double dgsect;
+	char star [AS_MAXCH];
+	char serr [AS_MAXCH];
+	long rflag;
+
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+
+	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	geopos [2] = info [7]->NumberValue (Nan::GetCurrentContext()).ToChecked();
+
+	rflag = ::swe_gauquelin_sector (
+		info [0]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [1]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		star,
+		(int)info [3]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		(int)info [4]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		geopos,
+		info [8]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		info [9]->NumberValue (Nan::GetCurrentContext()).ToChecked(),
+		&dgsect, serr
+	);
+
+	Local <Object> result = Nan::New<Object> ();
+
+	if (rflag < 0) {
+		Nan::Set(result,Nan::New<String> ("error").ToLocalChecked(), Nan::New<String> (serr).ToLocalChecked());
+	} else {
+		Nan::Set(result,Nan::New<String> ("name").ToLocalChecked(), Nan::New<String> (star).ToLocalChecked());
+		Nan::Set(result,Nan::New<String> ("gauquelinSector").ToLocalChecked(), Nan::New<Number> (dgsect));
+	};
+
+    HandleCallback (info, result);
+    info.GetReturnValue().Set(result);
+};
