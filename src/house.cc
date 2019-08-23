@@ -329,7 +329,8 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	long rflag;
 
 	Nan::Utf8String utf8_value(info[2]);
-	if (utf8_value.length() <= 0) {
+	int len = utf8_value.length();
+	if (len <= 0) {
 	return Nan::ThrowTypeError("arg must be a non-empty string");
 }
 
