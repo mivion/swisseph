@@ -331,10 +331,10 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	Nan::Utf8String utf8_value(info[2]);
 	int len = utf8_value.length();
 	if (len <= 0) {
-	return Nan::ThrowTypeError("arg must be a non-empty string");
+*star = '\0';
 }
 
-	::strcpy (star, *utf8_value);
+	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 
 	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
