@@ -324,10 +324,11 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 
 	double geopos [3] = {0};
 	double dgsect [1];
-	char starname = '\0';
+	char starname [1];
 	char serr [AS_MAXCH];
 	long rflag;
 
+	starname[0] = '\0';
 	geopos [0] = Nan::To<double>(info[5]).FromJust();
 	geopos [1] = Nan::To<double>(info[6]).FromJust();
 	geopos [2] = Nan::To<double>(info[7]).FromJust();
