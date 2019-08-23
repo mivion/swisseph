@@ -343,7 +343,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 		geopos,
 		Nan::To<double>(info[8]).FromJust(),
 		Nan::To<double>(info[9]).FromJust(),
-		dgsect, serr
+		&dgsect, serr
 	);
 
 	Local <Object> result = Nan::New<Object> ();
