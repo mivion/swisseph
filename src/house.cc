@@ -328,7 +328,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	if(info [2]->ToString(Nan::GetCurrentContext()).length() > 0) {
+	if(info [2]->ToString(Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>()).length() > 0) {
 		::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 	}
 
