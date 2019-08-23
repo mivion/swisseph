@@ -75,9 +75,9 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_houses_ex", node_swe_houses_ex);
 	Nan::SetMethod (exports, "swe_houses_armc", node_swe_houses_armc);
 	Nan::SetMethod (exports, "swe_houses_pos", node_swe_houses_pos);
-	Nan::SetMethod (exports, "swe_gauquelin_sector", node_swe_gauquelin_sector);
 
 	// eclipse
+	Nan::SetMethod (exports, "swe_gauquelin_sector", node_swe_gauquelin_sector);
 	Nan::SetMethod (exports, "swe_sol_eclipse_where", node_swe_sol_eclipse_where);
 	Nan::SetMethod (exports, "swe_lun_occult_where", node_swe_lun_occult_where);
 	Nan::SetMethod (exports, "swe_sol_eclipse_how", node_swe_sol_eclipse_how);
