@@ -310,6 +310,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	if (
 		!info [0]->IsNumber () ||
 		!info [1]->IsNumber () ||
+		!info [2]->IsString () ||
 		!info [3]->IsNumber () ||
 		!info [4]->IsNumber () ||
 		!info [5]->IsNumber () ||
@@ -327,7 +328,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	if(info [2]->IsString()) {
+	if(info [2]->ToString(Nan::GetCurrentContext()).length() > 0) {
 		::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
 	}
 
