@@ -329,8 +329,6 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 
 	if(info [2]->IsString()) {
 		::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
-	} else {
-*star = '\0';
 	}
 
 	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
