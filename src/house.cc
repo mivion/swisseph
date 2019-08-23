@@ -337,7 +337,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	rflag = ::swe_gauquelin_sector (
 		Nan::To<double>(info[0]).FromJust(),
 		Nan::To<int32_t>(info[1]).FromJust(),
-		starname,
+		NULL,
 		Nan::To<int32_t>(info[3]).FromJust(),
 		Nan::To<int32_t>(info[4]).FromJust(),
 		geopos,
