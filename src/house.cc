@@ -310,7 +310,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	if (
 		!info [0]->IsNumber () ||
 		!info [1]->IsNumber () ||
-		!info [2]->IsString () ||
+		(!info [2]->IsString () || !info [2]->IsNull ()) ||
 		!info [3]->IsNumber () ||
 		!info [4]->IsNumber () ||
 		!info [5]->IsNumber () ||
@@ -328,7 +328,9 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	char serr [AS_MAXCH];
 	long rflag;
 
-	::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+	if(!info [2]->IsNull()) {
+		::strcpy (star, * String::Utf8Value (Isolate::GetCurrent(), info [2]->ToString (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::String>())));
+	}
 
 	geopos [0] = info [5]->NumberValue (Nan::GetCurrentContext()).ToChecked();
 	geopos [1] = info [6]->NumberValue (Nan::GetCurrentContext()).ToChecked();
