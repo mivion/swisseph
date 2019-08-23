@@ -310,7 +310,7 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 	if (
 		!info [0]->IsNumber () ||
 		!info [1]->IsNumber () ||
-		(!info [2]->IsString () || !info [2]->IsNull ()) ||
+		(!info [2]->IsString () && !info [2]->IsNull ()) ||
 		!info [3]->IsNumber () ||
 		!info [4]->IsNumber () ||
 		!info [5]->IsNumber () ||
