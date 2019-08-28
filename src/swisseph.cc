@@ -60,6 +60,10 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_get_ayanamsa_ex", node_swe_get_ayanamsa_ex);
 	Nan::SetMethod (exports, "swe_get_ayanamsa_ex_ut", node_swe_get_ayanamsa_ex_ut);
 	Nan::SetMethod (exports, "swe_get_ayanamsa_name", node_swe_get_ayanamsa_name);
+	Nan::SetMethod (exports, "swe_nod_aps", node_swe_nod_aps);
+	Nan::SetMethod (exports, "swe_nod_aps_ut", node_swe_nod_aps_ut);
+	Nan::SetMethod (exports, "swe_get_orbital_elements", node_swe_get_orbital_elements);
+	Nan::SetMethod (exports, "swe_orbit_max_min_true_distance", node_swe_orbit_max_min_true_distance);
 
 	// hel
 	Nan::SetMethod (exports, "swe_heliacal_ut", node_swe_heliacal_ut);
@@ -93,8 +97,6 @@ void Initialize (Local <Object> exports) {
 	Nan::SetMethod (exports, "swe_azalt_rev", node_swe_azalt_rev);
 	Nan::SetMethod (exports, "swe_rise_trans", node_swe_rise_trans);
 	Nan::SetMethod (exports, "swe_rise_trans_true_hor", node_swe_rise_trans_true_hor);
-	Nan::SetMethod (exports, "swe_nod_aps", node_swe_nod_aps);
-	Nan::SetMethod (exports, "swe_nod_aps_ut", node_swe_nod_aps_ut);
 }
 
 NODE_MODULE (swisseph, Initialize);

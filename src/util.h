@@ -60,7 +60,10 @@ NAN_METHOD(node_swe_cotrans);
  * swe_cotrans_sp(double *xpo, double eps[, function callback (result)]) = {
  *   longitude: double,
  *   latitude: double,
- *   distance: double
+ *   distance: double,
+ *   longitudeSpeed: double,
+ *   latitudeSpeed: double,
+ *   distanceSpeed: double
  * }
  */
 NAN_METHOD(node_swe_cotrans_sp);

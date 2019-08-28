@@ -176,9 +176,9 @@ NAN_METHOD(node_swe_cotrans) {
 	double xpn [3] = {0};
 	double xpo [3] = {0};
 
-	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
 
 	::swe_cotrans (
 		xpo, xpn,
@@ -218,12 +218,16 @@ NAN_METHOD(node_swe_cotrans_sp) {
 		Nan::ThrowTypeError ("Wrong type of arguments");
 	};
 
-	double xpn [3] = {0};
-	double xpo [3] = {0};
+	double xpn [6] = {0};
+	double xpo [6] = {0};
 
-	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (0)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (1)->NumberValue (Nan::GetCurrentContext()).ToChecked();
-	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (2)->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [0] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),0).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [1] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),1).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [2] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),2).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [3] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),3).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [4] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),4).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+	xpo [5] = info [0]->ToObject (Nan::GetCurrentContext()).FromMaybe(v8::Local<v8::Object>())->Get (Nan::GetCurrentContext(),5).ToLocalChecked()->NumberValue (Nan::GetCurrentContext()).ToChecked();
+
 
 	::swe_cotrans_sp (
 		xpo, xpn,
@@ -235,6 +239,10 @@ NAN_METHOD(node_swe_cotrans_sp) {
 	Nan::Set(result,Nan::New<String> ("longitude").ToLocalChecked(), Nan::New<Number> (xpn [0]));
 	Nan::Set(result,Nan::New<String> ("latitude").ToLocalChecked(), Nan::New<Number> (xpn [1]));
 	Nan::Set(result,Nan::New<String> ("distance").ToLocalChecked(), Nan::New<Number> (xpn [2]));
+	Nan::Set(result,Nan::New<String> ("longitudeSpeed").ToLocalChecked(), Nan::New<Number> (xpn [3]));
+	Nan::Set(result,Nan::New<String> ("latitudeSpeed").ToLocalChecked(), Nan::New<Number> (xpn [4]));
+	Nan::Set(result,Nan::New<String> ("distanceSpeed").ToLocalChecked(), Nan::New<Number> (xpn [5]));
+
 
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
@@ -908,3 +916,4 @@ NAN_METHOD(node_swe_cs2degstr) {
     HandleCallback (info, result);
     info.GetReturnValue().Set (result);
 };
+
