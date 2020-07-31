@@ -29,7 +29,7 @@ Praesepe Cluster,M44,2000,08,40,6.000,19,59,0.00,0.000,   0.00,  0.0,5.65,3.7,  
 Polaris      ,alUMi,ICRS,02,31,49.09456,+89,15,50.7923,44.48,-11.85,-16.42,7.54,2.02, 88,    8
 # Messier 87 galaxis, M87 or M-87, containing supermassive black hole, called
 # Super Galactic Cluster by Philipp Sedwick
-Messier 87 ,M87,ICRS,12,30,49.42338,12,23,28.0439,0.0,0.0,1256,0.000061,8.63,  0,    0
+Messier 87 ,M87,ICRS,12,30,49.4233823,12,23,28.0438581,-8.029,10.734,1256,0.000061,8.63,  0,    0
 #
 # The following stars are given first to prevent swe_fixstar() from
 # returning e.g. Denebola when Deneb is required.
@@ -62,7 +62,7 @@ Segin        ,epCas,ICRS,01,54,23.72567,+63,40,12.3628,32.09,-18.94,-8.3,7.92,3.
 # proper motion in right asc., 0.001"/year * cos(decl0)
 #               in decl., 0.001"/year
 # radial velocity in km/s
-# annual parallax in 0.001"/year
+# annual parallax in 0.001"
 # magnitude V
 # DM zone (Durchmusterung zone; declination 1900)
 # DM number 
@@ -1525,7 +1525,8 @@ Lich         ,PSRB1257+12,ICRS,13,00,03.1075,+12,40,55.155,46.44,-84.87,0,1.41,9
 Virgo Cluster,VC,2000,12,26,32.1,12,43,24,0.000,   0.00,  0.0,0.0000,999.99,  0,    0
 # Messier 87 galaxis, M87 or M-87, containing supermassive black hole, called
 # Super Galactic Cluster by Philipp Sedwick
-Messier 87 ,M87,ICRS,12,30,49.42338,12,23,28.0439,0.0,0.0,1256,0.000061,8.63,  0,    0
+Messier 87 ,M87,ICRS,12,30,49.4233823,12,23,28.0438581,-8.029,10.734,1256,0.000061,8.63,  0,    0
+Messier 49 ,M49,ICRS,12,29,46.798,8,00,01.48,0.0,0.0,949,0.000000,12.17,  0,    0
 # Volans
              ,alVol,ICRS,09,02,26.79592,-66,23,45.8727,-2,-95.51,7.6,26.11,3.99,-65, 1065
              ,beVol,ICRS,08,25,44.19472,-66,08,12.8050,-35.74,-152.22,27.4,30.33,3.759,-65,  933
@@ -1543,7 +1544,7 @@ Anser        ,alVul,ICRS,19,28,42.32996,+24,39,53.6525,-126.13,-107.44,-85.53,10
              ,2Vul,ICRS,19,17,43.63655,+23,01,31.9524,2.04,-2.78,1,2.68,5.436,0,0
              ,12Vul,ICRS,19,51,04.10821,+22,36,36.1732,23.02,-15.88,-24.9,5.18,4.96,0,0
 # Galactic Center according to: 
-# Liu/Zhu/Zhang, „Reconsidering the galactic coordinate system“, 
+# Liu/Zhu/Zhang, "Reconsidering the galactic coordinate system", 
 # Astronomy & Astrophysics No. AA2010, Oct. 2010, p. 8
 GCLiu,GCLiu,ICRS,17,45,40.0400,-29,00,28.138,-2.755718425, -5.547,  0.0,0.125,999.99,  0,    0
 #
