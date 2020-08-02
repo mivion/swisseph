@@ -1,5 +1,4 @@
 /* SWISSEPH
- * $Header: /home/dieter/sweph/RCS/swedll.h,v 1.75 2009/04/08 07:19:08 dieter Exp $
  *
  *  Windows DLL interface imports for the Astrodienst SWISSEPH package
  *
