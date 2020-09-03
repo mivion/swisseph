@@ -43,6 +43,33 @@ NAN_METHOD(node_swe_houses);
 NAN_METHOD(node_swe_houses_ex);
 
 /**
+ * int swe_houses_ex2(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr)
+ * =>
+ * int swe_houses_ex2(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr) {
+ *   house: [double],
+ *   ascendant: double,
+ *   mc: double,
+ *   armc: double,
+ *   vertex: double,
+ *   equatorialAscendant: double,
+ *   kochCoAscendant: double,
+ *   munkaseyCoAscendant: double,
+ *   munkaseyPolarAscendant: double,
+ *   houseSpeed: [double],
+ *   ascendantSpeed: double,
+ *   mcSpeed: double,
+ *   armcSpeed: double,
+ *   vertexSpeed: double,
+ *   equatorialAscendantSpeed: double,
+ *   kochCoAscendantSpeed: double,
+ *   munkaseyCoAscendantSpeed: double,
+ *   munkaseyPolarAscendantSpeed: double,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_houses_ex2);
+
+/**
  * int swe_houses_armc(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc)
  * =>
  * int swe_houses_armc(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc) {
@@ -59,6 +86,33 @@ NAN_METHOD(node_swe_houses_ex);
  * }
  */
 NAN_METHOD(node_swe_houses_armc);
+
+/**
+ * int swe_houses_armc2(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr)
+ * =>
+ * int swe_houses_armc2(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr) {
+ *   house: [double],
+ *   ascendant: double,
+ *   mc: double,
+ *   armc: double,
+ *   vertex: double,
+ *   equatorialAscendant: double,
+ *   kochCoAscendant: double,
+ *   munkaseyCoAscendant: double,
+ *   munkaseyPolarAscendant: double,
+ *   houseSpeed: [double],
+ *   ascendantSpeed: double,
+ *   mcSpeed: double,
+ *   armcSpeed: double,
+ *   vertexSpeed: double,
+ *   equatorialAscendantSpeed: double,
+ *   kochCoAscendantSpeed: double,
+ *   munkaseyCoAscendantSpeed: double,
+ *   munkaseyPolarAscendantSpeed: double,
+ *   error: string
+ * }
+ */
+NAN_METHOD(node_swe_houses_armc_ex2);
 
 /**
  * double swe_house_pos(double armc, double geolat, double eps, int hsys, double *xpin, char *serr)

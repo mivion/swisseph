@@ -124,6 +124,7 @@ extern "C" {
 
 #define SE_NPLANETS     23      
 
+#define SE_PLMOON_OFFSET   9000
 #define SE_AST_OFFSET   10000
 #define SE_VARUNA   (SE_AST_OFFSET + 20000)
 
@@ -804,9 +805,17 @@ ext_def( int ) swe_houses_ex(
         double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, 
 	double *cusps, double *ascmc);
 
+ext_def( int ) swe_houses_ex2(
+        double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, 
+	double *cusps, double *ascmc, double *cusp_speed, double *ascmc_speed, char *serr);
+
 ext_def( int ) swe_houses_armc(
         double armc, double geolat, double eps, int hsys, 
 	double *cusps, double *ascmc);
+
+ext_def( int ) swe_houses_armc_ex2(
+        double armc, double geolat, double eps, int hsys, 
+	double *cusps, double *ascmc, double *cusp_speed, double *ascmc_speed, char *serr);
 
 ext_def(double) swe_house_pos(
 	double armc, double geolat, double eps, int hsys, double *xpin, char *serr);
