@@ -73,7 +73,9 @@ void Initialize (Local <Object> exports) {
 	// house
 	Nan::SetMethod (exports, "swe_houses", node_swe_houses);
 	Nan::SetMethod (exports, "swe_houses_ex", node_swe_houses_ex);
+	Nan::SetMethod (exports, "swe_houses_ex2", node_swe_houses_ex2);
 	Nan::SetMethod (exports, "swe_houses_armc", node_swe_houses_armc);
+	Nan::SetMethod (exports, "swe_houses_armc_ex2", node_swe_houses_armc_ex2);
 	Nan::SetMethod (exports, "swe_houses_pos", node_swe_houses_pos);
 
 	// eclipse

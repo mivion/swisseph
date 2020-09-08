@@ -153,9 +153,17 @@ DllImport int  CALL_CONV_IMP swe_houses_ex(
         double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, 
         double *hcusps, double *ascmc);
 
+DllImport int  CALL_CONV_IMP swe_houses_ex2(
+        double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, 
+        double *hcusps, double *ascmc, double *cusp_speed, double *ascmc_speed, char *serr);
+
 DllImport int  CALL_CONV_IMP swe_houses_armc(
         double armc, double geolat, double eps, int hsys, 
         double *hcusps, double *ascmc);
+
+DllImport int  CALL_CONV_IMP swe_houses_armc_ex2(
+        double armc, double geolat, double eps, int hsys, 
+        double *hcusps, double *ascmc, double *cusp_speed, double *ascmc_speed, char *serr);
 
 DllImport double  CALL_CONV_IMP swe_house_pos(
         double armc, double geolon, double eps, int hsys, double *xpin, char *serr);
