@@ -15,8 +15,8 @@
     "astronomy"
   ],
   "dependencies": {
-    "merge": "^1.2.x",
-    "nan": "^2.14.1",
+    "merge": "^2.1.1",
+    "nan": "^2.14.2",
     "node-gyp": "^3.8.0"
   },
   "devDependencies": {},
