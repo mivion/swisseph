@@ -8,6 +8,7 @@
     "url": "http://github.com/mivion/swisseph.git"
   },
   "main": "./lib/swisseph.js",
+  "types": "./lib/swisseph.d.ts",
   "keywords": [
     "swiss",
     "ephemeris",
