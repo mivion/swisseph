@@ -22,10 +22,7 @@ declare namespace swisseph {
     function swe_time_equ(
         tjd: number,
         callback?: (result: ReturnType<typeof swe_time_equ>) => void
-    ): {
-        timeEquation: number;
-        error: string;
-    };
+    ): { timeEquation: number } | { error: string };
 
     /**
      * Returns sidereal time for a Julian day, obliquity and nutation.
@@ -325,6 +322,25 @@ declare namespace swisseph {
 
     // #region date
     /**
+     * Conversion from day, month, year, time to Julian date with error handling.
+     * @param year The year of the date.
+     * @param month The month of the date.
+     * @param day The day of the date.
+     * @param hour The hour of the date.
+     * @param gregflag Specifies whether the input date is Julian calendar ('j') or Gregorian calendar ('g').
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_date_conversion(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        gregflag: "g" | "j",
+        callback?: (result: ReturnType<typeof swe_date_conversion>) => void
+    ): { julianDay: number } | { error: string };
+
+    /**
      * Conversion from day, month, year, time to Julian date.
      * @param year The year of the date.
      * @param month The month of the date.
@@ -340,8 +356,124 @@ declare namespace swisseph {
         day: number,
         hour: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: number) => void
+        callback?: (result: ReturnType<typeof swe_julday>) => void
     ): number;
+
+    /**
+     * Reverse conversion of a Julian date value to a date object.
+     * @param jd The Julian date.
+     * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_revjul(
+        jd: number,
+        gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
+        callback?: (result: ReturnType<typeof swe_revjul>) => void
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+    };
+
+    /**
+     * Conversion from day, month, year, time in Coordinated Universal Time (UTC) to Julian date.
+     * @param iyear The year of the date.
+     * @param imonth The month of the date.
+     * @param iday The day of the date.
+     * @param ihour The hour of the date.
+     * @param imin The minute of the date.
+     * @param dsec The second of the date.
+     * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_utc_to_jd(
+        iyear: number,
+        imonth: number,
+        iday: number,
+        ihour: number,
+        imin: number,
+        dsec: number,
+        gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
+        callback?: (result: ReturnType<typeof swe_utc_to_jd>) => void
+    ):
+        | {
+              julianDayET: number;
+              julianDayUT: number;
+          }
+        | { error: string };
+
+    /**
+     * Reverse conversion of a Julian date value to a date object in Coordinated Universal Time (UTC).
+     * @param tjd_et The Julian day number in ET (TT).
+     * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_jdet_to_utc(
+        tjd_et: number,
+        gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
+        callback?: (result: ReturnType<typeof swe_jdet_to_utc>) => void
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+    };
+
+    /**
+     * Reverse conversion of a Julian date value to a date object in Coordinated Universal Time (UTC).
+     * @param tjd_ut The Julian day number in UT (UT1).
+     * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_jdut1_to_utc(
+        tjd_ut: number,
+        gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
+        callback?: (result: ReturnType<typeof swe_jdut1_to_utc>) => void
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+    };
+
+    /**
+     * Converts a UTC date value to a local date value using the specified time zone offset.
+     * @param iyear The year of the date.
+     * @param imonth The month of the date.
+     * @param iday The day of the date.
+     * @param ihour The hour of the date.
+     * @param imin The minute of the date.
+     * @param dsec The second of the date.
+     * @param d_timezone The time zone offset.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the conversion.
+     */
+    function swe_utc_time_zone(
+        iyear: number,
+        imonth: number,
+        iday: number,
+        ihour: number,
+        imin: number,
+        dsec: number,
+        d_timezone: number,
+        callback?: (result: ReturnType<typeof swe_utc_time_zone>) => void
+    ): {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+    };
     // #endregion date
 
     // #region pos
