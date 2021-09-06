@@ -88,7 +88,7 @@ NAN_METHOD(node_swe_julday) {
 /**
  * void swe_revjul (double jd, int gregflag, int *jyear, int *jmon, int *jday, double *jut)
  * =>
- * swe_revjul (double jd, int gregflag) = {
+ * swe_revjul (double jd, int gregflag[, function callback (result)]) = {
  *   year: int,
  *   month: int,
  *   day: int,
@@ -132,7 +132,7 @@ NAN_METHOD(node_swe_revjul) {
 /**
  * int32 swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag, double *dret, char *serr)
  * =>
- * swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag) {
+ * swe_utc_to_jd(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, int32 gregflag[, function callback (result)]) {
  *   julianDayET: double,
  *   julianDayUT: double,
  *   error: string
@@ -188,12 +188,12 @@ NAN_METHOD(node_swe_utc_to_jd) {
 /**
  * void swe_jdet_to_utc(double tjd_et, int32 gregflag, int32 *iyear, int32 *imonth, int32 *iday, int32 *ihour, int32 *imin, double *dsec)
  * =>
- * swe_jdet_to_utc(double tjd_et, int32 gregflag) = {
+ * swe_jdet_to_utc(double tjd_et, int32 gregflag[, function callback (result)]) = {
  *   year: int,
  *   month: int,
  *   day: int,
  *   hour: int,
- *   min: int,
+ *   minute: int,
  *   second: double
  * }
  */
@@ -234,14 +234,14 @@ NAN_METHOD(node_swe_jdet_to_utc) {
 };
 
 /**
- * void swe_jdut1_to_utc(double tjd_et, int32 gregflag, int32 *iyear, int32 *imonth, int32 *iday, int32 *ihour, int32 *imin, double *dsec)
+ * void swe_jdut1_to_utc(double tjd_ut, int32 gregflag, int32 *iyear, int32 *imonth, int32 *iday, int32 *ihour, int32 *imin, double *dsec)
  * =>
- * swe_jdut1_to_utc(double tjd_et, int32 gregflag) = {
+ * swe_jdut1_to_utc(double tjd_ut, int32 gregflag[, function callback (result)]) = {
  *   year: int,
  *   month: int,
  *   day: int,
  *   hour: int,
- *   min: int,
+ *   minute: int,
  *   second: double
  * }
  */
@@ -284,12 +284,12 @@ NAN_METHOD(node_swe_jdut1_to_utc) {
 /**
  * void swe_utc_time_zone(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, double d_timezone, int32 *iyear_out, int32 *imonth_out, int32 *iday_out, int32 *ihour_out, int32 *imin_out, double *dsec_out)
  * =>
- * swe_utc_time_zone(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, double d_timezone) = {
+ * swe_utc_time_zone(int32 iyear, int32 imonth, int32 iday, int32 ihour, int32 imin, double dsec, double d_timezone[, function callback (result)]) = {
  *   year: int,
  *   month: int,
  *   day: int,
  *   hour: int,
- *   min: int,
+ *   minute: int,
  *   second: double
  * }
  */
