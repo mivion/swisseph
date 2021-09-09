@@ -256,9 +256,9 @@ NAN_METHOD(node_swe_fixstar) {
 };
 
 /**
- * int32 swe_fixstar_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * int32 swe_fixstar_ut(char *star, double tjd_ut, int32 iflag, double *xx, char *serr)
  * =>
- * swe_fixstar_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ * swe_fixstar_ut(string star, double tjd_ut, int32 iflag[, function callback (result)]) = {
  *   name: string,
  *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
