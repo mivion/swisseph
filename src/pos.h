@@ -107,9 +107,9 @@ NAN_METHOD(node_swe_fixstar_mag);
 NAN_METHOD(node_swe_fixstar2);
 
 /**
- * int32 swe_fixstar2_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * int32 swe_fixstar2_ut(char *star, double tjd_ut, int32 iflag, double *xx, char *serr)
  * =>
- * swe_fixstar2_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ * swe_fixstar2_ut(string star, double tjd_ut, int32 iflag[, function callback (result)]) = {
  *   name: string,
  *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,

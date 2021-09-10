@@ -683,11 +683,13 @@ declare namespace swisseph {
 
     /**
      * Computes the position of a fixed star for a specified Terrestrial Time.
-     * @param star The name of fixed star to be searched.
+     * @param star The search string used to find the fixed star by name.
+     *             The search string is treated as having a wildcard at the end.
      * @param tjd The Julian day in Terrestrial Time.
      * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
      * @param callback Optional callback called with the result.
      * @returns The result of the computation or an error.
+     * @see {@link swe_fixstar} for a newer and faster implementation.
      */
     function swe_fixstar(
         star: string,
@@ -731,11 +733,13 @@ declare namespace swisseph {
 
     /**
      * Computes the position of a fixed star for a specified Universal Time.
-     * @param star The name of fixed star to be searched.
+     * @param star The search string used to find the fixed star by name.
+     *             The search string is treated as having a wildcard at the end.
      * @param tjd_ut The Julian day in Universal Time.
      * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
      * @param callback Optional callback called with the result.
      * @returns The result of the computation or an error.
+     * @see {@link swe_fixstar2_ut} for a newer and faster implementation.
      */
     function swe_fixstar_ut(
         star: string,
@@ -779,9 +783,11 @@ declare namespace swisseph {
 
     /**
      * Returns the magnitude of a fixed star.
-     * @param star The name of fixed star to be searched.
+     * @param star The search string used to find the fixed star by name.
+     *             The search string is treated as having a wildcard at the end.
      * @param callback Optional callback called with the result.
      * @returns The magnitude of the fixed star or an error.
+     * @see {@link swe_fixstar2_mag} for a newer and faster implementation.
      */
     function swe_fixstar_mag(
         star: string,
@@ -796,10 +802,148 @@ declare namespace swisseph {
           };
 
     /**
+     * Computes the position of a fixed star for a specified Terrestrial Time.
+     * @param star The name of fixed star to be searched. You can specify a '%' sign at the end as a wildcard.
+     * @param tjd The Julian day in Terrestrial Time.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_fixstar2(
+        star: string,
+        tjd: number,
+        iflag: number,
+        callback?: (result: ReturnType<typeof swe_fixstar2>) => void
+    ):
+        | {
+              name: string;
+              longitude: number;
+              latitude: number;
+              distance: number;
+              longitudeSpeed: number;
+              latitudeSpeed: number;
+              distanceSpeed: number;
+              rflag: number;
+          }
+        | {
+              name: string;
+              rectAscension: number;
+              declination: number;
+              distance: number;
+              rectAscensionSpeed: number;
+              declinationSpeed: number;
+              distanceSpeed: number;
+              rflag: number;
+          }
+        | {
+              name: string;
+              x: number;
+              y: number;
+              z: number;
+              dx: number;
+              dy: number;
+              dz: number;
+              rflag: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes the position of a fixed star for a specified Universal Time.
+     * @param star The name of fixed star to be searched. You can specify a '%' sign at the end as a wildcard.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_fixstar2_ut(
+        star: string,
+        tjd_ut: number,
+        iflag: number,
+        callback?: (result: ReturnType<typeof swe_fixstar2_ut>) => void
+    ):
+        | {
+              name: string;
+              longitude: number;
+              latitude: number;
+              distance: number;
+              longitudeSpeed: number;
+              latitudeSpeed: number;
+              distanceSpeed: number;
+              rflag: number;
+          }
+        | {
+              name: string;
+              rectAscension: number;
+              declination: number;
+              distance: number;
+              rectAscensionSpeed: number;
+              declinationSpeed: number;
+              distanceSpeed: number;
+              rflag: number;
+          }
+        | {
+              name: string;
+              x: number;
+              y: number;
+              z: number;
+              dx: number;
+              dy: number;
+              dz: number;
+              rflag: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Returns the magnitude of a fixed star.
+     * @param star The name of fixed star to be searched. You can specify a '%' sign at the end as a wildcard.
+     * @param callback Optional callback called with the result.
+     * @returns The magnitude of the fixed star or an error.
+     */
+    function swe_fixstar2_mag(
+        star: string,
+        callback?: (result: ReturnType<typeof swe_fixstar2_mag>) => void
+    ):
+        | {
+              name: string;
+              magnitude: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Releases most resources used by the Swiss Ephemeris library.
+     */
+    function swe_close(): void;
+
+    /**
      * Sets application's own ephemeris path.
      * @param path Path to ephemeris data files.
      */
     function swe_set_ephe_path(path: string): void;
+
+    /**
+     * Sets the name of the JPL ephemeris file.
+     * @param fname JPL ephemeris filename.
+     */
+    function swe_set_jpl_file(fname: string): void;
+
+    /**
+     * Returns the planetary or asteroid name for a given planet number.
+     * @param ipl The planet number.
+     * @param callback Optional callback called with the result.
+     * @returns The name of the planet or asteroid.
+     */
+    function swe_get_planet_name(
+        ipl: number,
+        callback?: (result: ReturnType<typeof swe_get_planet_name>) => void
+    ): {
+        name: string;
+    };
     // #endregion pos
 
     // #region hel
