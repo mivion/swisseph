@@ -1,5 +1,5 @@
 declare namespace swisseph {
-    // #region constants
+    // #region Constants
     // Calendar types
     const SE_JUL_CAL = 0;
     const SE_GREG_CAL = 1;
@@ -109,16 +109,75 @@ declare namespace swisseph {
     const SE_SPLIT_DEG_KEEP_SIGN = 16;
     const SE_SPLIT_DEG_KEEP_DEG: 32;
     const SE_SPLIT_DEG_NAKSHATRA = 1024;
-    // #endregion constants
 
-    // #region util
+    // Sidereal modes
+    const SE_SIDM_FAGAN_BRADLEY = 0;
+    const SE_SIDM_LAHIRI = 1;
+    const SE_SIDM_DELUCE = 2;
+    const SE_SIDM_RAMAN = 3;
+    const SE_SIDM_USHASHASHI = 4;
+    const SE_SIDM_KRISHNAMURTI = 5;
+    const SE_SIDM_DJWHAL_KHUL = 6;
+    const SE_SIDM_YUKTESHWAR = 7;
+    const SE_SIDM_JN_BHASIN = 8;
+    const SE_SIDM_BABYL_KUGLER1 = 9;
+    const SE_SIDM_BABYL_KUGLER2 = 10;
+    const SE_SIDM_BABYL_KUGLER3 = 11;
+    const SE_SIDM_BABYL_HUBER = 12;
+    const SE_SIDM_BABYL_ETPSC = 13;
+    const SE_SIDM_ALDEBARAN_15TAU = 14;
+    const SE_SIDM_HIPPARCHOS = 15;
+    const SE_SIDM_SASSANIAN = 16;
+    const SE_SIDM_GALCENT_0SAG = 17;
+    const SE_SIDM_J2000 = 18;
+    const SE_SIDM_J1900 = 19;
+    const SE_SIDM_B1950 = 20;
+    const SE_SIDM_SURYASIDDHANTA = 21;
+    const SE_SIDM_SURYASIDDHANTA_MSUN = 22;
+    const SE_SIDM_ARYABHATA = 23;
+    const SE_SIDM_ARYABHATA_MSUN = 24;
+    const SE_SIDM_SS_REVATI = 25;
+    const SE_SIDM_SS_CITRA = 26;
+    const SE_SIDM_TRUE_CITRA = 27;
+    const SE_SIDM_TRUE_REVATI = 28;
+    const SE_SIDM_TRUE_PUSHYA = 29;
+    const SE_SIDM_GALCENT_RGILBRAND = 30;
+    const SE_SIDM_GALEQU_IAU1958 = 31;
+    const SE_SIDM_GALEQU_TRUE = 32;
+    const SE_SIDM_GALEQU_MULA = 33;
+    const SE_SIDM_GALALIGN_MARDYKS = 34;
+    const SE_SIDM_TRUE_MULA = 35;
+    const SE_SIDM_GALCENT_MULA_WILHELM = 36;
+    const SE_SIDM_ARYABHATA_522 = 37;
+    const SE_SIDM_BABYL_BRITTON = 38;
+    const SE_SIDM_TRUE_SHEORAN = 39;
+    const SE_SIDM_GALCENT_COCHRANE = 40;
+    const SE_SIDM_GALEQU_FIORENZA = 41;
+    const SE_SIDM_VALENS_MOON = 42;
+    const SE_SIDM_USER = 255;
+
+    // Used for "swe_nod_aps" function
+    const SE_NODBIT_MEAN = 1;
+    const SE_NODBIT_OSCU = 2;
+    const SE_NODBIT_OSCU_BAR = 4;
+    const SE_NODBIT_FOPOINT = 256;
+    // #endregion Constants
+
+    /**
+     * All functions that return a value have an optional callback parameter as their last parameter.
+     * That callback has a result argument with the same type as the return type of the function.
+     * This type simplifies the type definition of that callback argument.
+     */
+    type ResultCallback<T extends (...args: any) => any> = (result: ReturnType<T>) => void;
+
+    // #region Util
     /**
      * Computes the difference between Universal Time (UT, GMT) and Ephemeris time.
      * @param tjd The Julian day.
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_deltat(tjd: number, callback?: (result: ReturnType<typeof swe_deltat>) => void): { delta: number };
+    function swe_deltat(tjd: number, callback?: ResultCallback<typeof swe_deltat>): { delta: number };
 
     /**
      * Returns the difference between local apparent and local mean time.
@@ -128,7 +187,7 @@ declare namespace swisseph {
      */
     function swe_time_equ(
         tjd: number,
-        callback?: (result: ReturnType<typeof swe_time_equ>) => void
+        callback?: ResultCallback<typeof swe_time_equ>
     ): { timeEquation: number } | { error: string };
 
     /**
@@ -143,7 +202,7 @@ declare namespace swisseph {
         tjd_ut: number,
         eps: number,
         nut: number,
-        callback?: (result: ReturnType<typeof swe_sidtime0>) => void
+        callback?: ResultCallback<typeof swe_sidtime0>
     ): {
         siderialTime: number;
     };
@@ -154,10 +213,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns Sidereal time at the Greenwich Meridian, measured in hours.
      */
-    function swe_sidtime(
-        tjd_ut: number,
-        callback?: (result: ReturnType<typeof swe_sidtime>) => void
-    ): { siderialTime: number };
+    function swe_sidtime(tjd_ut: number, callback?: ResultCallback<typeof swe_sidtime>): { siderialTime: number };
 
     /**
      * Coordinate transformation, from ecliptic to equator or vice-versa.
@@ -172,7 +228,7 @@ declare namespace swisseph {
     function swe_cotrans(
         xpo: number[],
         eps: number,
-        callback?: (result: ReturnType<typeof swe_cotrans>) => void
+        callback?: ResultCallback<typeof swe_cotrans>
     ): {
         longitude: number;
         latitude: number;
@@ -192,7 +248,7 @@ declare namespace swisseph {
     function swe_cotrans_sp(
         xpo: number[],
         eps: number,
-        callback?: (result: ReturnType<typeof swe_cotrans_sp>) => void
+        callback?: ResultCallback<typeof swe_cotrans_sp>
     ): {
         longitude: number;
         latitude: number;
@@ -207,7 +263,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The tidal acceleration.
      */
-    function swe_get_tid_acc(callback?: (result: ReturnType<typeof swe_get_tid_acc>) => void): { acceleration: number };
+    function swe_get_tid_acc(callback?: ResultCallback<typeof swe_get_tid_acc>): { acceleration: number };
 
     /**
      * Sets the tidal acceleration to be used in swe_deltat().
@@ -215,7 +271,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with an empty object.
      * @returns An empty object.
      */
-    function swe_set_tid_acc(t_acc: number, callback?: (result: ReturnType<typeof swe_set_tid_acc>) => void): {};
+    function swe_set_tid_acc(t_acc: number, callback?: ResultCallback<typeof swe_set_tid_acc>): {};
 
     /**
      * Normalizes a degree to the range 0 - 360.
@@ -223,7 +279,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the normalization.
      */
-    function swe_degnorm(x: number, callback?: (result: ReturnType<typeof swe_degnorm>) => void): { x360: number };
+    function swe_degnorm(x: number, callback?: ResultCallback<typeof swe_degnorm>): { x360: number };
 
     /**
      * Normalizes a radian to the range 0 - 2 PI.
@@ -231,7 +287,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the normalization.
      */
-    function swe_radnorm(x: number, callback?: (result: ReturnType<typeof swe_radnorm>) => void): { x2Pi: number };
+    function swe_radnorm(x: number, callback?: ResultCallback<typeof swe_radnorm>): { x2Pi: number };
 
     /**
      * Return the mid point between two radians.
@@ -240,11 +296,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_rad_midp(
-        x1: number,
-        x0: number,
-        callback?: (result: ReturnType<typeof swe_rad_midp>) => void
-    ): { xMid2Pi: number };
+    function swe_rad_midp(x1: number, x0: number, callback?: ResultCallback<typeof swe_rad_midp>): { xMid2Pi: number };
 
     /**
      * Return the mid point between two degrees.
@@ -253,11 +305,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_deg_midp(
-        x1: number,
-        x0: number,
-        callback?: (result: ReturnType<typeof swe_rad_midp>) => void
-    ): { xMid360: number };
+    function swe_deg_midp(x1: number, x0: number, callback?: ResultCallback<typeof swe_rad_midp>): { xMid360: number };
 
     /**
      * Split degrees to sign/nakshatra, degrees, minutes, seconds of arc.
@@ -273,7 +321,7 @@ declare namespace swisseph {
     function swe_split_deg(
         ddeg: number,
         roundflag: number,
-        callback?: (result: ReturnType<typeof swe_split_deg>) => void
+        callback?: ResultCallback<typeof swe_split_deg>
     ): {
         degree: number;
         min: number;
@@ -288,7 +336,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_csnorm(p: number, callback?: (result: ReturnType<typeof swe_csnorm>) => void): { centisec360: number };
+    function swe_csnorm(p: number, callback?: ResultCallback<typeof swe_csnorm>): { centisec360: number };
 
     /**
      * Distance in centisecs between p1 and p2 normalized to 0 - 360.
@@ -297,11 +345,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_difcsn(
-        p1: number,
-        p2: number,
-        callback?: (result: ReturnType<typeof swe_difcsn>) => void
-    ): { centisecDiff: number };
+    function swe_difcsn(p1: number, p2: number, callback?: ResultCallback<typeof swe_difcsn>): { centisecDiff: number };
 
     /**
      * Distance in degrees between p1 and p2.
@@ -310,11 +354,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_difdegn(
-        p1: number,
-        p2: number,
-        callback?: (result: ReturnType<typeof swe_difdegn>) => void
-    ): { degreeDiff: number };
+    function swe_difdegn(p1: number, p2: number, callback?: ResultCallback<typeof swe_difdegn>): { degreeDiff: number };
 
     /**
      * Distance in centisecs between p1 and p2 normalized to -180 - 180.
@@ -326,7 +366,7 @@ declare namespace swisseph {
     function swe_difcs2n(
         p1: number,
         p2: number,
-        callback?: (result: ReturnType<typeof swe_difcs2n>) => void
+        callback?: ResultCallback<typeof swe_difcs2n>
     ): { centisecDistance180: number };
 
     /**
@@ -339,7 +379,7 @@ declare namespace swisseph {
     function swe_difdeg2n(
         p1: number,
         p2: number,
-        callback?: (result: ReturnType<typeof swe_difdeg2n>) => void
+        callback?: ResultCallback<typeof swe_difdeg2n>
     ): { degreeDistance180: number };
 
     /**
@@ -352,7 +392,7 @@ declare namespace swisseph {
     function swe_difrad2n(
         p1: number,
         p2: number,
-        callback?: (result: ReturnType<typeof swe_difrad2n>) => void
+        callback?: ResultCallback<typeof swe_difrad2n>
     ): { degreeDistancePi: number };
 
     /**
@@ -361,10 +401,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_csroundsec(
-        x: number,
-        callback?: (result: ReturnType<typeof swe_csroundsec>) => void
-    ): { centisecRound: number };
+    function swe_csroundsec(x: number, callback?: ResultCallback<typeof swe_csroundsec>): { centisecRound: number };
 
     /**
      * Convert double to long with rounding, no overflow check.
@@ -372,7 +409,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the conversion.
      */
-    function swe_d2l(x: number, callback?: (result: ReturnType<typeof swe_d2l>) => void): { xRound: number };
+    function swe_d2l(x: number, callback?: ResultCallback<typeof swe_d2l>): { xRound: number };
 
     /**
      * Returns the day of week for a Julian date.
@@ -380,10 +417,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns Monday = 0, ... Sunday = 6.
      */
-    function swe_day_of_week(
-        jd: number,
-        callback?: (result: ReturnType<typeof swe_day_of_week>) => void
-    ): { dayOfWeek: number };
+    function swe_day_of_week(jd: number, callback?: ResultCallback<typeof swe_day_of_week>): { dayOfWeek: number };
 
     /**
      * Converts a centisecond value to a time string.
@@ -397,7 +431,7 @@ declare namespace swisseph {
         t: number,
         sep: number,
         suppressZero: number,
-        callback?: (result: ReturnType<typeof swe_cs2timestr>) => void
+        callback?: ResultCallback<typeof swe_cs2timestr>
     ): { timeString: string };
 
     /**
@@ -412,7 +446,7 @@ declare namespace swisseph {
         t: number,
         pchar: string,
         mchar: string,
-        callback?: (result: ReturnType<typeof swe_cs2lonlatstr>) => void
+        callback?: ResultCallback<typeof swe_cs2lonlatstr>
     ): { lonlatString: string };
 
     /**
@@ -421,13 +455,10 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the conversion.
      */
-    function swe_cs2degstr(
-        t: number,
-        callback?: (result: ReturnType<typeof swe_cs2degstr>) => void
-    ): { degreeString: string };
-    // #endregion util
+    function swe_cs2degstr(t: number, callback?: ResultCallback<typeof swe_cs2degstr>): { degreeString: string };
+    // #endregion Util
 
-    // #region date
+    // #region Date
     /**
      * Conversion from day, month, year, time to Julian date with error handling.
      * @param year The year of the date.
@@ -444,7 +475,7 @@ declare namespace swisseph {
         day: number,
         hour: number,
         gregflag: "g" | "j",
-        callback?: (result: ReturnType<typeof swe_date_conversion>) => void
+        callback?: ResultCallback<typeof swe_date_conversion>
     ): { julianDay: number } | { error: string };
 
     /**
@@ -463,7 +494,7 @@ declare namespace swisseph {
         day: number,
         hour: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: ReturnType<typeof swe_julday>) => void
+        callback?: ResultCallback<typeof swe_julday>
     ): number;
 
     /**
@@ -476,7 +507,7 @@ declare namespace swisseph {
     function swe_revjul(
         jd: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: ReturnType<typeof swe_revjul>) => void
+        callback?: ResultCallback<typeof swe_revjul>
     ): {
         year: number;
         month: number;
@@ -504,7 +535,7 @@ declare namespace swisseph {
         imin: number,
         dsec: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: ReturnType<typeof swe_utc_to_jd>) => void
+        callback?: ResultCallback<typeof swe_utc_to_jd>
     ):
         | {
               julianDayET: number;
@@ -522,7 +553,7 @@ declare namespace swisseph {
     function swe_jdet_to_utc(
         tjd_et: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: ReturnType<typeof swe_jdet_to_utc>) => void
+        callback?: ResultCallback<typeof swe_jdet_to_utc>
     ): {
         year: number;
         month: number;
@@ -542,7 +573,7 @@ declare namespace swisseph {
     function swe_jdut1_to_utc(
         tjd_ut: number,
         gregflag: typeof SE_JUL_CAL | typeof SE_GREG_CAL,
-        callback?: (result: ReturnType<typeof swe_jdut1_to_utc>) => void
+        callback?: ResultCallback<typeof swe_jdut1_to_utc>
     ): {
         year: number;
         month: number;
@@ -572,7 +603,7 @@ declare namespace swisseph {
         imin: number,
         dsec: number,
         d_timezone: number,
-        callback?: (result: ReturnType<typeof swe_utc_time_zone>) => void
+        callback?: ResultCallback<typeof swe_utc_time_zone>
     ): {
         year: number;
         month: number;
@@ -581,15 +612,15 @@ declare namespace swisseph {
         minute: number;
         second: number;
     };
-    // #endregion date
+    // #endregion Date
 
-    // #region pos
+    // #region Pos
     /**
      * Returns a string with the version number of your Swiss Ephemeris.
      * @param callback Optional callback called with the result.
      * @returns The version number of your Swiss Ephemeris.
      */
-    function swe_version(callback?: (result: ReturnType<typeof swe_version>) => void): string;
+    function swe_version(callback?: ResultCallback<typeof swe_version>): string;
 
     /**
      * Computes the position of a planet, asteroid, lunar node or an apogee for a specified Universal Time.
@@ -603,7 +634,7 @@ declare namespace swisseph {
         tjd_ut: number,
         ipl: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_calc_ut>) => void
+        callback?: ResultCallback<typeof swe_calc_ut>
     ):
         | {
               longitude: number;
@@ -648,7 +679,7 @@ declare namespace swisseph {
         tjd: number,
         ipl: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_calc>) => void
+        callback?: ResultCallback<typeof swe_calc>
     ):
         | {
               longitude: number;
@@ -695,7 +726,7 @@ declare namespace swisseph {
         star: string,
         tjd: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_fixstar>) => void
+        callback?: ResultCallback<typeof swe_fixstar>
     ):
         | {
               name: string;
@@ -745,7 +776,7 @@ declare namespace swisseph {
         star: string,
         tjd_ut: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_fixstar_ut>) => void
+        callback?: ResultCallback<typeof swe_fixstar_ut>
     ):
         | {
               name: string;
@@ -791,7 +822,7 @@ declare namespace swisseph {
      */
     function swe_fixstar_mag(
         star: string,
-        callback?: (result: ReturnType<typeof swe_fixstar_mag>) => void
+        callback?: ResultCallback<typeof swe_fixstar_mag>
     ):
         | {
               name: string;
@@ -813,7 +844,7 @@ declare namespace swisseph {
         star: string,
         tjd: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_fixstar2>) => void
+        callback?: ResultCallback<typeof swe_fixstar2>
     ):
         | {
               name: string;
@@ -861,7 +892,7 @@ declare namespace swisseph {
         star: string,
         tjd_ut: number,
         iflag: number,
-        callback?: (result: ReturnType<typeof swe_fixstar2_ut>) => void
+        callback?: ResultCallback<typeof swe_fixstar2_ut>
     ):
         | {
               name: string;
@@ -905,7 +936,7 @@ declare namespace swisseph {
      */
     function swe_fixstar2_mag(
         star: string,
-        callback?: (result: ReturnType<typeof swe_fixstar2_mag>) => void
+        callback?: ResultCallback<typeof swe_fixstar2_mag>
     ):
         | {
               name: string;
@@ -940,20 +971,402 @@ declare namespace swisseph {
      */
     function swe_get_planet_name(
         ipl: number,
-        callback?: (result: ReturnType<typeof swe_get_planet_name>) => void
+        callback?: ResultCallback<typeof swe_get_planet_name>
     ): {
         name: string;
     };
-    // #endregion pos
 
-    // #region hel
-    // #endregion hel
+    /**
+     * Sets the geographic location for topocentric planet computations.
+     * @param geolon Geographic longitude in degress.
+     * @param geolat Geographic latitude in degress.
+     * @param geoalt Altitude above sea in meters.
+     */
+    function swe_set_topo(geolon: number, geolat: number, geoalt: number): void;
 
-    // #region house
-    // #endregion house
+    /**
+     * Sets the mode for sidereal computations.
+     * @param sid_mode The sidereal mode to set.
+     * @param t0 Reference epoch.
+     * @param ayan_t0 Initial ayanamsha at t0.
+     */
+    function swe_set_sid_mode(sid_mode: number, t0: number, ayan_t0: number): void;
 
-    // #region eclipse
-    // #endregion eclipse
+    /**
+     * Returns the ayanamsha for a date in Ephemeris Time.
+     * @param tjd_et The Julian date in Ephemeris Time.
+     * @param callback Optional callback called with the result.
+     * @returns The ayanamsha for the given date.
+     * @see {@link swe_get_ayanamsa_ex} for a newer and better implementation.
+     */
+    function swe_get_ayanamsa(tjd_et: number, callback?: ResultCallback<typeof swe_get_ayanamsa>): number;
+
+    /**
+     * Returns the ayanamsha for a date in Universal Time.
+     * @param tjd_ut The Julian date in Universal Time.
+     * @param callback Optional callback called with the result.
+     * @returns The ayanamsha for the given date.
+     * @see {@link swe_get_ayanamsa_ex_ut} for a newer and better implementation.
+     */
+    function swe_get_ayanamsa_ut(tjd_ut: number, callback?: ResultCallback<typeof swe_get_ayanamsa_ut>): number;
+
+    /**
+     * Returns the ayanamsha for a date in Ephemeris Time.
+     * @param tjd_et The Julian date in Ephemeris Time.
+     * @param iflag Ephemeris flag (one of SEFLG_SWIEPH, SEFLG_JPLEPH, SEFLG_MOSEPH).
+     * @param callback Optional callback called with the result.
+     * @returns The ayanamsha for the given date or an error.
+     */
+    function swe_get_ayanamsa_ex(
+        tjd_et: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_get_ayanamsa_ex>
+    ):
+        | {
+              ayanamsa: number;
+          }
+        | { error: string };
+
+    /**
+     * Returns the ayanamsha for a date in Universal Time.
+     * @param tjd_ut The Julian date in Universal Time.
+     * @param iflag Ephemeris flag (one of SEFLG_SWIEPH, SEFLG_JPLEPH, SEFLG_MOSEPH).
+     * @param callback Optional callback called with the result.
+     * @returns The ayanamsha for the given date or an error.
+     */
+    function swe_get_ayanamsa_ex_ut(
+        tjd_ut: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_get_ayanamsa_ex_ut>
+    ):
+        | {
+              ayanamsa: number;
+          }
+        | { error: string };
+
+    /**
+     * Returns the name of an ayanamsha.
+     * @param isidmode The sidereal mode.
+     * @param callback Optional callback called with the result.
+     * @returns The name of the ayanamsha.
+     */
+    function swe_get_ayanamsa_name(isidmode: number, callback?: ResultCallback<typeof swe_get_ayanamsa_name>): string;
+
+    /**
+     * Computes the position of planetary nodes and aspides for a specified Terrestrial Time.
+     * @param tjd_et The Julian day in Terrestrial Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param method The method used for the compuation. (SE_NODBIT_... constants)
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_nod_aps(
+        tjd_et: number,
+        ipl: number,
+        iflag: number,
+        method: number,
+        callback?: ResultCallback<typeof swe_nod_aps>
+    ):
+        | {
+              ascending: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              descending: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              perihelion: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              aphelion: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+          }
+        | {
+              ascending: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              descending: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              perihelion: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              aphelion: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+          }
+        | {
+              ascending: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              descending: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              perihelion: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              aphelion: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes the position of planetary nodes and aspides for a specified Universal Time.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param method The method used for the compuation. (SE_NODBIT_... constants)
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_nod_aps_ut(
+        tjd_ut: number,
+        ipl: number,
+        iflag: number,
+        method: number,
+        callback?: ResultCallback<typeof swe_nod_aps_ut>
+    ):
+        | {
+              ascending: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              descending: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              perihelion: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+              aphelion: {
+                  longitude: number;
+                  latitude: number;
+                  distance: number;
+                  longitudeSpeed: number;
+                  latitudeSpeed: number;
+                  distanceSpeed: number;
+              };
+          }
+        | {
+              ascending: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              descending: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              perihelion: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+              aphelion: {
+                  rectAscension: number;
+                  declination: number;
+                  distance: number;
+                  rectAscensionSpeed: number;
+                  declinationSpeed: number;
+                  distanceSpeed: number;
+              };
+          }
+        | {
+              ascending: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              descending: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              perihelion: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+              aphelion: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  dx: number;
+                  dy: number;
+                  dz: number;
+              };
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes Kepler orbital elements of a planet or asteroid.
+     * @param tjd_et The Julian day in Terrestrial Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_get_orbital_elements(
+        tjd_et: number,
+        ipl: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_get_orbital_elements>
+    ):
+        | {
+              aphelionDistance: number;
+              ascendingNode: number;
+              eccentricAnomaly: number;
+              eccentricity: number;
+              inclination: number;
+              meanAnomaly: number;
+              meanDailyMotion: number;
+              meanLongitude: number;
+              periapsis: number;
+              periapsisArg: number;
+              perihelionDistance: number;
+              perihelionPassage: number;
+              semimajorAxis: number;
+              siderealPeriod: number;
+              synodicPeriod: number;
+              tropicalPeriod: number;
+              trueAnomaly: number;
+              rflag: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes the maximum, minimum and current distance of a planet or asteroid.
+     * @param tjd_et The Julian day in Terrestrial Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_orbit_max_min_true_distance(
+        tjd_et: number,
+        ipl: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_orbit_max_min_true_distance>
+    ):
+        | {
+              maxDistance: number;
+              minDistance: number;
+              trueDistance: number;
+              rflag: number;
+          }
+        | {
+              error: string;
+          };
+    // #endregion Pos
+
+    // #region Hel
+    // #endregion Hel
+
+    // #region House
+    // #endregion House
+
+    // #region Eclipse
+    // #endregion Eclipse
 }
 
 export = swisseph;

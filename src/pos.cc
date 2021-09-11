@@ -834,7 +834,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
  * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
  * swe_get_ayanamsa_ex(double tjd_et, int32 iflag, function callback (result)]) = {
- *   ayanamsa: string,
+ *   ayanamsa: double,
  *   error: string
  * }
  */
@@ -878,7 +878,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ex) {
  * int32 swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, double *daya, char *serr);
  * =>
  * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, function callback (result)]) = {
- *   ayanamsa: string,
+ *   ayanamsa: double,
  *   error: string
  * }
  */
@@ -1140,9 +1140,9 @@ NAN_METHOD(node_swe_nod_aps) {
 };
 
 /**
- * int32 swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32  method, double *xnasc (out[6]), double *xndsc (out[6]), double *xperi (out[6]), double *xaphe (out[6]), char *serr (out[AS_MAXCH]))
+ * int32 swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32 method, double *xnasc (out[6]), double *xndsc (out[6]), double *xperi (out[6]), double *xaphe (out[6]), char *serr (out[AS_MAXCH]))
  * =>
- * swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32  method[, function callback (result)]) = {
+ * swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32 method[, function callback (result)]) = {
  *   ascending: {
  *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
@@ -1415,6 +1415,7 @@ NAN_METHOD(node_swe_get_orbital_elements) {
  *   maxDistance: double
  *   minDistance: double
  *   trueDistance: double
+ *   rflag: int
  *   error: string
  * }
  */
