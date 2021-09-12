@@ -5,10 +5,10 @@ using namespace v8;
 /**
  * int32 swe_heliacal_ut(double tjdstart_ut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 iflag, double *dret, char *serr);
  * =>
- * swe_heliacal_ut(double tjdstart_ut, double *geopos, double *datm, double *dobs, string ObjectName, int32 TypeEvent, int32 iflag) {
- *   start: double,
- *   optimum: double,
- *   end: double,
+ * swe_heliacal_ut(double tjdstart_ut, double *geopos, double *datm, double *dobs, string ObjectName, int32 TypeEvent, int32 iflag[, function callback (result)]) {
+ *   startVisible: double,
+ *   bestVisible: double,
+ *   endVisible: double,
  *   rflag: int32,
  *   error: string
  * }
@@ -84,7 +84,7 @@ NAN_METHOD(node_swe_heliacal_ut) {
 /**
  * int32 swe_heliacal_pheno_ut(double tjd_ut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 helflag, double *darr, char *serr)
  * =>
- * swe_heliacal_pheno_ut(double tjd_ut, double *geopos, double *datm, double *dobs, string ObjectName, int32 TypeEvent, int32 helflag) {
+ * swe_heliacal_pheno_ut(double tjd_ut, double *geopos, double *datm, double *dobs, string ObjectName, int32 TypeEvent, int32 helflag[, function callback (result)]) {
  *   tcAltitude:  			 double, // '0=AltO [deg]		topocentric altitude of object (unrefracted)
  *   tcApparentAltitude:  	 double, // '1=AppAltO [deg]    apparent altitude of object (refracted)
  *   gcAltitude:  			 double, // '2=GeoAltO [deg]    geocentric altitude of object
@@ -219,7 +219,7 @@ NAN_METHOD(node_swe_heliacal_pheno_ut) {
 /**
  * int32 swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag, double *dret, char *serr)
  * =>
- * swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag) {
+ * swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag[, function callback (result)]) {
  *   vissualMagnitudeLimit: double,
  *   AltO: double,
  *   AziO: double,
