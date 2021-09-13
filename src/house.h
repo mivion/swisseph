@@ -7,9 +7,9 @@
 using namespace v8;
 
 /**
- * int swe_houses(double tjd_ut, double geolat, double geolon, int hsys, double *cusps, double *ascmc)
+ * int swe_houses(double tjd_ut, double geolat, double geolon, string hsys, double *cusps, double *ascmc)
  * =>
- * int swe_houses(double tjd_ut, double geolat, double geolon, int hsys, double *cusps, double *ascmc) {
+ * swe_houses(double tjd_ut, double geolat, double geolon, string hsys[, function callback (result)]) {
  *   house: [double],
  *   ascendant: double,
  *   mc: double,
@@ -27,7 +27,7 @@ NAN_METHOD(node_swe_houses);
 /**
  * int swe_houses_ex(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc)
  * =>
- * int swe_houses_ex(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc) {
+ * swe_houses_ex(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys[, function callback (result)]) {
  *   house: [double],
  *   ascendant: double,
  *   mc: double,
@@ -45,7 +45,7 @@ NAN_METHOD(node_swe_houses_ex);
 /**
  * int swe_houses_ex2(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr)
  * =>
- * int swe_houses_ex2(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr) {
+ * swe_houses_ex2(double tjd_ut, int32 iflag, double geolat, double geolon, int hsys[, function callback (result)]) {
  *   house: [double],
  *   ascendant: double,
  *   mc: double,
@@ -72,7 +72,7 @@ NAN_METHOD(node_swe_houses_ex2);
 /**
  * int swe_houses_armc(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc)
  * =>
- * int swe_houses_armc(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc) {
+ * swe_houses_armc(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc[, function callback (result)]) {
  *   house: [double],
  *   ascendant: double,
  *   mc: double,
@@ -90,7 +90,7 @@ NAN_METHOD(node_swe_houses_armc);
 /**
  * int swe_houses_armc2(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr)
  * =>
- * int swe_houses_armc2(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr) {
+ * swe_houses_armc2(double armc, double geolat, double eps, int hsys, double *cusps, double *ascmc, double *cusps_speed, double *ascmc_speed, char *serr[, function callback (result)]) {
  *   house: [double],
  *   ascendant: double,
  *   mc: double,
@@ -117,7 +117,7 @@ NAN_METHOD(node_swe_houses_armc_ex2);
 /**
  * double swe_house_pos(double armc, double geolat, double eps, int hsys, double *xpin, char *serr)
  * =>
- * double swe_house_pos(double armc, double geolat, double eps, int hsys, double lon, double lat) {
+ * swe_house_pos(double armc, double geolat, double eps, int hsys, double lon, double lat[, function callback (result)]) {
  *   housePosition: double,
  *   error: string
  * }

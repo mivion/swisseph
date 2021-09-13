@@ -1509,6 +1509,112 @@ declare namespace swisseph {
     // #endregion Hel
 
     // #region House
+    /**
+     * Calculates houses for a given date and geographic position.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param geolat The geographic latitude.
+     * @param geolon The geographic longitude.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses(
+        tjd_ut: number,
+        geolat: number,
+        geolon: number,
+        hsys: string,
+        callback?: ResultCallback<typeof swe_houses>
+    ):
+        | {
+              house: number[];
+              ascendant: number;
+              mc: number;
+              armc: number;
+              vertex: number;
+              equatorialAscendant: number;
+              kochCoAscendant: number;
+              munkaseyCoAscendant: number;
+              munkaseyPolarAscendant: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates houses and tropical or sidereal positions for a given date and geographic position.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param iflag 0 or SEFLG_SIDEREAL or SEFLG_RADIANS.
+     * @param geolat The geographic latitude.
+     * @param geolon The geographic longitude.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses_ex(
+        tjd_ut: number,
+        iflag: number,
+        geolat: number,
+        geolon: number,
+        hsys: string,
+        callback?: ResultCallback<typeof swe_houses_ex>
+    ):
+        | {
+              house: number[];
+              ascendant: number;
+              mc: number;
+              armc: number;
+              vertex: number;
+              equatorialAscendant: number;
+              kochCoAscendant: number;
+              munkaseyCoAscendant: number;
+              munkaseyPolarAscendant: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates houses and tropical or sidereal positions for a given date and geographic position.
+     * This function also returns the speeds (daily motions) of the ascendant, midheaven and house cusps.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param iflag 0 or SEFLG_SIDEREAL or SEFLG_RADIANS or SEFLG_NONUT.
+     * @param geolat The geographic latitude.
+     * @param geolon The geographic longitude.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses_ex2(
+        tjd_ut: number,
+        iflag: number,
+        geolat: number,
+        geolon: number,
+        hsys: string,
+        callback?: ResultCallback<typeof swe_houses_ex2>
+    ):
+        | {
+              house: number[];
+              ascendant: number;
+              mc: number;
+              armc: number;
+              vertex: number;
+              equatorialAscendant: number;
+              kochCoAscendant: number;
+              munkaseyCoAscendant: number;
+              munkaseyPolarAscendant: number;
+              houseSpeed: number[];
+              ascendantSpeed: number;
+              mcSpeed: number;
+              armcSpeed: number;
+              vertexSpeed: number;
+              equatorialAscendantSpeed: number;
+              kochCoAscendantSpeed: number;
+              munkaseyCoAscendantSpeed: number;
+              munkaseyPolarAscendantSpeed: number;
+          }
+        | {
+              error: string;
+          };
     // #endregion House
 
     // #region Eclipse
