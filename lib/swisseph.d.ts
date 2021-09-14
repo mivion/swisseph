@@ -423,8 +423,8 @@ declare namespace swisseph {
     function swe_d2l(x: number, callback?: ResultCallback<typeof swe_d2l>): { xRound: number };
 
     /**
-     * Returns the day of week for a Julian date.
-     * @param jd The Julian date.
+     * Returns the day of week for a Julian day.
+     * @param jd The Julian day.
      * @param callback Optional callback called with the result.
      * @returns Monday = 0, ... Sunday = 6.
      */
@@ -471,7 +471,7 @@ declare namespace swisseph {
 
     // #region Date
     /**
-     * Conversion from day, month, year, time to Julian date with error handling.
+     * Conversion from day, month, year, time to Julian day with error handling.
      * @param year The year of the date.
      * @param month The month of the date.
      * @param day The day of the date.
@@ -490,7 +490,7 @@ declare namespace swisseph {
     ): { julianDay: number } | { error: string };
 
     /**
-     * Conversion from day, month, year, time to Julian date.
+     * Conversion from day, month, year, time to Julian day.
      * @param year The year of the date.
      * @param month The month of the date.
      * @param day The day of the date.
@@ -509,8 +509,8 @@ declare namespace swisseph {
     ): number;
 
     /**
-     * Reverse conversion of a Julian date value to a date object.
-     * @param jd The Julian date.
+     * Reverse conversion of a Julian day value to a date object.
+     * @param jd The Julian day.
      * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
      * @param callback Optional callback called with the result.
      * @returns The result of the conversion.
@@ -527,7 +527,7 @@ declare namespace swisseph {
     };
 
     /**
-     * Conversion from day, month, year, time in Coordinated Universal Time (UTC) to Julian date.
+     * Conversion from day, month, year, time in Coordinated Universal Time (UTC) to Julian day.
      * @param iyear The year of the date.
      * @param imonth The month of the date.
      * @param iday The day of the date.
@@ -555,7 +555,7 @@ declare namespace swisseph {
         | { error: string };
 
     /**
-     * Reverse conversion of a Julian date value to a date object in Coordinated Universal Time (UTC).
+     * Reverse conversion of a Julian day value to a date object in Coordinated Universal Time (UTC).
      * @param tjd_et The Julian day number in ET (TT).
      * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
      * @param callback Optional callback called with the result.
@@ -575,7 +575,7 @@ declare namespace swisseph {
     };
 
     /**
-     * Reverse conversion of a Julian date value to a date object in Coordinated Universal Time (UTC).
+     * Reverse conversion of a Julian day value to a date object in Coordinated Universal Time (UTC).
      * @param tjd_ut The Julian day number in UT (UT1).
      * @param gregflag Specifies whether the input date is Julian calendar (SE_JUL_CAL) or Gregorian calendar (SE_GREG_CAL).
      * @param callback Optional callback called with the result.
@@ -1005,7 +1005,7 @@ declare namespace swisseph {
 
     /**
      * Returns the ayanamsha for a date in Ephemeris Time.
-     * @param tjd_et The Julian date in Ephemeris Time.
+     * @param tjd_et The Julian day in Ephemeris Time.
      * @param callback Optional callback called with the result.
      * @returns The ayanamsha for the given date.
      * @see {@link swe_get_ayanamsa_ex} for a newer and better implementation.
@@ -1014,7 +1014,7 @@ declare namespace swisseph {
 
     /**
      * Returns the ayanamsha for a date in Universal Time.
-     * @param tjd_ut The Julian date in Universal Time.
+     * @param tjd_ut The Julian day in Universal Time.
      * @param callback Optional callback called with the result.
      * @returns The ayanamsha for the given date.
      * @see {@link swe_get_ayanamsa_ex_ut} for a newer and better implementation.
@@ -1023,7 +1023,7 @@ declare namespace swisseph {
 
     /**
      * Returns the ayanamsha for a date in Ephemeris Time.
-     * @param tjd_et The Julian date in Ephemeris Time.
+     * @param tjd_et The Julian day in Ephemeris Time.
      * @param iflag Ephemeris flag (one of SEFLG_SWIEPH, SEFLG_JPLEPH, SEFLG_MOSEPH).
      * @param callback Optional callback called with the result.
      * @returns The ayanamsha for the given date or an error.
@@ -1040,7 +1040,7 @@ declare namespace swisseph {
 
     /**
      * Returns the ayanamsha for a date in Universal Time.
-     * @param tjd_ut The Julian date in Universal Time.
+     * @param tjd_ut The Julian day in Universal Time.
      * @param iflag Ephemeris flag (one of SEFLG_SWIEPH, SEFLG_JPLEPH, SEFLG_MOSEPH).
      * @param callback Optional callback called with the result.
      * @returns The ayanamsha for the given date or an error.
@@ -1718,6 +1718,73 @@ declare namespace swisseph {
     // #endregion House
 
     // #region Eclipse
+    /**
+     * Calculates the Gauquelin sector position of a planet.
+     * @param t_ut The Julian day in Universal Time.
+     * @param ipl The planet number, if planet, or moon. This value is ignored if the parameter "starname" is set.
+     * @param starname The star name, if star.
+     * @param iflag Flag for ephemeris and SEFLG_TOPOCTR.
+     * @param imeth The calculation method used. Possible values: 0 to 5.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height of the observer.
+     * @param atpress The atmospheric pressure. Only useful with imeth = 3.
+     * @param attemp The atmospheric temperature in degrees Celsius. Only useful with imeth = 3.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_gauquelin_sector(
+        t_ut: number,
+        ipl: number,
+        starname: string,
+        iflag: number,
+        imeth: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        atpress: number,
+        attemp: number,
+        callback?: ResultCallback<typeof swe_gauquelin_sector>
+    ):
+        | {
+              name: string;
+              gauquelinSector: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the geographic position where an eclipse is central or maximal.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_sol_eclipse_where(
+        tjd_ut: number,
+        ifl: number,
+        callback?: ResultCallback<typeof swe_sol_eclipse_where>
+    ):
+        | {
+              rflag: number;
+              longitude: number;
+              latitude: number;
+              solarDiameterFraction: number;
+              lonarToSolarDiameterRatio: number;
+              solarDiscFraction: number;
+              coreShadow: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonToSunAngularDistance: number;
+              eclipseMagnitude: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
     // #endregion Eclipse
 }
 

@@ -71,9 +71,9 @@ NAN_METHOD(node_swe_gauquelin_sector) {
 };
 
 /**
- * int32 swe_sol_eclipse_where(double tjd, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
+ * int32 swe_sol_eclipse_where(double tjd_ut, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
- * swe_sol_eclipse_where(double tjd, int32 ifl[, function callback (result)]) = {
+ * swe_sol_eclipse_where(double tjd_ut, int32 ifl[, function callback (result)]) = {
  *   rflag: long,
  *   longitude: double,                    // geopos [0]
  *   latitude: double,                     // geopos [1]

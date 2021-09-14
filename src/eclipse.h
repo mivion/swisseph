@@ -18,9 +18,9 @@ using namespace v8;
 NAN_METHOD(node_swe_gauquelin_sector);
 
 /**
- * int32 swe_sol_eclipse_where(double tjd, int32 ifl, double *geopos, double *attr, char *serr)
+ * int32 swe_sol_eclipse_where(double tjd_ut, int32 ifl, double *geopos, double *attr, char *serr)
  * =>
- * swe_sol_eclipse_where(double tjd, int32 ifl[, function callback (result)]) = {
+ * swe_sol_eclipse_where(double tjd_ut, int32 ifl[, function callback (result)]) = {
  *   rflag: long,
  *   longitude: double,                    // geopos [0]
  *   latitude: double,                     // geopos [1]
