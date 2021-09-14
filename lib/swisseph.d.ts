@@ -1615,6 +1615,106 @@ declare namespace swisseph {
         | {
               error: string;
           };
+
+    /**
+     * Calculates houses from a given ARMC (e.g. from a composite horoscope) when the date is not known.
+     * @param armc The Ascensio Recta Medii Coeli value.
+     * @param geolat The geographic latitude.
+     * @param eps The ecliptic obliquity, in degrees.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses_armc(
+        armc: number,
+        geolat: number,
+        eps: number,
+        hsys: string,
+        callback?: ResultCallback<typeof swe_houses_armc>
+    ):
+        | {
+              house: number[];
+              ascendant: number;
+              mc: number;
+              armc: number;
+              vertex: number;
+              equatorialAscendant: number;
+              kochCoAscendant: number;
+              munkaseyCoAscendant: number;
+              munkaseyPolarAscendant: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates houses from a given ARMC (e.g. from a composite horoscope) when the date is not known.
+     * This function also returns the speeds (daily motions) of the ascendant, midheaven and house cusps.
+     * @param armc The Ascensio Recta Medii Coeli value.
+     * @param geolat The geographic latitude.
+     * @param eps The ecliptic obliquity, in degrees.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses_armc_ex2(
+        armc: number,
+        geolat: number,
+        eps: number,
+        hsys: string,
+        callback?: ResultCallback<typeof swe_houses_armc_ex2>
+    ):
+        | {
+              house: number[];
+              ascendant: number;
+              mc: number;
+              armc: number;
+              vertex: number;
+              equatorialAscendant: number;
+              kochCoAscendant: number;
+              munkaseyCoAscendant: number;
+              munkaseyPolarAscendant: number;
+              houseSpeed: number[];
+              ascendantSpeed: number;
+              mcSpeed: number;
+              armcSpeed: number;
+              vertexSpeed: number;
+              equatorialAscendantSpeed: number;
+              kochCoAscendantSpeed: number;
+              munkaseyCoAscendantSpeed: number;
+              munkaseyPolarAscendantSpeed: number;
+          }
+        | {
+              error: string;
+              message: string;
+          };
+
+    /**
+     * Computes the house position of a given body for a given ARMC.
+     * @param armc The Ascensio Recta Medii Coeli value.
+     * @param geolat The geographic latitude.
+     * @param eps The ecliptic obliquity, in degrees.
+     * @param hsys A letter defining the house method used for the calculation.
+     * @param lon The ecliptic longitude of the planet, in degrees.
+     * @param lat The ecliptic latitude of the planet, in degrees.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_houses_pos(
+        armc: number,
+        geolat: number,
+        eps: number,
+        hsys: string,
+        lon: number,
+        lat: number,
+        callback?: ResultCallback<typeof swe_houses_pos>
+    ):
+        | {
+              housePosition: number;
+          }
+        | {
+              error: string;
+          };
     // #endregion House
 
     // #region Eclipse
