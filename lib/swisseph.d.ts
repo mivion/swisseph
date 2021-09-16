@@ -172,6 +172,32 @@ declare namespace swisseph {
     const SE_ACRONYCHAL_RISING = 5;
     const SE_ACRONYCHAL_SETTING = 6;
     const SE_COSMICAL_SETTING = 6;
+
+    // Used for eclipse computations
+    const SE_ECL_CENTRAL = 1;
+    const SE_ECL_NONCENTRAL = 2;
+    const SE_ECL_TOTAL = 4;
+    const SE_ECL_ANNULAR = 8;
+    const SE_ECL_PARTIAL = 16;
+    const SE_ECL_ANNULAR_TOTAL = 32;
+    const SE_ECL_PENUMBRAL = 64;
+    const SE_ECL_ALLTYPES_SOLAR = 63;
+    const SE_ECL_ALLTYPES_LUNAR = 84;
+    const SE_ECL_VISIBLE = 128;
+    const SE_ECL_MAX_VISIBLE = 256;
+    const SE_ECL_1ST_VISIBLE = 512;
+    const SE_ECL_PARTBEG_VISIBLE = 512;
+    const SE_ECL_2ND_VISIBLE = 1024;
+    const SE_ECL_TOTBEG_VISIBLE = 1024;
+    const SE_ECL_3RD_VISIBLE = 2048;
+    const SE_ECL_TOTEND_VISIBLE = 2048;
+    const SE_ECL_4TH_VISIBLE = 4096;
+    const SE_ECL_PARTEND_VISIBLE = 4096;
+    const SE_ECL_PENUMBBEG_VISIBLE = 8192;
+    const SE_ECL_PENUMBEND_VISIBLE = 16384;
+    const SE_ECL_OCC_BEG_DAYLIGHT = 8192;
+    const SE_ECL_OCC_END_DAYLIGHT = 16384;
+    const SE_ECL_ONE_TRY = 32768;
     // #endregion Constants
 
     /**
@@ -1781,6 +1807,236 @@ declare namespace swisseph {
               eclipseMagnitude: number;
               sarosNumber: number;
               sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the geographic position, where, for a given time, a central eclipse is central or
+     * where a non-central eclipse is maximal.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ipl The planet number.
+     * @param starname The star name. Must be null or "" if not a star.
+     * @param ifl The ephemeris flag.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_occult_where(
+        tjd_ut: number,
+        ipl: number,
+        starname: string,
+        ifl: number,
+        callback?: ResultCallback<typeof swe_lun_occult_where>
+    ):
+        | {
+              rflag: number;
+              longitude: number;
+              latitude: number;
+              solarDiameterFraction: number;
+              lonarToSolarDiameterRatio: number;
+              solarDiscFraction: number;
+              coreShadow: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonToSunAngularDistance: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the solar eclipse attributes for a given geographic position and time.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_sol_eclipse_how(
+        tjd_ut: number,
+        ifl: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        callback?: ResultCallback<typeof swe_sol_eclipse_how>
+    ):
+        | {
+              rflag: number;
+              solarDiameterFraction: number;
+              lonarToSolarDiameterRatio: number;
+              solarDiscFraction: number;
+              coreShadow: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonToSunAngularDistance: number;
+              eclipseMagnitude: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next solar eclipse for a given geographic position.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param backward 1 for backward search, 0 otherwise.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_sol_eclipse_when_loc(
+        tjd_start: number,
+        ifl: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        backward: 0 | 1,
+        callback?: ResultCallback<typeof swe_sol_eclipse_when_loc>
+    ):
+        | {
+              rflag: number;
+              maximum: number;
+              first: number;
+              second: number;
+              third: number;
+              forth: number;
+              solarDiameterFraction: number;
+              lonarToSolarDiameterRatio: number;
+              solarDiscFraction: number;
+              coreShadow: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonToSunAngularDistance: number;
+              eclipseMagnitude: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next occultation of a planet or star by the moon for a given location.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ipl The planet number of the occulted body.
+     * @param starname The name of the occulted star. Must be null or "" if a planetary occultation is calculated.
+     * @param ifl The ephemeris flag.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param backward 1 for backward search, 0 otherwise.
+     *                 Set flag SE_ECL_ONE_TRY to prevent infinite loops for impossible events.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_occult_when_loc(
+        tjd_start: number,
+        ipl: number,
+        starname: string,
+        ifl: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        backward: number,
+        callback?: ResultCallback<typeof swe_lun_occult_when_loc>
+    ):
+        | {
+              rflag: number;
+              name: string;
+              maximum: number;
+              first: number;
+              second: number;
+              third: number;
+              forth: number;
+              solarDiameterFraction: number;
+              lonarToSolarDiameterRatio: number;
+              solarDiscFraction: number;
+              coreShadow: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonToSunAngularDistance: number;
+              eclipseMagnitude: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next solar eclipse globally.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param ifltype Flags for the wanted eclipse type. (e.g. SE_ECL_TOTAL)
+     * @param backward 1 for backward search, 0 otherwise.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_sol_eclipse_when_glob(
+        tjd_start: number,
+        ifl: number,
+        ifltype: number,
+        backward: 0 | 1,
+        callback?: ResultCallback<typeof swe_sol_eclipse_when_glob>
+    ):
+        | {
+              rflag: number;
+              maximum: number;
+              noon: number;
+              begin: number;
+              end: number;
+              totalBegin: number;
+              totalEnd: number;
+              centerBegin: number;
+              centerEnd: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next occultation of a planet or star by the moon globally.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ipl The planet number of the occulted body.
+     * @param starname The name of the occulted star. Must be null or "" if a planetary occultation is calculated.
+     * @param ifl The ephemeris flag.
+     * @param ifltype Flags for the wanted eclipse type. (e.g. SE_ECL_TOTAL)
+     * @param backward 1 for backward search, 0 otherwise.
+     *                 Set flag SE_ECL_ONE_TRY to prevent infinite loops for impossible events.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_occult_when_glob(
+        tjd_start: number,
+        ipl: number,
+        starname: string,
+        ifl: number,
+        ifltype: number,
+        backward: number,
+        callback?: ResultCallback<typeof swe_lun_occult_when_glob>
+    ):
+        | {
+              rflag: number;
+              name: string;
+              maximum: number;
+              noon: number;
+              begin: number;
+              end: number;
+              totalBegin: number;
+              totalEnd: number;
+              centerBegin: number;
+              centerEnd: number;
           }
         | {
               error: string;

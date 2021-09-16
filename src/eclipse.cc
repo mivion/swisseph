@@ -142,9 +142,9 @@ NAN_METHOD(node_swe_sol_eclipse_where) {
 };
 
 /**
- * int32 swe_lun_occult_where(double tjd, int32 ipl, char *starname, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
+ * int32 swe_lun_occult_where(double tjd_ut, int32 ipl, char *starname, int32 ifl, double *geopos (out[10]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
- * swe_lun_occult_where(double tjd, int32 ipl, char *starname, int32 ifl[, function callback (result)]) = {
+ * swe_lun_occult_where(double tjd_ut, int32 ipl, char *starname, int32 ifl[, function callback (result)]) = {
  *   rflag: long,
  *   longitude: double,                    // geopos [0]
  *   latitude: double,                     // geopos [1]
@@ -214,9 +214,9 @@ NAN_METHOD(node_swe_lun_occult_where) {
 };
 
 /**
- * int32 swe_sol_eclipse_how(double tjd, int32 ifl, double *geopos (in[3]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
+ * int32 swe_sol_eclipse_how(double tjd_ut, int32 ifl, double *geopos (in[3]), double *attr (out[20]), char *serr (out[AS_MAXCH]))
  * =>
- * swe_sol_eclipse_how(double tjd, int32 ifl, double longitude, double latitude, double height[, function callback (result)]) = {
+ * swe_sol_eclipse_how(double tjd_ut, int32 ifl, double longitude, double latitude, double height[, function callback (result)]) = {
  *   rflag: long,
  *   solarDiameterFraction: double,        // attr [0]
  *   lonarToSolarDiameterRatio: double,    // attr [1]
