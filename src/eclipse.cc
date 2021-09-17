@@ -837,7 +837,8 @@ NAN_METHOD(node_swe_lun_eclipse_when_loc) {
 /**
  * int32 swe_pheno(double tjd, int32 ipl, int32 iflag, double *attr, char *serr (out[AS_MAXCH]))
  * =>
- * swe_pheno(double tjd, int32 ipl, int32 iflag) {
+ * swe_pheno(double tjd, int32 ipl, int32 iflag[, function callback (result)]) = {
+ *   rflag: number,
  *   phaseAngle: double,
  *   phase: double,
  *   elongation: double,
@@ -890,9 +891,10 @@ NAN_METHOD(node_swe_pheno) {
 };
 
 /**
- * int32 swe_pheno_ut(double tjd, int32 ipl, int32 iflag, double *attr, char *serr (out[AS_MAXCH]))
+ * int32 swe_pheno_ut(double tjd_ut, int32 ipl, int32 iflag, double *attr, char *serr (out[AS_MAXCH]))
  * =>
- * swe_pheno_ut(double tjd, int32 ipl, int32 iflag) {
+ * swe_pheno_ut(double tjd_ut, int32 ipl, int32 iflag[, function callback (result)]) = {
+ *   rflag: number,
  *   phaseAngle: double,
  *   phase: double,
  *   elongation: double,

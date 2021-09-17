@@ -198,6 +198,10 @@ declare namespace swisseph {
     const SE_ECL_OCC_BEG_DAYLIGHT = 8192;
     const SE_ECL_OCC_END_DAYLIGHT = 16384;
     const SE_ECL_ONE_TRY = 32768;
+
+    // Used for "swe_refrac" function
+    const SE_TRUE_TO_APP = 0;
+    const SE_APP_TO_TRUE = 1;
     // #endregion Constants
 
     /**
@@ -2041,6 +2045,220 @@ declare namespace swisseph {
         | {
               error: string;
           };
+
+    /**
+     * Computes the attributes of a lunar eclipse for a given time.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_eclipse_how(
+        tjd_ut: number,
+        ifl: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        callback?: ResultCallback<typeof swe_lun_eclipse_how>
+    ):
+        | {
+              rflag: number;
+              umbralMagnitude: number;
+              penumbralMagnitude: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              oppositeDegreeDistance: number;
+              magnitude: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next lunar eclipse globally.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param ifltype Flags for the wanted eclipse type. (e.g. SE_ECL_TOTAL)
+     * @param backward 1 for backward search, 0 otherwise.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_eclipse_when(
+        tjd_start: number,
+        ifl: number,
+        ifltype: number,
+        backward: 0 | 1,
+        callback?: ResultCallback<typeof swe_lun_eclipse_when>
+    ):
+        | {
+              rflag: number;
+              maximum: number;
+              partialBegin: number;
+              partialEnd: number;
+              totalBegin: number;
+              totalEnd: number;
+              penumbralBegin: number;
+              penumbralEnd: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Calculates the next lunar eclipse observable from a given location.
+     * @param tjd_start The start date to search from. A Julian day in Universal Time.
+     * @param ifl The ephemeris flag.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param backward 1 for backward search, 0 otherwise.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_lun_eclipse_when_loc(
+        tjd_start: number,
+        ifl: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        backward: 0 | 1,
+        callback?: ResultCallback<typeof swe_lun_eclipse_when_loc>
+    ):
+        | {
+              rflag: number;
+              maximum: number;
+              partialBegin: number;
+              partialEnd: number;
+              totalBegin: number;
+              totalEnd: number;
+              penumbralBegin: number;
+              penumbralEnd: number;
+              moonRise: number;
+              moonSet: number;
+              umbralMagnitude: number;
+              penumbralMagnitude: number;
+              azimuth: number;
+              trueAltitude: number;
+              apparentAltitude: number;
+              moonDistanceFromOpposition: number;
+              sarosNumber: number;
+              sarosMember: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes data for planetary phenomena at a specified Terrestrial Time.
+     * @param tjd The Julian day in Terrestrial Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_pheno(
+        tjd: number,
+        ipl: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_pheno>
+    ):
+        | {
+              rflag: number;
+              phaseAngle: number;
+              phase: number;
+              elongation: number;
+              apparentDiameter: number;
+              apparentMagnitude: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes data for planetary phenomena at a specified Universal Time.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param ipl The body number.
+     * @param iflag A 32 bit integer containing bit flags that indicate what kind of computation is wanted.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_pheno_ut(
+        tjd_ut: number,
+        ipl: number,
+        iflag: number,
+        callback?: ResultCallback<typeof swe_pheno_ut>
+    ):
+        | {
+              rflag: number;
+              phaseAngle: number;
+              phase: number;
+              elongation: number;
+              apparentDiameter: number;
+              apparentMagnitude: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Converts true to apparent altitude and vice versa.
+     * @param inalt The altitude value to convert.
+     * @param atpress The atmospheric pressure in mbar (hPa).
+     * @param attemp The atmospheric temperature in degrees Celsius.
+     * @param calc_flag Either SE_TRUE_TO_APP or SE_APP_TO_TRUE.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation.
+     */
+    function swe_refrac(
+        inalt: number,
+        atpress: number,
+        attemp: number,
+        calc_flag: typeof SE_TRUE_TO_APP | typeof SE_APP_TO_TRUE,
+        callback?: ResultCallback<typeof swe_refrac>
+    ): {
+        refraction: number;
+    };
+
+    /**
+     * Converts true to apparent altitude and vice versa, supporting negative apparent heights.
+     * @param inalt The altitude of object above geometric horizon in degrees,
+     *              where geometric horizon = plane perpendicular to gravity.
+     * @param geoalt The altitude of observer above sea level in meters.
+     * @param atpress The atmospheric pressure in mbar (hPa).
+     * @param attemp The atmospheric temperature in degrees Celsius.
+     * @param lapse_rate The (dattemp/dgeoalt) value in °K/m.
+     * @param calc_flag Either SE_TRUE_TO_APP or SE_APP_TO_TRUE.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation.
+     */
+    function swe_refrac_extended(
+        inalt: number,
+        geoalt: number,
+        atpress: number,
+        attemp: number,
+        lapse_rate: number,
+        calc_flag: typeof SE_TRUE_TO_APP | typeof SE_APP_TO_TRUE,
+        callback?: ResultCallback<typeof swe_refrac_extended>
+    ): {
+        refraction: number;
+        trueAltitude: number;
+        apparentAltitude: number;
+        horizonDip: number;
+    };
+
+    /**
+     * Sets the lapse rate value.
+     * @param lapse_rate The new lapse rate value.
+     * @param callback Optional callback called with an empty object.
+     * @returns An empty object.
+     */
+    function swe_set_lapse_rate(lapse_rate: number, callback?: ResultCallback<typeof swe_set_lapse_rate>): {};
     // #endregion Eclipse
 }
 
