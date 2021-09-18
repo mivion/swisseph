@@ -1,11 +1,51 @@
 declare namespace swisseph {
     // #region Constants
+    const SE_AUNIT_TO_KM = 149597870.7;
+    const SE_AUNIT_TO_LIGHTYEAR = 1.5812507409819728411242766893179e-5; // = 1.0 / 63241.07708427
+    const SE_AUNIT_TO_PARSEC = 4.8481368110952742659276431719005e-6; // = 1.0 / 206264.8062471
+
+    const SE_MAX_STNAME = 256;
+
+    const SE_SIDBITS = 256;
+    const SE_SIDBIT_ECL_T0 = 256;
+    const SE_SIDBIT_SSY_PLANE = 512;
+    const SE_SIDBIT_USER_UT = 1024;
+
+    const SE_BIT_DISC_CENTER = 256;
+    const SE_BIT_DISC_BOTTOM = 8192;
+    const SE_BIT_GEOCTR_NO_ECL_LAT = 128;
+    const SE_BIT_NO_REFRACTION = 512;
+    const SE_BIT_CIVIL_TWILIGHT = 1024;
+    const SE_BIT_NAUTIC_TWILIGHT = 2048;
+    const SE_BIT_ASTRO_TWILIGHT = 4096;
+    const SE_BIT_FIXED_DISC_SIZE = 16384; // = 16 * 1024
+
+    const TJD_INVALID = 99999999.0;
+    const SIMULATE_VICTORVB = 1;
+
+    const SE_PHOTOPIC_FLAG = 0;
+    const SE_SCOTOPIC_FLAG = 1;
+    const SE_MIXEDOPIC_FLAG = 2;
+
+    const ephemeris: {
+        swisseph: 2; // = SEFLG_SWIEPH
+        moshier: 4; // = SEFLG_MOSEPH
+        de200: "de200.eph";
+        de405: "de405.eph";
+        de406: "de406.eph";
+        de406e: "de406e.eph";
+        de414: "de414.eph";
+        de421: "de421.eph";
+        de422: "de422.eph";
+        de430: "de430.eph";
+        de431: "de431.eph";
+    };
+
     // Calendar types
     const SE_JUL_CAL = 0;
     const SE_GREG_CAL = 1;
 
     // Planet numbers
-    const SE_ECL_NUT = -1;
     const SE_SUN = 0;
     const SE_MOON = 1;
     const SE_MERCURY = 2;
@@ -36,11 +76,13 @@ declare namespace swisseph {
 
     const SE_NPLANETS = 23;
     const SE_AST_OFFSET = 10000;
+    const SE_VARUNA = 30000; // = SE_AST_OFFSET + 20000
     const SE_FICT_OFFSET = 40;
     const SE_FICT_OFFSET_1 = 39;
     const SE_FICT_MAX = 999;
     const SE_NFICT_ELEM = 15;
     const SE_COMET_OFFSET = 1000;
+    const SE_NALL_NAT_POINTS = 38; // = SE_NPLANETS + SE_NFICT_ELEM
 
     // Hamburger or Uranian "planets"
     const SE_CUPIDO = 40;
@@ -88,27 +130,19 @@ declare namespace swisseph {
     const SEFLG_SPEED = 256;
     const SEFLG_NOGDEFL = 512;
     const SEFLG_NOABERR = 1024;
-    const SEFLG_ASTROMETRIC = 1536;
-    const SEFLG_EQUATORIAL = 2048;
-    const SEFLG_XYZ = 4096;
-    const SEFLG_RADIANS = 8192;
-    const SEFLG_BARYCTR = 16384;
-    const SEFLG_TOPOCTR = 32768;
-    const SEFLG_ORBEL_AA = 32768;
-    const SEFLG_SIDEREAL = 65536;
-    const SEFLG_ICRS = 131072;
-    const SEFLG_DPSIDEPS_1980 = 262144;
-    const SEFLG_JPLHOR = 262144;
-    const SEFLG_JPLHOR_APPROX = 524288;
-
-    // Rounding flags for "swe_split_deg" function
-    const SE_SPLIT_DEG_ROUND_SEC = 1;
-    const SE_SPLIT_DEG_ROUND_MIN = 2;
-    const SE_SPLIT_DEG_ROUND_DEG = 4;
-    const SE_SPLIT_DEG_ZODIACAL = 8;
-    const SE_SPLIT_DEG_KEEP_SIGN = 16;
-    const SE_SPLIT_DEG_KEEP_DEG: 32;
-    const SE_SPLIT_DEG_NAKSHATRA = 1024;
+    const SEFLG_ASTROMETRIC = 1536; // = SEFLG_NOABERR | SEFLG_NOGDEFL
+    const SEFLG_EQUATORIAL = 2048; // = 2  *1024
+    const SEFLG_XYZ = 4096; // = 4 * 1024
+    const SEFLG_RADIANS = 8192; // = 8 * 1024
+    const SEFLG_BARYCTR = 16384; // = 16 * 1024
+    const SEFLG_TOPOCTR = 32768; // = 32 * 1024
+    const SEFLG_ORBEL_AA = 32768; // = SEFLG_TOPOCTR
+    const SEFLG_SIDEREAL = 65536; // = 64 * 1024
+    const SEFLG_ICRS = 131072; // = 128 * 1024
+    const SEFLG_DPSIDEPS_1980 = 262144; // = 256*1024
+    const SEFLG_JPLHOR = 262144; // = SEFLG_DPSIDEPS_1980
+    const SEFLG_JPLHOR_APPROX = 524288; // = 512*1024
+    const SEFLG_DEFAULTEPH = 2; // = SEFLG_SWIEPH
 
     // Sidereal modes
     const SE_SIDM_FAGAN_BRADLEY = 0;
@@ -155,6 +189,7 @@ declare namespace swisseph {
     const SE_SIDM_GALEQU_FIORENZA = 41;
     const SE_SIDM_VALENS_MOON = 42;
     const SE_SIDM_USER = 255;
+    const SE_NSIDM_PREDEF = 43;
 
     // Used for "swe_nod_aps" function
     const SE_NODBIT_MEAN = 1;
@@ -162,18 +197,8 @@ declare namespace swisseph {
     const SE_NODBIT_OSCU_BAR = 4;
     const SE_NODBIT_FOPOINT = 256;
 
-    // Used for heliacal functions
-    const SE_HELIACAL_RISING = 1;
-    const SE_HELIACAL_SETTING = 2;
-    const SE_MORNING_FIRST = 1;
-    const SE_EVENING_LAST = 2;
-    const SE_EVENING_FIRST = 3;
-    const SE_MORNING_LAST = 4;
-    const SE_ACRONYCHAL_RISING = 5;
-    const SE_ACRONYCHAL_SETTING = 6;
-    const SE_COSMICAL_SETTING = 6;
-
     // Used for eclipse computations
+    const SE_ECL_NUT = -1;
     const SE_ECL_CENTRAL = 1;
     const SE_ECL_NONCENTRAL = 2;
     const SE_ECL_TOTAL = 4;
@@ -181,8 +206,8 @@ declare namespace swisseph {
     const SE_ECL_PARTIAL = 16;
     const SE_ECL_ANNULAR_TOTAL = 32;
     const SE_ECL_PENUMBRAL = 64;
-    const SE_ECL_ALLTYPES_SOLAR = 63;
-    const SE_ECL_ALLTYPES_LUNAR = 84;
+    const SE_ECL_ALLTYPES_SOLAR = 63; // = SE_ECL_CENTRAL | SE_ECL_NONCENTRAL | SE_ECL_TOTAL | SE_ECL_ANNULAR | SE_ECL_PARTIAL | SE_ECL_ANNULAR_TOTAL
+    const SE_ECL_ALLTYPES_LUNAR = 84; // = SE_ECL_TOTAL | SE_ECL_PARTIAL | SE_ECL_PENUMBRAL
     const SE_ECL_VISIBLE = 128;
     const SE_ECL_MAX_VISIBLE = 256;
     const SE_ECL_1ST_VISIBLE = 512;
@@ -197,17 +222,57 @@ declare namespace swisseph {
     const SE_ECL_PENUMBEND_VISIBLE = 16384;
     const SE_ECL_OCC_BEG_DAYLIGHT = 8192;
     const SE_ECL_OCC_END_DAYLIGHT = 16384;
-    const SE_ECL_ONE_TRY = 32768;
+    const SE_ECL_ONE_TRY = 32768; // = 32 * 1024
 
-    // Used for "swe_refrac" function
-    const SE_TRUE_TO_APP = 0;
-    const SE_APP_TO_TRUE = 1;
+    // Used for "swe_rise_transit"
+    const SE_CALC_RISE = 1;
+    const SE_CALC_SET = 2;
+    const SE_CALC_MTRANSIT = 4;
+    const SE_CALC_ITRANSIT = 8;
 
     // Used for "swe_azalt" and "swe_azalt_rev" functions
     const SE_ECL2HOR = 0;
     const SE_EQU2HOR = 1;
     const SE_HOR2ECL = 0;
     const SE_HOR2EQU = 1;
+
+    // Used for "swe_refrac" function
+    const SE_TRUE_TO_APP = 0;
+    const SE_APP_TO_TRUE = 1;
+
+    // Rounding flags for "swe_split_deg" function
+    const SE_SPLIT_DEG_ROUND_SEC = 1;
+    const SE_SPLIT_DEG_ROUND_MIN = 2;
+    const SE_SPLIT_DEG_ROUND_DEG = 4;
+    const SE_SPLIT_DEG_ZODIACAL = 8;
+    const SE_SPLIT_DEG_KEEP_SIGN = 16;
+    const SE_SPLIT_DEG_KEEP_DEG: 32;
+    const SE_SPLIT_DEG_NAKSHATRA = 1024;
+
+    // Used for heliacal functions
+    const SE_HELIACAL_RISING = 1;
+    const SE_HELIACAL_SETTING = 2;
+    const SE_MORNING_FIRST = 1; // = SE_HELIACAL_RISING
+    const SE_EVENING_LAST = 2; // = SE_HELIACAL_SETTING
+    const SE_EVENING_FIRST = 3;
+    const SE_MORNING_LAST = 4;
+    const SE_ACRONYCHAL_RISING = 5;
+    const SE_ACRONYCHAL_SETTING = 6;
+    const SE_COSMICAL_SETTING = 6; // = SE_ACRONYCHAL_SETTING
+
+    const SE_HELFLAG_LONG_SEARCH = 128;
+    const SE_HELFLAG_HIGH_PRECISION = 256;
+    const SE_HELFLAG_OPTICAL_PARAMS = 512;
+    const SE_HELFLAG_NO_DETAILS = 1024;
+    const SE_HELFLAG_SEARCH_1_PERIOD = 2048; // = 1 << 11
+    const SE_HELFLAG_VISLIM_DARK = 4096; // = 1 << 12
+    const SE_HELFLAG_VISLIM_NOMOON = 8192; // = 1 << 13
+    const SE_HELFLAG_VISLIM_PHOTOPIC = 16384; // = 1 << 14
+    const SE_HELFLAG_AVKIND_VR = 32768; // = 1 << 15
+    const SE_HELFLAG_AVKIND_PTO = 65536; // = 1 << 16
+    const SE_HELFLAG_AVKIND_MIN7 = 131072; // = 1 << 17
+    const SE_HELFLAG_AVKIND_MIN9 = 262144; // = 1 << 18
+    const SE_HELFLAG_AVKIND = 491520; // = SE_HELFLAG_AVKIND_VR | SE_HELFLAG_AVKIND_PTO | SE_HELFLAG_AVKIND_MIN7 | SE_HELFLAG_AVKIND_MIN9
     // #endregion Constants
 
     /**
@@ -2401,6 +2466,83 @@ declare namespace swisseph {
               error: string;
           };
     // #endregion Eclipse
+
+    /** Type for input data of the "calc" function. */
+    type CalcInputOptions = {
+        date: {
+            gregorian?: {
+                terrestrial?: { year: number; month: number; day: number; hour: number };
+                universal?: { year: number; month: number; day: number; hour: number };
+                delta?: number;
+            };
+            julian?: {
+                terrestrial?: number;
+                universal?: number;
+                delta?: number;
+            };
+        };
+        body: {
+            id: number;
+            name?: string;
+            position: {
+                longitude: number;
+                latitude: number;
+            };
+        };
+        observer: {
+            ephemeris?: string;
+            geographic: {
+                longitude: number;
+                latitude: number;
+                height: number;
+            };
+        };
+    };
+
+    /** Type for output data of the "calc" function. */
+    type CalcOutputOptions = {
+        date: {
+            gregorian: {
+                terrestrial: { year: number; month: number; day: number; hour: number };
+                universal: { year: number; month: number; day: number; hour: number };
+                delta: number;
+            };
+            julian: {
+                terrestrial: number;
+                delta: number;
+                universal: number;
+            };
+        };
+        body: {
+            id: number;
+            name: string;
+            position: {
+                longitude: { decimalDegree: number };
+                latitude: { decimalDegree: number };
+                distance: number;
+                longitudeSpeed: number;
+                latitudeSpeed: number;
+                distanceSpeed: number;
+                rflag: number;
+            };
+        };
+        observer: {
+            ephemeris: string;
+            geographic: {
+                longitude: number;
+                latitude: number;
+                height: number;
+            };
+        };
+    };
+
+    /**
+     * Extends missing data in a data object that can be used for further calculations.
+     * @param options The data object to extend.
+     * @param callback Optional callback called with the extended data object.
+     * @returns The extended data object.
+     */
+    function calc(options: CalcInputOptions, callback?: (options: CalcOutputOptions) => void): CalcOutputOptions;
 }
 
 export = swisseph;
