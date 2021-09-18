@@ -202,6 +202,12 @@ declare namespace swisseph {
     // Used for "swe_refrac" function
     const SE_TRUE_TO_APP = 0;
     const SE_APP_TO_TRUE = 1;
+
+    // Used for "swe_azalt" and "swe_azalt_rev" functions
+    const SE_ECL2HOR = 0;
+    const SE_EQU2HOR = 1;
+    const SE_HOR2ECL = 0;
+    const SE_HOR2EQU = 1;
     // #endregion Constants
 
     /**
@@ -2259,6 +2265,141 @@ declare namespace swisseph {
      * @returns An empty object.
      */
     function swe_set_lapse_rate(lapse_rate: number, callback?: ResultCallback<typeof swe_set_lapse_rate>): {};
+
+    /**
+     * Computes the horizontal coordinates (azimuth and altitude) of a planet or
+     * a star from either ecliptical or equatorial coordinates.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param calc_flag Either SE_ECL2HOR or SE_EQU2HOR.
+     * @param longitude The geographic longitude.
+     * @param latitude The geographic latitude.
+     * @param height The height above sea.
+     * @param atpress The atmospheric pressure in mbar (hPa).
+     * @param attemp The atmospheric temperature in degrees Celsius.
+     * @param bodyX X coordinate of body in either ecliptical or equatorial coordinates, depending on calc_flag.
+     * @param bodyY Y coordinate of body in either ecliptical or equatorial coordinates, depending on calc_flag.
+     * @param bodyZ Z coordinate of body in either ecliptical or equatorial coordinates, depending on calc_flag.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation.
+     */
+    function swe_azalt(
+        tjd_ut: number,
+        calc_flag: typeof SE_ECL2HOR | typeof SE_EQU2HOR,
+        longitude: number,
+        latitude: number,
+        height: number,
+        atpress: number,
+        attemp: number,
+        bodyX: number,
+        bodyY: number,
+        bodyZ: number,
+        callback?: ResultCallback<typeof swe_azalt>
+    ): {
+        azimuth: number;
+        trueAltitude: number;
+        apparentAltitude: number;
+    };
+
+    /**
+     * Computes either ecliptical or equatorial coordinates from azimuth and true altitude.
+     * @param tjd_ut The Julian day in Universal Time.
+     * @param calc_flag Either SE_HOR2ECL or SE_HOR2EQU.
+     * @param longitude The geographic longitude of the observer.
+     * @param latitude The geographic latitude of the observer.
+     * @param height The height of the observer.
+     * @param bodyAzimuth The azimuth of the planet.
+     * @param bodyTrueAltitude The true altitude of the planet.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation.
+     */
+    function swe_azalt_rev(
+        tjd_ut: number,
+        calc_flag: typeof SE_HOR2ECL | typeof SE_HOR2EQU,
+        longitude: number,
+        latitude: number,
+        height: number,
+        bodyAzimuth: number,
+        bodyTrueAltitude: number,
+        callback?: ResultCallback<typeof swe_azalt_rev>
+    ): {
+        azimuth: number;
+        trueAltitude: number;
+    };
+
+    /**
+     * Computes the times of rising, setting and meridian transits for planets, asteroids, the moon and the fixed stars.
+     * @param tjd_ut Search after this Universal Time.
+     * @param ipl The planet number, if planet or moon.
+     * @param starname The name of the star. Must be null or "" if ipl is used.
+     * @param epheflag The ephemeris flag.
+     * @param rsmi Integer specifying that rise, set, or one of the two meridian transits is wanted.
+     * @param longitude The geographic longitudeof the observer.
+     * @param latitude The geographic latitudeof the observer.
+     * @param height The height of the observer.
+     * @param atpress The atmospheric pressure in mbar (hPa).
+     * @param attemp The atmospheric temperature in degrees Celsius.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_rise_trans(
+        tjd_ut: number,
+        ipl: number,
+        starname: string,
+        epheflag: number,
+        rsmi: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        atpress: number,
+        attemp: number,
+        callback?: ResultCallback<typeof swe_rise_trans>
+    ):
+        | {
+              name: string;
+              transitTime: number;
+          }
+        | {
+              error: string;
+          };
+
+    /**
+     * Computes the times of rising, setting and meridian transits for planets, asteroids, the moon and the fixed stars
+     * relative to the true horizon.
+     * @param tjd_ut Search after this Universal Time.
+     * @param ipl The planet number, if planet or moon.
+     * @param starname The name of the star. Must be null or "" if ipl is used.
+     * @param epheflag The ephemeris flag.
+     * @param rsmi Integer specifying that rise, set, or one of the two meridian transits is wanted.
+     * @param longitude The geographic longitudeof the observer.
+     * @param latitude The geographic latitudeof the observer.
+     * @param height The height of the observer.
+     * @param atpress The atmospheric pressure in mbar (hPa).
+     * @param horhgt Height of local horizon in deg at the point where the body rises or sets.
+     * @param attemp The atmospheric temperature in degrees Celsius.
+     * @param callback Optional callback called with the result.
+     * @returns The result of the computation or an error.
+     */
+    function swe_rise_trans_true_hor(
+        tjd_ut: number,
+        ipl: number,
+        starname: string,
+        epheflag: number,
+        rsmi: number,
+        longitude: number,
+        latitude: number,
+        height: number,
+        atpress: number,
+        horhgt: number,
+        attemp: number,
+        callback?: ResultCallback<typeof swe_rise_trans_true_hor>
+    ):
+        | {
+              name: string;
+              transitTime: number;
+          }
+        | {
+              error: string;
+          };
     // #endregion Eclipse
 }
 
