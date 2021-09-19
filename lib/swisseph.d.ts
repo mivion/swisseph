@@ -417,7 +417,7 @@ declare namespace swisseph {
      * @param callback Optional callback called with the result.
      * @returns The result of the computation.
      */
-    function swe_deg_midp(x1: number, x0: number, callback?: ResultCallback<typeof swe_rad_midp>): { xMid360: number };
+    function swe_deg_midp(x1: number, x0: number, callback?: ResultCallback<typeof swe_deg_midp>): { xMid360: number };
 
     /**
      * Split degrees to sign/nakshatra, degrees, minutes, seconds of arc.
@@ -1060,20 +1060,26 @@ declare namespace swisseph {
 
     /**
      * Releases most resources used by the Swiss Ephemeris library.
+     * @param callback Optional callback called with undefined as parameter.
+     * @returns Always undefined.
      */
-    function swe_close(): void;
+    function swe_close(callback?: ResultCallback<typeof swe_close>): undefined;
 
     /**
      * Sets application's own ephemeris path.
      * @param path Path to ephemeris data files.
+     * @param callback Optional callback called with the path as a String object.
+     * @returns The path as a String object.
      */
-    function swe_set_ephe_path(path: string): void;
+    function swe_set_ephe_path(path: string, callback?: ResultCallback<typeof swe_set_ephe_path>): String;
 
     /**
      * Sets the name of the JPL ephemeris file.
      * @param fname JPL ephemeris filename.
+     * @param callback Optional callback called with the filename as a String object.
+     * @returns The filename as a String object.
      */
-    function swe_set_jpl_file(fname: string): void;
+    function swe_set_jpl_file(fname: string, callback?: ResultCallback<typeof swe_set_jpl_file>): String;
 
     /**
      * Returns the planetary or asteroid name for a given planet number.
@@ -1093,16 +1099,30 @@ declare namespace swisseph {
      * @param geolon Geographic longitude in degress.
      * @param geolat Geographic latitude in degress.
      * @param geoalt Altitude above sea in meters.
+     * @param callback Optional callback called with undefined as parameter.
+     * @returns Always undefined.
      */
-    function swe_set_topo(geolon: number, geolat: number, geoalt: number): void;
+    function swe_set_topo(
+        geolon: number,
+        geolat: number,
+        geoalt: number,
+        callback?: ResultCallback<typeof swe_set_topo>
+    ): undefined;
 
     /**
      * Sets the mode for sidereal computations.
      * @param sid_mode The sidereal mode to set.
      * @param t0 Reference epoch.
      * @param ayan_t0 Initial ayanamsha at t0.
+     * @param callback Optional callback called with undefined as parameter.
+     * @returns Always undefined.
      */
-    function swe_set_sid_mode(sid_mode: number, t0: number, ayan_t0: number): void;
+    function swe_set_sid_mode(
+        sid_mode: number,
+        t0: number,
+        ayan_t0: number,
+        callback?: ResultCallback<typeof swe_set_sid_mode>
+    ): undefined;
 
     /**
      * Returns the ayanamsha for a date in Ephemeris Time.
