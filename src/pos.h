@@ -137,28 +137,28 @@ NAN_METHOD(node_swe_fixstar2_mag);
 /**
  * void swe_close(void);
  * =>
- * swe_close()
+ * swe_close([function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_close);
 
 /**
  * void swe_set_ephe_path(char *path)
  * =>
- * swe_set_ephe_path(string path)
+ * swe_set_ephe_path(string path[, function callback (path)]) = String
  */
 NAN_METHOD(node_swe_set_ephe_path);
 
 /**
  * void swe_set_jpl_file(char *fname)
  * =>
- * swe_set_jpl_file(string fname)
+ * swe_set_jpl_file(string fname[, function callback (fname)]) = String
  */
 NAN_METHOD(node_swe_set_jpl_file);
 
 /**
  * char * swe_get_planet_name(int ipl, char *spname)
  * =>
- * swe_get_planet_name(int ipl) {
+ * swe_get_planet_name(int ipl) = {
  *   name: string
  * }
  */
@@ -167,35 +167,35 @@ NAN_METHOD(node_swe_get_planet_name);
 /**
  * void swe_set_topo(double geolon, double geolat, double geoalt)
  * =>
- * swe_set_topo(double geolon, double geolat, double geoalt)
+ * swe_set_topo(double geolon, double geolat[, function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_set_topo);
 
 /**
  * void swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
  * =>
- * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
+ * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0[, function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_set_sid_mode);
 
 /**
  * double swe_get_ayanamsa(double tjd_et)
  * =>
- * double swe_get_ayanamsa(double tjd_et)
+ * swe_get_ayanamsa(double tjd_et[, function callback (result)]) = double
  */
 NAN_METHOD(node_swe_get_ayanamsa);
 
 /**
  * double swe_get_ayanamsa_ut(double tjd_ut)
  * =>
- * double swe_get_ayanamsa_ut(double tjd_ut)
+ * swe_get_ayanamsa_ut(double tjd_ut[, function callback (result)]) = double
  */
 NAN_METHOD(node_swe_get_ayanamsa_ut);
 
 /**
  * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
- * swe_get_ayanamsa_ex(double tjd_et, int32 iflag, function callback (result)]) = {
+ * swe_get_ayanamsa_ex(double tjd_et, int32 iflag[, function callback (result)]) = {
  *   ayanamsa: double,
  *   error: string
  * }
@@ -205,7 +205,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ex);
 /**
  * int32 swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, double *daya, char *serr);
  * =>
- * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, function callback (result)]) = {
+ * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag[, function callback (result)]) = {
  *   ayanamsa: double,
  *   error: string
  * }
@@ -215,7 +215,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut);
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)
  * =>
- * string swe_get_ayanamsa_name(int32 isidmode)
+ * swe_get_ayanamsa_name(int32 isidmode[, function callback (result)]) = string
  */
 NAN_METHOD(node_swe_get_ayanamsa_name);
 
