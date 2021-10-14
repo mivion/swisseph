@@ -256,9 +256,9 @@ NAN_METHOD(node_swe_fixstar) {
 };
 
 /**
- * int32 swe_fixstar_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * int32 swe_fixstar_ut(char *star, double tjd_ut, int32 iflag, double *xx, char *serr)
  * =>
- * swe_fixstar_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ * swe_fixstar_ut(string star, double tjd_ut, int32 iflag[, function callback (result)]) = {
  *   name: string,
  *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
@@ -470,9 +470,9 @@ NAN_METHOD(node_swe_fixstar2) {
 };
 
 /**
- * int32 swe_fixstar2_ut(char *star, double tjd, int32 iflag, double *xx, char *serr)
+ * int32 swe_fixstar2_ut(char *star, double tjd_ut, int32 iflag, double *xx, char *serr)
  * =>
- * swe_fixstar2_ut(string star, double tjd, int32 iflag[, function callback (result)]) = {
+ * swe_fixstar2_ut(string star, double tjd_ut, int32 iflag[, function callback (result)]) = {
  *   name: string,
  *   longitude:      | rectAscension:      | x:  double,
  *   latitude:       | declination:        | y:  double,
@@ -603,7 +603,7 @@ NAN_METHOD(node_swe_fixstar2_mag) {
 /**
  * void swe_close(void);
  * =>
- * swe_close()
+ * swe_close([function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_close) {
 	Nan::HandleScope scope;
@@ -617,7 +617,7 @@ NAN_METHOD(node_swe_close) {
 /**
  * void swe_set_ephe_path(char *path)
  * =>
- * void swe_set_ephe_path(string path)
+ * swe_set_ephe_path(string path[, function callback (path)]) = String
  */
 NAN_METHOD(node_swe_set_ephe_path) {
 	Nan::HandleScope scope;
@@ -649,7 +649,7 @@ NAN_METHOD(node_swe_set_ephe_path) {
 /**
  * void swe_set_jpl_file(char *fname)
  * =>
- * void swe_set_jpl_file(string fname)
+ * swe_set_jpl_file(string fname[, function callback (fname)]) = String
  */
 NAN_METHOD(node_swe_set_jpl_file) {
 	Nan::HandleScope scope;
@@ -681,7 +681,7 @@ NAN_METHOD(node_swe_set_jpl_file) {
 /**
  * char swe_get_planet_name(int ipl, char *spname)
  * =>
- * swe_get_planet_name(int ipl) {
+ * swe_get_planet_name(int ipl) = {
  *   name: string
  * }
  */
@@ -713,7 +713,7 @@ NAN_METHOD(node_swe_get_planet_name) {
 /**
  * ext_def (void) swe_set_topo(double geolon, double geolat, double geoalt)
  * =>
- * void swe_set_topo(double geolon, double geolat, double geoalt)
+ * swe_set_topo(double geolon, double geolat[, function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_set_topo) {
 	Nan::HandleScope scope;
@@ -743,7 +743,7 @@ NAN_METHOD(node_swe_set_topo) {
 /**
  * void swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
  * =>
- * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0)
+ * swe_set_sid_mode(int32 sid_mode, double t0, double ayan_t0[, function callback (undefined)]) = undefined
  */
 NAN_METHOD(node_swe_set_sid_mode) {
 	Nan::HandleScope scope;
@@ -773,7 +773,7 @@ NAN_METHOD(node_swe_set_sid_mode) {
 /**
  * double swe_get_ayanamsa(double tjd_et)
  * =>
- * double swe_get_ayanamsa(double tjd_et)
+ * swe_get_ayanamsa(double tjd_et[, function callback (result)]) = double
  */
 NAN_METHOD(node_swe_get_ayanamsa) {
 	Nan::HandleScope scope;
@@ -803,7 +803,7 @@ NAN_METHOD(node_swe_get_ayanamsa) {
 /**
  * double swe_get_ayanamsa_ut(double tjd_ut)
  * =>
- * double swe_get_ayanamsa_ut(double tjd_ut)
+ * swe_get_ayanamsa_ut(double tjd_ut[, function callback (result)]) = double
  */
 NAN_METHOD(node_swe_get_ayanamsa_ut) {
 	Nan::HandleScope scope;
@@ -833,8 +833,8 @@ NAN_METHOD(node_swe_get_ayanamsa_ut) {
 /**
  * int32 swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *daya, char *serr);
  * =>
- * swe_get_ayanamsa_ex(double tjd_et, int32 iflag, function callback (result)]) = {
- *   ayanamsa: string,
+ * swe_get_ayanamsa_ex(double tjd_et, int32 iflag[, function callback (result)]) = {
+ *   ayanamsa: double,
  *   error: string
  * }
  */
@@ -877,8 +877,8 @@ NAN_METHOD(node_swe_get_ayanamsa_ex) {
 /**
  * int32 swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, double *daya, char *serr);
  * =>
- * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag, function callback (result)]) = {
- *   ayanamsa: string,
+ * swe_get_ayanamsa_ex_ut(double tjd_ut, int32 iflag[, function callback (result)]) = {
+ *   ayanamsa: double,
  *   error: string
  * }
  */
@@ -922,7 +922,7 @@ NAN_METHOD(node_swe_get_ayanamsa_ex_ut) {
 /**
  * char * swe_get_ayanamsa_name(int32 isidmode)
  * =>
- * string swe_get_ayanamsa_name(int32 isidmode)
+ * swe_get_ayanamsa_name(int32 isidmode[, function callback (result)]) = string
  */
 NAN_METHOD(node_swe_get_ayanamsa_name) {
 	Nan::HandleScope scope;
@@ -1140,9 +1140,9 @@ NAN_METHOD(node_swe_nod_aps) {
 };
 
 /**
- * int32 swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32  method, double *xnasc (out[6]), double *xndsc (out[6]), double *xperi (out[6]), double *xaphe (out[6]), char *serr (out[AS_MAXCH]))
+ * int32 swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32 method, double *xnasc (out[6]), double *xndsc (out[6]), double *xperi (out[6]), double *xaphe (out[6]), char *serr (out[AS_MAXCH]))
  * =>
- * swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32  method[, function callback (result)]) = {
+ * swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag, int32 method[, function callback (result)]) = {
  *   ascending: {
  *     longitude:      | rectAscension:      | x:  double,
  *     latitude:       | declination:        | y:  double,
@@ -1415,6 +1415,7 @@ NAN_METHOD(node_swe_get_orbital_elements) {
  *   maxDistance: double
  *   minDistance: double
  *   trueDistance: double
+ *   rflag: int
  *   error: string
  * }
  */
