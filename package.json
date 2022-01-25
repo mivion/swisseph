@@ -17,8 +17,8 @@
   ],
   "dependencies": {
     "merge": "^2.1.1",
-    "nan": "^2.14.2",
-    "node-gyp": "^3.8.0"
+    "nan": "^2.15.0",
+    "node-gyp": "^8.4.1"
   },
   "devDependencies": {},
   "optionalDependencies": {},
