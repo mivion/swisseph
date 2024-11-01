@@ -3,6 +3,10 @@ Swiss Ephemeris binding for node.js [![Build Status](https://travis-ci.org/mivio
 
 **NOTE: Need help to mantain this project. Please write me.**
 
+
+Update: a new update will be released soon.
+
+
 ## About
 
 Swiss Ephemeris binding for node.js.
