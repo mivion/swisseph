@@ -2,7 +2,7 @@
   "author": "mivion",
   "name": "swisseph",
   "description": "Swiss Ephemeris binding for node.js",
-  "version": "0.5.17",
+  "version": "0.5.18",
   "homepage": "http://github.com/mivion/swisseph",
   "repository": {
     "url": "http://github.com/mivion/swisseph.git"
@@ -18,10 +18,8 @@
   "dependencies": {
     "merge": "^2.1.1",
     "nan": "^2.20.0",
-    "node-gyp": "^8.4.1"
+    "node-gyp": "^11.0.0"
   },
-  "devDependencies": {},
-  "optionalDependencies": {},
   "engines": {
     "node": ">=8"
   },
